@@ -1,4 +1,4 @@
-# $Revision: 1.65 $ $Date: 2003-04-24 11:54:34 $
+# $Revision: 1.66 $ $Date: 2003-04-24 23:04:32 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -142,9 +142,6 @@ install %{SOURCE2} .
 
 %build
 %{__autoconf}
-
-newoptflags="%{optflags} -Os -fomit-frame-pointer"
-%define optflags $newoptflags
 
 %if %{!?_without_static:1}%{?_without_static:0}
 LDFLAGS="%{rpmldflags} -static"
