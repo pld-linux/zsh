@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.2.0
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -156,7 +156,9 @@ LDFLAGS="%{rpmldflags}"
 %endif
 
 %configure \
-	--enable-maildir-support
+	--enable-maildir-support \
+	--enable-pcre \
+	--enable-cap
 %{__make}
 
 cd Doc
