@@ -19,7 +19,7 @@ bindkey `tput kcud1` history-beginning-search-forward >/dev/null 2>&1
 
 case "$TERM" in
 	xterm*)
-		precmd () { print -Pn "\e]0;%n@%m: %~\a"i; }
+		precmd () { print -Pn "\e]0;%n@%m: %~\a" }
 		bindkey '^[[H' beginning-of-line >/dev/null 2>&1
 		bindkey '^[[F' end-of-line >/dev/null 2>&1
 		;;
