@@ -1,4 +1,4 @@
-# $Revision: 1.9 $ $Date: 2000-05-01 20:11:43 $
+# $Revision: 1.10 $ $Date: 2000-05-21 16:53:31 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -26,28 +26,28 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_exec_prefix		/
 
 %description
-zsh is an enhanced version of the Bourne shell with csh additions and most
-features of ksh, bash, and tcsh.
+zsh is an enhanced version of the Bourne shell with csh additions and
+most features of ksh, bash, and tcsh.
 
 %description -l pl
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
 
-#%package static
-#Summary:	Statcly linked Enhanced bourne shell
-#Summary(pl):	Statycznie linkowany Zaawansowany bourne shell
-#Group:		Shells
-#Group(pl):	Pow³oki
-#Requires:	%{name} = %{version}
-#
-#%description static
-#zsh is an enhanced version of the Bourne shell with csh additions and most
-#features of ksh, bash, and tcsh.
-#
-#%description -l pl static
-#zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
-#wiêkszo¶æ cech pow³ok ksh, bash i tcsh. W tym pakiecie jest statycznie
-#linkowany zsh.
+%package static
+Summary:	Statcly linked Enhanced bourne shell
+Summary(pl):	Statycznie linkowany Zaawansowany bourne shell 
+Group:		Shells
+Group(pl):	Pow³oki
+Requires:	%{name} = %{version}
+
+%description static
+zsh is an enhanced version of the Bourne shell with csh additions and
+most features of ksh, bash, and tcsh.
+
+%description -l pl static
+zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
+wiêkszo¶æ cech pow³ok ksh, bash i tcsh. W tym pakiecie jest statycznie
+linkowany zsh.
 
 %prep
 %setup -q -n %{name}-%{version}-%{dev_ver}
