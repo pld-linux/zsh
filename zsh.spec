@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_static	- without static version
+%bcond_without  static	# without static version
 #
 Summary:	Enhanced Bourne shell
 Summary(de):	Enhanced Bourne Shell
@@ -30,10 +30,10 @@ Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
 Patch6:		%{name}-zle_misc.patch
 BuildRequires:	autoconf
-%{!?_without_static:BuildRequires:	glibc-static}
+%{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
-%{!?_without_static:BuildRequires:	ncurses-static}
+%{?with_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
 BuildRequires:	texinfo
 Requires(post,preun):	grep
@@ -148,7 +148,7 @@ install %{SOURCE2} .
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 
-%if %{!?_without_static:1}%{?_without_static:0}
+%if %{with static}
 LDFLAGS="%{rpmldflags} -static"
 %configure \
 	--disable-dynamic
@@ -173,7 +173,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{!?_without_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
+%{?with_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
@@ -283,7 +283,7 @@ fi
 %defattr(644,root,root,755)
 %doc zshguide.pdf
 
-%if %{!?_without_static:1}%{?_without_static:0}
+%if %{with static}
 %files static
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zsh.static
