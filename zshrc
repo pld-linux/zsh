@@ -4,6 +4,8 @@ alias which=whence
 alias cd='builtin cd'
 alias precmd=' precmd'
 
+setopt hist_ignore_space
+
 bindkey -e >/dev/null 2>&1
 
 bindkey `tput khome` beginning-of-line >/dev/null 2>&1
@@ -22,4 +24,3 @@ case "$TERM" in
 		bindkey '^[[F' end-of-line >/dev/null 2>&1
 		;;
 esac
-
