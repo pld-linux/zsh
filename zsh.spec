@@ -1,4 +1,4 @@
-# $Revision: 1.27 $ $Date: 2001-03-11 12:16:16 $
+# $Revision: 1.28 $ $Date: 2001-03-14 17:44:36 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	6
+Release:	7
 License:	GPL
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -133,7 +133,7 @@ else
 	fi
 fi
 
-%preuni static
+%preun static
 if [ "$1" = "0" ]; then
 	while read SHNAME; do
 		if [ "$SHNAME" = "/bin/zsh.static" ]; then
