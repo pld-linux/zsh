@@ -1,4 +1,4 @@
-# $Revision: 1.56 $ $Date: 2002-11-14 22:39:09 $
+# $Revision: 1.57 $ $Date: 2002-11-17 01:29:47 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -14,12 +14,13 @@ Summary(tr):	Gelişmiş bir BASH sürümü
 Summary(uk):	ëÏÍÁÎÄÎÉÊ ĞÒÏÃÅÓÏÒ (shell) ÓÈÏÖÉÊ ÎÁ ksh, ÁÌÅ Ú ĞÏËÒÁİÅÎÎÑÍÉ
 Name:		zsh
 Version:	4.0.6
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Source1:	%{name}.1.pl
+Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
@@ -113,6 +114,18 @@ zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest statycznie
 linkowany.
 
+%package guide
+Summary:	A User's Guide to the Z-Shell
+Summary(pl):	Podrêcznik U¿ytkownika Z-Shella
+Group:		Applications/Shells
+URL:		http://zsh.sunsite.dk/Guide/
+
+%description guide
+A User's Guide to the Z-Shell.
+
+%description guide -l pl
+Podrêcznik U¿ytkownika Z-Shella.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -120,6 +133,8 @@ linkowany.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+
+install %{SOURCE2} .
 
 %build
 %{__autoconf}
@@ -219,6 +234,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/zsh/%{version}/functions/comp*
 %{_datadir}/zsh/%{version}/functions/_*
+
+%files guide
+%defattr(644,root,root,755)
+%doc zshguide.pdf
 
 %if %{!?_without_static:1}%{?_without_static:0}
 %files static
