@@ -1,4 +1,4 @@
-# $Revision: 1.60 $ $Date: 2002-11-21 09:56:04 $
+# $Revision: 1.61 $ $Date: 2003-02-11 20:08:25 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -29,11 +29,12 @@ Patch4:		%{name}-no_nis.patch
 PreReq:		grep
 PreReq:		fileutils
 BuildRequires:	autoconf
-BuildRequires:	ncurses-devel >= 5.1
-BuildRequires:	texinfo
 %{!?_without_static:BuildRequires:	glibc-static}
+BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
+BuildRequires:	texinfo
 Requires(post,preun):	grep
+Requires(preun):	fileutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
@@ -102,8 +103,9 @@ TAB-completion.
 Summary:	Statically linked Enhanced bourne shell
 Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
 Group:		Applications/Shells
-Requires:	%{name} = %{version}
 Requires(post,preun):	grep
+Requires(preun):	fileutils
+Requires:	%{name} = %{version}
 
 %description static
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -151,7 +153,8 @@ LDFLAGS="%{rpmldflags}"
 	--enable-maildir-support
 %{__make}
 
-(cd Doc; makeinfo zsh.texi)
+cd Doc
+makeinfo zsh.texi
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -192,6 +195,7 @@ ln -sf %{version} $RPM_BUILD_ROOT%{_datadir}/zsh/latest
 rm -rf $RPM_BUILD_ROOT
 
 %post
+umask 022
 if [ ! -f /etc/shells ]; then
 	echo "%{_bindir}/zsh" >> /etc/shells
 else
@@ -201,6 +205,7 @@ fi
 
 %preun
 if [ "$1" = "0" ]; then
+	umask 022
 	grep -v '^%{_bindir}/zsh$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
@@ -209,6 +214,7 @@ fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %post static
+umask 022
 if [ ! -f /etc/shells ]; then
 	echo "%{_bindir}/zsh.static" >> /etc/shells
 else
@@ -217,6 +223,7 @@ fi
 
 %preun static
 if [ "$1" = "0" ]; then
+	umask 022
 	grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
@@ -233,9 +240,9 @@ fi
 %{_datadir}/zsh/latest
 %dir %{_datadir}/zsh/%{version}
 %dir %{_datadir}/zsh/%{version}/functions
-%{_datadir}/zsh/%{version}/functions/[^_c]*
-%{_datadir}/zsh/%{version}/functions/c[^o]*
-%{_datadir}/zsh/%{version}/functions/co[^m]*
+%{_datadir}/zsh/%{version}/functions/[!_c]*
+%{_datadir}/zsh/%{version}/functions/c[!o]*
+%{_datadir}/zsh/%{version}/functions/co[!m]*
 %attr(755,root,root) %{_libdir}/zsh/%{version}/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
