@@ -1,4 +1,4 @@
-# $Revision: 1.5 $ $Date: 2000-03-28 16:55:29 $
+# $Revision: 1.6 $ $Date: 2000-04-01 11:16:03 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -20,7 +20,7 @@ Prereq:		sed
 BuildRequires:	ncurses-devel
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_exec_prefix		/
 
@@ -104,7 +104,6 @@ if [ ! -f /etc/shells ]; then
 else
 	grep '^/bin/zsh.static$' /etc/shells > /dev/null || echo "/bin/zsh.static" >> /etc/shells
 fi
-
 
 %postun static
 if [ ! -x /bin/zsh.static ]; then
