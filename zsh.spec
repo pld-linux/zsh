@@ -1,4 +1,4 @@
-# $Revision: 1.57 $ $Date: 2002-11-17 01:29:47 $
+# $Revision: 1.58 $ $Date: 2002-11-17 15:37:46 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -166,8 +166,20 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
 echo "setopt no_function_argzero" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 
-echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
-						$RPM_BUILD_ROOT%{_sysconfdir}/zshrc
+cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
+PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '
+bindkey -e >/dev/null 2>&1
+alias which=whence
+
+# xterm
+bindkey \`tput khome\` beginning-of-line >/dev/null 2>&1
+bindkey \`tput kend\` end-of-line >/dev/null 2>&1
+bindkey \`tput kdch1\` delete-char >/dev/null 2>&1
+bindkey \`tput kpp\` up-history >/dev/null 2>&1
+bindkey \`tput knp\` end-of-history >/dev/null 2>&1
+bindkey \`tput kcuu1\` history-beginning-search-backward >/dev/null 2>&1
+bindkey \`tput kcud1\` history-beginning-search-forward >/dev/null 2>&1
+EOF
 
 rm -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
