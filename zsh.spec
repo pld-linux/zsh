@@ -1,4 +1,4 @@
-# $Revision: 1.8 $ $Date: 2000-04-17 06:51:03 $
+# $Revision: 1.9 $ $Date: 2000-05-01 20:11:43 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -15,7 +15,6 @@ Source0:	ftp://ftp.zsh.org/pub/zsh/development/%{name}-%{version}-%{dev_ver}.tar
 Patch0:		zsh-info.patch
 Patch1:		zsh-DESTDIR.patch
 Patch2:		zsh-config2.patch
-# Prereq:	/usr/sbin/fix-info-dir
 Prereq:		grep
 Prereq:		gawk
 Prereq:		sed
@@ -91,7 +90,7 @@ else
 	fi
 fi
 
-# /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %postun
 if [ "$1" = "0" ]; then
