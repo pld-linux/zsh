@@ -1,4 +1,4 @@
-# $Revision: 1.41 $ $Date: 2001-08-25 11:52:15 $
+# $Revision: 1.42 $ $Date: 2001-08-28 11:39:04 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -30,7 +30,6 @@ BuildRequires:	texinfo
 %{!?_without_static:BuildRequires:	glibc-static}
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Provides:	which
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
