@@ -1,4 +1,4 @@
-# $Revision: 1.21 $ $Date: 2000-12-04 07:19:01 $
+# $Revision: 1.22 $ $Date: 2000-12-04 07:21:30 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -123,7 +123,7 @@ else
 	[ -n "$HAS_ZSH_STATIC" ] || echo "/bin/zsh.static" >> /etc/shells
 fi
 
-%preun
+%preuni static
 if [ "$1" = "0" ]; then
 	while read SHNAME; do
 		[ "$SHNAME" = "/bin/zsh.static" ] ||\
