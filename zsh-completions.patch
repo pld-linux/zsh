@@ -1,133 +1,16 @@
-diff -ruN zsh-4.0.7./Completion/Unix/Command/.distfiles zsh-4.0.7/Completion/Unix/Command/.distfiles
---- zsh-4.0.7./Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
-+++ zsh-4.0.7/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
-@@ -19,5 +19,5 @@
- _chkconfig    _cdcd         _irssi	  _sccs         _texinfo      _ant
- _global       _global_tags  _figlet       _ifconfig     _last         _larch
- _lsof         _mt           _xmlsoft      _elinks       _tidy         _python
--_antiword     _renice
-+_antiword     _renice       _mplayer      _sms
+diff -ruN zsh-4.0.6./Completion/Unix/Command/.distfiles zsh-4.0.6/Completion/Unix/Command/.distfiles
+--- zsh-4.1.1.orig/Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
++++ zsh-4.1.1/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
+@@ -20,5 +20,5 @@
+ _netcat       _larch        _texinfo	  _figlet       _elinks       _tidy
+ _global       _global_tags  _ant          _lsof         _mt           _xmlsoft
+ _perforce     _python       _antiword     _screen       _renice
+-_ecasound     _gpg
++_ecasound     _gpg          _sms
  '
-diff -ruN zsh-4.0.7./Completion/Unix/Command/_mplayer zsh-4.0.7/Completion/Unix/Command/_mplayer
---- zsh-4.0.7./Completion/Unix/Command/_mplayer	Thu Jan  1 01:00:00 1970
-+++ zsh-4.0.7/Completion/Unix/Command/_mplayer	Fri Apr  4 19:28:32 2003
-@@ -0,0 +1,112 @@
-+#compdef mplayer
-+
-+# Copyright (c) 2002 GoTaR <gotar@priv0.onet.pl>
-+
-+local state
-+
-+_vo () {
-+#	compadd "$@" $(print ${(f)"$(mplayer -vo help 2>/dev/null | cut -f2 -d'	')"})
-+	local vo
-+#	vo=(`mplayer -vo help 2>/dev/null | perl -ne 's/^	//; s/	/:/; s/ /ÿ/g; print'`)
-+	vo=(`mplayer -vo help | perl -ne 's/ /ÿ/g; print if s/^	(\w+)	(.+)$/$1:$2/'`)
-+	vo=(${vo//ÿ/ })
-+	_describe "Video output" vo
-+}
-+
-+_ao () {
-+#	compadd "$@" $(print ${(f)"$(mplayer -ao help 2>/dev/null | cut -f2 -d'	')"})
-+	local ao
-+#	ao=(`mplayer -ao help 2>/dev/null | perl -ne 's/^	//; s/	/:/; s/ /ÿ/g; print'`)
-+	ao=(`mplayer -ao help | perl -ne 's/ /ÿ/g; print if s/^	(\w+)	(.+)$/$1:$2/'`)
-+	ao=(${ao//ÿ/ })
-+	_describe "Audio output" ao
-+}
-+
-+# TODO comment to the right
-+
-+_vc () {
-+	local vc
-+	vc=(`mplayer -vc help | perl -ne 'unless (/:/) {s/ +/ÿ/g; s/(\w+?)ÿ(\w+?)ÿ(\w+?)ÿ(.*)/$1:$4ÿ($2,ÿ$3)/; print}'`)
-+	vc=(${vc//ÿ/ })
-+	_describe "Video codecs" vc
-+}
-+
-+_ac () {
-+	local ac
-+	ac=(`mplayer -ac help | perl -ne 'unless (/:/) {s/ +/ÿ/g; s/(\w+?)ÿ(\w+?)ÿ(\w+?)ÿ(.*)/$1:$4ÿ($2,ÿ$3)/; print}'`)
-+	ac=(${ac//ÿ/ })
-+	_describe "Audio codecs" ac
-+}
-+
-+_vop () {
-+	local vop
-+	vop=(`mplayer -vf help | perl -ne 's/ +: /:/g; s/ /_/g; print if s/^__(\w+):(.+)$/$1\[$2\]/'`)
-+	vop=(${vop//_/ })
-+	_values -s , "Video filters" "$vop[@]"
-+}
-+
-+_plugins () {
-+	_values -s , "Audio output plugins" resample surround format volume extrastereo volnorm delay
-+}
-+
-+_mul_coefficient () {
-+	_values -s : "coefficient" "-1[swap channels]" "0[mono]" "1[normal]" "2.5[default]" "4[high]"
-+}
-+
-+_aop () {
-+	local opts
-+	opts=("fout[output frequency (Hz) - resample plugin]:frequency [Hz]:(21000 44100 48000)"
-+		"format[output format - format plugin]:format:_guard"
-+		"volume[volume level - volume plugin]:volume:(0 050 100 150 200 255)"
-+		"softclip[compressor - volume plugin]"
-+		"mul[coefficient - extrastereo plugin]:coefficient:_mul_coefficient"
-+		"delay[delay sound - delay plugin]:delay:(1 3 5)"
-+	)
-+	_values -s : "Audio output plugins options" "list[list of plugins]:::_plugins" "$opts[@]"
-+}
-+
-+_osdlevel () {
-+	local osds
-+	osds=(0:none 1:volume+seek 2:volume+seek+timer+percentage 3:volume+seek+timer+percentage+total)
-+	_describe "OSD level" osds
-+}
-+
-+_icelayer () {
-+	local icelays
-+	icelays=(0:Desktop 2:Below 4:Normal 6:OnTop 8:Dock 10:AboveDock 12:Menu)
-+	_describe "IceWM layer" icelays
-+}
-+
-+_arguments \
-+	'-quiet' \
-+	'-osdlevel[OSD startpoint]:OSD level:_osdlevel' \
-+	'(-rootwin)-icelayer:icelayer:_icelayer' \
-+	'(-icelayer)-rootwin[play in root window]' \
-+	'(-ao -aop)-nosound[disable sound]' \
-+	'(-nosound)-ao[audio output]:audio output:_ao' \
-+	'(-nosound)*-aop[audio output filter]:audio output filter:_aop' \
-+	'-vo[video output]:video output:_vo' \
-+	'*-vf[video output filters]:video output filters:_vop' \
-+	'-vc[video codecs]:video codec:_vc' \
-+	'-ac[audio codecs]:audio codec:_ac' \
-+	'-flip[flip image]' \
-+	'-fs[enable fullscreen]' \
-+	'-zoom[enable software zoom]' \
-+	'-framedrop[enable frame dropping]' \
-+	'-hardframedrop[enable more intense frame dropping]' \
-+	'-double[enable doublebuffering]' \
-+	'-nobps[use interleave sync]' \
-+	'-ni[non-interleaved]' \
-+	'-idx[rebuild index]' \
-+	'-forceidx[force rebuilding of index]' \
-+	'(-nocache)-cache[cache size]:cache size:(1024 2048 4096 8192)' \
-+	'(-cache)-nocache[don'\''t use cache]' \
-+	'-noautosub[disable automatic subtitles]' \
-+	'*-sub[subtitles]:subtitles:_files -/ -g \*.\(\#i\)txt' \
-+	'*:mfiles:->mfiles' && return 0
-+
-+case "$state" in
-+	mfiles) _arguments \
-+		'*:multimedia file:_files -/ -g \*.\(\#i\)\(mp3\|mpg\|mpe\|mpeg\|m1v\|avi\|asf\|wma\|wmv\|asx\|mov\|qt\|rm\)'
-+esac
-+			
-\ No newline at end of file
-diff -ruN zsh-4.0.7./Completion/Unix/Command/_sms zsh-4.0.7/Completion/Unix/Command/_sms
---- zsh-4.0.7./Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
-+++ zsh-4.0.7/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_sms zsh-4.0.6/Completion/Unix/Command/_sms
+--- zsh-4.1.1.orig/Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
++++ zsh-4.1.1/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
 @@ -0,0 +1,61 @@
 +#compdef sms smsaddr
 +
@@ -144,9 +27,9 @@ diff -ruN zsh-4.0.7./Completion/Unix/Command/_sms zsh-4.0.7/Completion/Unix/Comm
 +	local smsas
 +	smsas=(${(f)"$(smsaddr -l)"})
 +	smsas=(${smsas/	##/:})
-+#if [[ -n "$PREFIX$SUFFIX" ]]; then
++if [[ -n "$PREFIX$SUFFIX" ]]; then
 +	smsas=($smsas ${smsas/(#s)(#b)(^($PREFIX)*):(*)(#e)/$match[3]:$match[1]})
-+#fi
++fi
 +#	smsas=(${(M)smsas:#$PREFIX*})
 +	_describe "SMS alias" smsas
 +}
