@@ -1,4 +1,4 @@
-# $Revision: 1.4 $ $Date: 1999-11-01 23:54:47 $
+# $Revision: 1.5 $ $Date: 2000-03-28 16:55:29 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
