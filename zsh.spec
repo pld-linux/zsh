@@ -1,7 +1,7 @@
-# $Revision: 1.53 $ $Date: 2002-07-27 15:34:02 $
+# $Revision: 1.54 $ $Date: 2002-08-18 22:55:00 $
 #
 # Conditional build:
-# _without_static       - without static version
+# _without_static	- without static version
 #
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
@@ -14,7 +14,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(uk):	ëÏÍÁÎÄÎÉÊ ÐÒÏÃÅÓÏÒ (shell) ÓÈÏÖÉÊ ÎÁ ksh, ÁÌÅ Ú ÐÏËÒÁÝÅÎÎÑÍÉ
 Name:		zsh
 Version:	4.0.4
-Release:	9
+Release:	10
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -25,13 +25,14 @@ Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
-Prereq:		grep
-Prereq:		fileutils
+PreReq:		grep
+PreReq:		fileutils
 BuildRequires:	autoconf
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	texinfo
 %{!?_without_static:BuildRequires:	glibc-static}
 %{!?_without_static:BuildRequires:	ncurses-static}
+Requires(post,preun):	grep
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
@@ -50,6 +51,14 @@ características:
 - selección,
 - funciones shell ...y mucho más.
 
+%description -l ja
+zsh ¥·¥§¥ë¤ÏÂÐÏÃÅª¤Ê¥í¥°¥¤¥ó¥·¥§¥ë¤È¤·¤ÆÍøÍÑ²ÄÇ½¤Ê¥³¥Þ¥ó¥É¥¤¥ó¥¿¥ê¥¿
+¤Ç¤¢¤ê¡¢¥·¥§¥ë¥¹¥¯¥ê¥×¥È¥³¥Þ¥ó¥É¤â½èÍý¤Ç¤­¤Þ¤¹. zsh ¤Ï ksh(the Korn
+shell) ¤Ë»÷¤Æ¤¤¤Þ¤¹¤¬,¤«¤Ê¤ê³ÈÄ¥¤µ¤ì¤Æ¤¤¤Þ¤¹. zsh
+¤Ï¥³¥Þ¥ó¥É¥é¥¤¥ó¤Ç¤ÎÊÔ½¸µ¡Ç½, ÁÈ¤ß¹þ¤Þ¤ì¤¿¥¹¥Ú¥ë½¤Àµµ¡Ç½, ¥×¥í¥°¥é¥ß¥ó
+¥°²ÄÇ½¤Ê¥³¥Þ¥ó¥ÉÊä´°µ¡Ç½, (Æ°Åª¥í¡¼¥É¤µ¤ì¤ë)¥·¥§¥ëµ¡Ç½, ¥Ò¥¹¥È¥êµ¡¹½
+¤Ê¤É¤ò»ý¤Á¤Þ¤¹.
+
 %description -l pl
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh.
@@ -61,14 +70,6 @@ zsh é uma versão melhorada do bourne shell com essas características:
 - 75 funções embutidas, 89 opções, 154 combinações de teclas,
 - seleção,
 - funções shell ...e muito mais.
-
-%description -l ja
-zsh ¥·¥§¥ë¤ÏÂÐÏÃÅª¤Ê¥í¥°¥¤¥ó¥·¥§¥ë¤È¤·¤ÆÍøÍÑ²ÄÇ½¤Ê¥³¥Þ¥ó¥É¥¤¥ó¥¿¥ê¥¿
-¤Ç¤¢¤ê¡¢¥·¥§¥ë¥¹¥¯¥ê¥×¥È¥³¥Þ¥ó¥É¤â½èÍý¤Ç¤­¤Þ¤¹. zsh ¤Ï ksh(the Korn
-shell) ¤Ë»÷¤Æ¤¤¤Þ¤¹¤¬,¤«¤Ê¤ê³ÈÄ¥¤µ¤ì¤Æ¤¤¤Þ¤¹. zsh
-¤Ï¥³¥Þ¥ó¥É¥é¥¤¥ó¤Ç¤ÎÊÔ½¸µ¡Ç½, ÁÈ¤ß¹þ¤Þ¤ì¤¿¥¹¥Ú¥ë½¤Àµµ¡Ç½, ¥×¥í¥°¥é¥ß¥ó
-¥°²ÄÇ½¤Ê¥³¥Þ¥ó¥ÉÊä´°µ¡Ç½, (Æ°Åª¥í¡¼¥É¤µ¤ì¤ë)¥·¥§¥ëµ¡Ç½, ¥Ò¥¹¥È¥êµ¡¹½
-¤Ê¤É¤ò»ý¤Á¤Þ¤¹.
 
 %description -l ru
 zsh - ÜÔÏ ËÏÍÁÎÄÎÙÊ ÐÒÏÃÅÓÓÏÒ ÎÁÐÏÍÉÎÁÀÝÉÊ ksh (Korn shell), ÎÏ
@@ -101,6 +102,7 @@ Summary:	Statically linked Enhanced bourne shell
 Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
 Group:		Applications/Shells
 Requires:	%{name} = %{version}
+Requires(post,preun):	grep
 
 %description static
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -150,7 +152,7 @@ echo "setopt no_function_argzero" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 
 echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
-                                          $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
+						$RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
 rm -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
@@ -175,17 +177,16 @@ fi
 
 %post static
 if [ ! -f /etc/shells ]; then
-       echo "%{_bindir}/zsh.static" >> /etc/shells
+	echo "%{_bindir}/zsh.static" >> /etc/shells
 else
-       grep -q '^%{_bindir}/zsh\.static$' /etc/shells || echo "%{_bindir}/zsh.static" >> /etc/shells
+	grep -q '^%{_bindir}/zsh\.static$' /etc/shells || echo "%{_bindir}/zsh.static" >> /etc/shells
 fi
 
 %preun static
 if [ "$1" = "0" ]; then
-       grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
-       mv -f /etc/shells.new /etc/shells
+	grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
+	mv -f /etc/shells.new /etc/shells
 fi
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -194,7 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc Etc/* README LICENCE ChangeLog META-FAQ Util StartupFiles
 %attr(755,root,root) %{_bindir}/zsh
-%config %{_sysconfdir}/*
+%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/*
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}
 %dir %{_datadir}/zsh/
