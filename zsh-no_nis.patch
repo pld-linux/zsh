@@ -1,0 +1,225 @@
+diff -Nru zsh-4.0.2/Src/hashtable.c zsh-4.0.2.new/Src/hashtable.c
+--- zsh-4.0.2/Src/hashtable.c	Sat May 19 11:22:07 2001
++++ zsh-4.0.2.new/Src/hashtable.c	Wed Jul 11 20:26:52 2001
+@@ -1134,17 +1134,6 @@
+ /* Named Directory Hash Table Functions */
+ /****************************************/
+ 
+-#ifdef HAVE_NIS_PLUS
+-# include <rpcsvc/nis.h>
+-#else
+-# ifdef HAVE_NIS
+-#  include	<rpc/types.h>
+-#  include	<rpc/rpc.h>
+-#  include	<rpcsvc/ypclnt.h>
+-#  include	<rpcsvc/yp_prot.h>
+-# endif
+-#endif
+-
+ /* hash table containing named directories */
+ 
+ /**/
+@@ -1194,121 +1183,11 @@
+ /* Add all the usernames in the password file/database *
+  * to the named directories table.                     */
+ 
+-#ifdef HAVE_NIS_PLUS
+-static int
+-add_userdir(nis_name table, nis_object *object, void *userdata)
+-{
+-    if (object->zo_data.objdata_u.en_data.en_cols.en_cols_len >= 6) {
+-	static char name[40], dir[PATH_MAX + 1];
+-	register entry_col *ec =
+-	    object->zo_data.objdata_u.en_data.en_cols.en_cols_val;
+-	register int nl = minimum(ec[0].ec_value.ec_value_len, 39);
+-	register int dl = minimum(ec[5].ec_value.ec_value_len, PATH_MAX);
+-
+-	memcpy(name, ec[0].ec_value.ec_value_val, nl);
+-	name[nl] = '\0';
+-	memcpy(dir, ec[5].ec_value.ec_value_val, dl);
+-	dir[dl] = '\0';
+-
+-	adduserdir(name, dir, ND_USERNAME, 1);
+-    }
+-    return 0;
+-}
+-#else
+-# ifdef HAVE_NIS
+-static int
+-add_userdir(int status, char *key, int keylen, char *val, int vallen, char *dummy)
+-{
+-    char *p, *d, *de;
+-
+-    if (status != YP_TRUE)
+-	return 1;
+-
+-    if (vallen > keylen && *(p = val + keylen) == ':') {
+-	*p++ = '\0';
+-	if ((de = strrchr(p, ':'))) {
+-	    *de = '\0';
+-	    if ((d = strrchr(p, ':'))) {
+-		if (*++d && val[0])
+-		    adduserdir(val, d, ND_USERNAME, 1);
+-	    }
+-	}
+-    }
+-    return 0;
+-}
+-# endif /* HAVE_NIS */
+-#endif  /* HAVE_NIS_PLUS */
+-
+ /**/
+ static void
+ fillnameddirtable(HashTable ht)
+ {
+     if (!allusersadded) {
+-#if defined(HAVE_NIS) || defined(HAVE_NIS_PLUS)
+-	FILE *pwf;
+-	char buf[BUFSIZ], *p, *d, *de;
+-	int skipping, oldct = nameddirtab->ct, usepwf = 1;
+-
+-# ifndef HAVE_NIS_PLUS
+-	char domain[YPMAXDOMAIN];
+-	struct ypall_callback cb;
+-
+-	/* Get potential matches from NIS and cull those without local accounts */
+-	if (getdomainname(domain, YPMAXDOMAIN) == 0) {
+-	    cb.foreach = (int (*)()) add_userdir;
+-	    cb.data = NULL;
+-	    yp_all(domain, PASSWD_MAP, &cb);
+-    }
+-# else  /* HAVE_NIS_PLUS */
+-	/* Maybe we should turn this string into a #define'd constant...? */
+-
+-	nis_list("passwd.org_dir", EXPAND_NAME|ALL_RESULTS|FOLLOW_LINKS|FOLLOW_PATH,
+-		 add_userdir, 0);
+-# endif
+-	if (nameddirtab->ct == oldct) {
+-	    /* Using NIS or NIS+ didn't add any user directories. This seems
+-	     * fishy, so we fall back to using getpwent(). If we don't have
+-	     * that, we only use the passwd file. */
+-#ifdef HAVE_GETPWENT
+-	    struct passwd *pw;
+- 
+-	    setpwent();
+- 
+-	    /* loop through the password file/database *
+-	     * and add all entries returned.           */
+-	    while ((pw = getpwent()) && !errflag)
+-		adduserdir(pw->pw_name, pw->pw_dir, ND_USERNAME, 1);
+- 
+-	    endpwent();
+-	    usepwf = 0;
+-#endif /* HAVE_GETPWENT */
+-	}
+-	if (usepwf) {
+-	    /* Don't forget the non-NIS matches from the flat passwd file */
+-	    if ((pwf = fopen(PASSWD_FILE, "r")) != NULL) {
+-		skipping = 0;
+-		while (fgets(buf, BUFSIZ, pwf) != NULL) {
+-		    if (strchr(buf, '\n') != NULL) {
+-			if (!skipping) {
+-			    if ((p = strchr(buf, ':')) != NULL) {
+-				*p++ = '\0';
+-				if ((de = strrchr(p, ':'))) {
+-				    *de = '\0';
+-				    if ((d = strrchr(p, ':'))) {
+-					if (*++d && buf[0])
+-					    adduserdir(buf, d, ND_USERNAME, 1);
+-				    }
+-				}
+-			    }
+-			} else
+-			    skipping = 0;
+-		    } else
+-			skipping = 1;
+-		}
+-		fclose(pwf);
+-	    }
+-	}
+-#else  /* no NIS or NIS_PLUS */
+ #ifdef HAVE_GETPWENT
+ 	struct passwd *pw;
+  
+@@ -1321,7 +1200,6 @@
+  
+ 	endpwent();
+ #endif /* HAVE_GETPWENT */
+-#endif
+ 	allusersadded = 1;
+     }
+ }
+diff -Nru zsh-4.0.2/acconfig.h zsh-4.0.2.new/acconfig.h
+--- zsh-4.0.2/acconfig.h	Tue Jun 26 12:08:54 2001
++++ zsh-4.0.2.new/acconfig.h	Wed Jul 11 20:23:55 2001
+@@ -4,9 +4,6 @@
+ /* Define this to be the location of your password file */
+ #define PASSWD_FILE "/etc/passwd"
+ 
+-/* Define this to be the name of your NIS/YP password *
+- * map (if applicable)                                */
+-#define PASSWD_MAP "passwd.byname"
+ 
+ /* Define to 1 if you want user names to be cached */
+ #define CACHE_USERNAMES 1
+@@ -64,12 +61,6 @@
+ /* Define if your system defines TIOCGWINSZ in sys/ioctl.h.  */
+ #undef GWINSZ_IN_SYS_IOCTL
+ 
+-/* Define to 1 if you have NIS */
+-#undef HAVE_NIS
+-
+-/* Define to 1 if you have NISPLUS */
+-#undef HAVE_NIS_PLUS
+-
+ /* Define to 1 if you have RFS superroot directory. */
+ #undef HAVE_SUPERROOT
+ 
+diff -Nru zsh-4.0.2/zshconfig.ac zsh-4.0.2.new/zshconfig.ac
+--- zsh-4.0.2/zshconfig.ac	Wed Jul 11 20:34:10 2001
++++ zsh-4.0.2.new/zshconfig.ac	Wed Jul 11 20:35:02 2001
+@@ -625,16 +625,6 @@
+ ]);;
+ esac
+ 
+-dnl Some systems (Solaris 2.x, Linux Redhat 5.x) require
+-dnl libnsl (Network Services Library) to find yp_all
+-
+-AC_SEARCH_LIBS(yp_all, nsl)
+-
+-dnl I am told that told that unicos reqire these for nis_list
+-if test `echo $host_os | sed 's/^\(unicos\).*/\1/'` = unicos; then
+-  LIBS="-lcraylm -lkrb -lnisdb -lnsl -lrpcsvc $LIBS"
+-fi
+-
+ if test "x$dynamic" = xyes; then
+   AC_CHECK_LIB(dl, dlopen)
+ fi
+@@ -1191,27 +1181,6 @@
+   AC_DEFINE(USE_GETCWD)
+ fi
+ 
+-dnl -------------
+-dnl CHECK FOR NIS
+-dnl -------------
+-AC_CACHE_CHECK(for NIS, zsh_cv_sys_nis,
+-[test -f /usr/bin/ypcat && /usr/bin/ypcat passwd.byname > /dev/null 2>&1 && \
+-zsh_cv_sys_nis=yes || zsh_cv_sys_nis=no])
+-if test $zsh_cv_sys_nis = yes; then
+-  AC_DEFINE(HAVE_NIS)
+-fi
+-
+-dnl -----------------
+-dnl CHECK FOR NISPLUS
+-dnl -----------------
+-AC_CACHE_CHECK(for NIS+, zsh_cv_sys_nis_plus,
+-[test $ac_cv_func_nis_list = yes && test -f /usr/bin/nisls && \
+- /usr/bin/nisls > /dev/null 2>&1 && \
+-zsh_cv_sys_nis_plus=yes || zsh_cv_sys_nis_plus=no])
+-if test $zsh_cv_sys_nis_plus = yes; then
+-  AC_DEFINE(HAVE_NIS_PLUS)
+-fi
+-
+ dnl ----------------------------------------
+ dnl CHECK FOR LOCATION OF {U,W}TMP{,X} FILES
+ dnl ----------------------------------------
