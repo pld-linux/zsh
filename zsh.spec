@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.1.1
-Release:	6
+Release:	7
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -149,9 +149,12 @@ install %{SOURCE2} .
 
 %if %{!?_without_static:1}%{?_without_static:0}
 LDFLAGS="%{rpmldflags} -static"
-%configure
-%{__make}
+%configure \
+	--disable-dynamic
+%{__make} \
+	DLLDFLAGS=""
 mv -f Src/zsh Src/zsh.static
+%{__make} clean || :
 LDFLAGS="%{rpmldflags}"
 %endif
 
