@@ -1,4 +1,4 @@
-# $Revision: 1.3 $ $Date: 1999-10-25 00:04:44 $
+# $Revision: 1.4 $ $Date: 1999-11-01 23:54:47 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -11,39 +11,67 @@ Copyright:	GPL
 Group:		Shells
 Group(pl):	Pow³oki
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
-Source1:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}-doc.tar.gz
-Prereq:		/bin/grep /usr/sbin/fix-info-dir /bin/awk /bin/sed
+Patch0:		zsh-info.patch
+Patch1:		zsh-DESTDIR.patch
+Prereq:		/usr/sbin/fix-info-dir
+Prereq:		grep
+Prereq:		gawk
+Prereq:		sed
+BuildRequires:	ncurses-devel
+BuildRequires:	glibc-static
+BuildRequires:	ncurses-static
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %define		_exec_prefix		/
 
 %description
-zsh is an enhanced version of the Bourne shell with csh additions
-and most features of ksh, bash, and tcsh.
+zsh is an enhanced version of the Bourne shell with csh additions and most
+features of ksh, bash, and tcsh.
 
 %description -l pl
-zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh.
-Posiada wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
+zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
+wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
+
+%package static
+Summary:	Statcly linked Enhanced bourne shell
+Summary(pl):	Statycznie linkowany Zaawansowany bourne shell
+Group:		Shells
+Group(pl):	Pow³oki
+Requires:	%{name} = %{version}
+
+%description static
+zsh is an enhanced version of the Bourne shell with csh additions and most
+features of ksh, bash, and tcsh.
+
+%description -l pl static
+zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
+wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
+
+W tym pakiecie jest statycznie linkowany zsh.
 
 %prep
-%setup -q -b 1
+%setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 autoconf
+LDFLAGS="-static -s"; export LDFLAGS
+%configure
+make
+
+mv zsh zsh.static
+
 LDFLAGS="-s"; export LDFLAGS
-%configure \
-	--libdir=%{_libdir}
+%configure
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d
-$RPM_BUILD_ROOT{%{_mandir}/man1,%{_infodir},%{_bindir},%{_libdir}/zsh/%{version},/etc}
 
-install -s Src/zsh	$RPM_BUILD_ROOT%{_bindir}/zsh
-install -s Src/*/*.so	$RPM_BUILD_ROOT%{_libdir}/zsh/%{version}
-install    Doc/*.1	$RPM_BUILD_ROOT%{_mandir}/man1
-install    Doc/*info*	$RPM_BUILD_ROOT%{_infodir}
+make install DESTDIR=$RPM_BUILD_ROOT
+
+install zsh.static $RPM_BUILD_ROOT%{_bindir}
 
 touch	$RPM_BUILD_ROOT/etc/{zlogout,zprofile,zshrc,zlogin,zshenv}
 
@@ -63,12 +91,26 @@ fi
 /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %postun
-if [ $1 = 0 ]; then
+if [ "$1" = "0" ]; then
 	grep -v /bin/zsh /etc/shells > /etc/shells.new
 	mv /etc/shells.new /etc/shells
 fi
 
 /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
+
+%post static
+if [ ! -f /etc/shells ]; then
+	echo "/bin/zsh.static" > /etc/shells
+else
+	grep '^/bin/zsh.static$' /etc/shells > /dev/null || echo "/bin/zsh.static" >> /etc/shells
+fi
+
+
+%postun static
+if [ ! -x /bin/zsh.static ]; then
+	grep -v '^/bin/zsh.static$' /etc/shells > /etc/shells.rpm
+	mv /etc/shells.rpm /etc/shells
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,3 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/zsh/%{version}/*
 %{_mandir}/man1/zsh*.1.gz
 %{_infodir}/*
+
+%files static
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/zsh.static
