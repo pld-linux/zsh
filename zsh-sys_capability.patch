@@ -1,0 +1,12 @@
+diff -Nru zsh-3.1.7.orig/configure.in zsh-3.1.7/configure.in
+--- zsh-3.1.7.orig/configure.in	Wed May 31 14:18:41 2000
++++ zsh-3.1.7/configure.in	Wed May 31 14:22:07 2000
+@@ -445,7 +445,7 @@
+ AC_CHECK_HEADERS(sys/time.h sys/times.h sys/select.h termcap.h termio.h \
+ 		 termios.h sys/param.h sys/filio.h string.h memory.h \
+ 		 limits.h fcntl.h libc.h sys/utsname.h sys/resource.h \
+-		 locale.h errno.h stdlib.h unistd.h sys/capability.h \
++		 locale.h errno.h stdlib.h unistd.h \
+ 		 utmp.h utmpx.h sys/types.h pwd.h grp.h poll.h sys/mman.h \
+ 		 linux/tasks.h netinet/in_systm.h)
+ if test $dynamic = yes; then
