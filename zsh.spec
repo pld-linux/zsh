@@ -29,8 +29,6 @@ Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
 Patch6:		%{name}-zle_misc.patch
-PreReq:		grep
-PreReq:		fileutils
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -38,6 +36,8 @@ BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
 BuildRequires:	texinfo
+PreReq:		grep
+PreReq:		fileutils
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -168,7 +168,8 @@ makeinfo zsh.texi
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/man1}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{!?_without_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
