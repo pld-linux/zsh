@@ -1,4 +1,4 @@
-# $Revision: 1.29 $ $Date: 2001-03-20 18:19:15 $
+# $Revision: 1.30 $ $Date: 2001-05-18 16:14:57 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,8 +6,8 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	8
-License:	GPL
+Release:	9
+License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
 Group(pl):	Aplikacje/Pow³oki
@@ -93,7 +93,7 @@ echo -e "PS1='[%n@%m %~]%(!.#.%\$) '\nbindkey -e >/dev/null 2>&1" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 					
 rm -f Etc/Makefile*
-gzip -9nf Etc/* README ChangeLog META-FAQ
+gzip -9nf Etc/* README LICENCE ChangeLog META-FAQ
 
 %post
 if [ ! -f /etc/shells ]; then
