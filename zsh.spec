@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.1.1
-Release:	4
+Release:	5
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -177,24 +177,9 @@ echo "setopt no_function_argzero" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 
 cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
-PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '
-bindkey -e >/dev/null 2>&1
+# System wide functions and aliases
+# Environment stuff goes in /etc/profile
 alias which=whence
-
-# xterm
-bindkey \`tput khome\` beginning-of-line >/dev/null 2>&1
-bindkey \`tput kend\` end-of-line >/dev/null 2>&1
-bindkey \`tput kdch1\` delete-char >/dev/null 2>&1
-bindkey \`tput kpp\` up-history >/dev/null 2>&1
-bindkey \`tput knp\` end-of-history >/dev/null 2>&1
-bindkey \`tput kcuu1\` history-beginning-search-backward >/dev/null 2>&1
-bindkey \`tput kcud1\` history-beginning-search-forward >/dev/null 2>&1
-
-case \$TERM in
-	xterm*)
-		precmd () {print -Pn "\e]0;%n@%m: %~\a"}
-		;;
-esac
 EOF
 
 rm -f Etc/Makefile*
