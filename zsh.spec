@@ -1,4 +1,4 @@
-# $Revision: 1.24 $ $Date: 2000-12-05 18:22:03 $
+# $Revision: 1.25 $ $Date: 2000-12-05 18:22:49 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -85,7 +85,7 @@ install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
 echo    ". /etc/profile"                > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
-echo -e "PS1='[%n@%m %~]%(!.#.%\$)'\nbindkey -e >/dev/null 2>&1" > \
+echo -e "PS1='[%n@%m %~]%(!.#.%\$) '\nbindkey -e >/dev/null 2>&1" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 					
 rm -f Etc/Makefile*
