@@ -12,13 +12,14 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.0.6
-Release:	4
+Version:	4.0.7
+Release:	1
+Epoch:		1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	ec841e1c92a44879c503ffb32a3e5326
+# Source0-md5:	93a3a47b2419182408d5b31acd26528a
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -30,6 +31,7 @@ Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
+BuildConflicts:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRequires:	texinfo
@@ -39,6 +41,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
+%define		specflags_ia32	"-fomit-frame-pointer"
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -90,7 +93,7 @@ shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
