@@ -1,68 +1,19 @@
-diff -Nru zsh-3.1.6/Doc/Makefile.in zsh-3.1.6.new/Doc/Makefile.in
---- zsh-3.1.6/Doc/Makefile.in	Tue Jul 20 14:10:07 1999
-+++ zsh-3.1.6.new/Doc/Makefile.in	Mon Nov  1 23:59:27 1999
-@@ -164,29 +164,29 @@
- 
- # install man pages, creating install directory if necessary
- install.man: $(MAN)
--	$(sdir_top)/mkinstalldirs $(mandir)/man1
-+	$(sdir_top)/mkinstalldirs $(DESTDIR)$(mandir)/man1
- 	for file in $(MAN); do \
- 	  if test -f $$file; then \
--	    $(INSTALL_DATA) $$file $(mandir)/man1; \
-+	    $(INSTALL_DATA) $$file $(DESTDIR)$(mandir)/man1; \
- 	  elif test -f $(sdir)/$$file; then \
--	    $(INSTALL_DATA) $(sdir)/$$file $(mandir)/man1; \
-+	    $(INSTALL_DATA) $(sdir)/$$file $(DESTDIR)$(mandir)/man1; \
- 	  else :; \
- 	  fi || exit 1; \
- 	done
- 
- # install info pages, creating install directory if necessary
- install.info: zsh.info
--	$(sdir_top)/mkinstalldirs $(infodir)
-+	$(sdir_top)/mkinstalldirs $(DESTDIR)$(infodir)
- 	for file in zsh.info zsh.info-[1-9]*; do \
- 	  if test -f $$file; then \
--	    $(INSTALL_DATA) $$file $(infodir); \
-+	    $(INSTALL_DATA) $$file $(DESTDIR)$(infodir); \
- 	  elif test -f $(sdir)/$$file; then \
--	    $(INSTALL_DATA) $(sdir)/$$file $(infodir); \
-+	    $(INSTALL_DATA) $(sdir)/$$file $(DESTDIR)$(infodir); \
- 	  else :; \
- 	   fi || exit 1; \
- 	done
- 	if $(SHELL) -c 'install-info --version' >/dev/null 2>&1; then \
--	  install-info --dir-file=$(infodir)/dir $(infodir)/zsh.info; \
-+	  install-info --dir-file=$(infodir)/dir $(DESTDIR)$(infodir)/zsh.info; \
- 	else true; fi
- 
- install.html: zsh_toc.html
-diff -Nru zsh-3.1.6/Src/Makefile.in zsh-3.1.6.new/Src/Makefile.in
---- zsh-3.1.6/Src/Makefile.in	Tue Jun 29 18:39:30 1999
-+++ zsh-3.1.6.new/Src/Makefile.in	Tue Nov  2 00:01:11 1999
-@@ -159,20 +159,13 @@
- 
+diff -Nru zsh-3.1.6-dev-22.orig/Src/Makefile.in zsh-3.1.6-dev-22/Src/Makefile.in
+--- zsh-3.1.6-dev-22.orig/Src/Makefile.in	Thu Apr 13 20:41:06 2000
++++ zsh-3.1.6-dev-22/Src/Makefile.in	Thu Apr 13 20:41:41 2000
+@@ -178,14 +178,7 @@
  # install binary, creating install directory if necessary
  install.bin-here: zsh install.bin-@L@
--	$(sdir_top)/mkinstalldirs $(bindir)
--	$(INSTALL_PROGRAM) $(STRIPFLAGS) zsh $(bindir)/zsh-$(VERSION)
--	if test -f $(bindir)/zsh; then \
--	    rm -f $(bindir)/zsh.old; \
--	    ln $(bindir)/zsh $(bindir)/zsh.old; \
+ 	$(sdir_top)/mkinstalldirs $(DESTDIR)$(bindir)
+-	$(INSTALL_PROGRAM) $(STRIPFLAGS) zsh $(DESTDIR)$(bindir)/$(tzsh)-$(VERSION)
+-	if test -f $(DESTDIR)$(bindir)/$(tzsh); then \
+-	    rm -f $(DESTDIR)$(bindir)/$(tzsh).old; \
+-	    $(LN) $(DESTDIR)$(bindir)/$(tzsh) $(DESTDIR)$(bindir)/$(tzsh).old; \
 -	else :; fi
--	rm -f $(bindir)/zsh.new
--	ln $(bindir)/zsh-$(VERSION) $(bindir)/zsh.new
--	mv $(bindir)/zsh.new $(bindir)/zsh
-+	$(sdir_top)/mkinstalldirs $(DESTDIR)$(bindir)
+-	rm -f $(DESTDIR)$(bindir)/$(tzsh).new
+-	$(LN) $(DESTDIR)$(bindir)/$(tzsh)-$(VERSION) $(DESTDIR)$(bindir)/$(tzsh).new
+-	mv $(DESTDIR)$(bindir)/$(tzsh).new $(DESTDIR)$(bindir)/$(tzsh)
 +	$(INSTALL_PROGRAM) $(STRIPFLAGS) zsh $(DESTDIR)$(bindir)
+ .PHONY: install.bin-here
  
  install.bin-N:
- install.bin-L: $(LIBZSH)
--	$(sdir_top)/mkinstalldirs $(libdir)/zsh
--	$(INSTALL_PROGRAM) $(LIBZSH) $(libdir)/zsh/$(LIBZSH)
-+	$(sdir_top)/mkinstalldirs $(DESTDIR)$(libdir)/zsh
-+	$(INSTALL_PROGRAM) $(LIBZSH) $(DESTDIR)$(libdir)/zsh/$(LIBZSH)
- 
- # uninstall binary
- uninstall.bin-here: uninstall.bin-@L@
