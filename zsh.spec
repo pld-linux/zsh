@@ -2,7 +2,7 @@
 # Conditional build:
 # _without_static	- without static version
 #
-Summary:	Enhanced bourne shell
+Summary:	Enhanced Bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(es):	Shell bourne mejorada
 Summary(fr):	Bourne shell amélioré
@@ -104,8 +104,8 @@ Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
 %package static
-Summary:	Statically linked Enhanced bourne shell
-Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
+Summary:	Statically linked Enhanced Bourne shell
+Summary(pl):	Zaawansowana pow³oka Bourne'a - skonsolidowana statycznie
 Group:		Applications/Shells
 Requires(post,preun):	grep
 Requires(preun):	fileutils
@@ -117,8 +117,8 @@ most features of ksh, bash, and tcsh.
 
 %description static -l pl
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
-wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest statycznie
-linkowany.
+wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest wersja
+skonsolidowana statycznie.
 
 %package guide
 Summary:	A User's Guide to the Z-Shell
