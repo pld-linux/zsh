@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.2.0
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -143,6 +143,7 @@ install %{SOURCE2} .
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
+CPPFLAGS="-I/usr/include/ncurses"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
@@ -156,6 +157,7 @@ LDFLAGS="%{rpmldflags}"
 %endif
 
 %configure \
+	ac_cv_have_dev_ptmx=yes \
 	--enable-maildir-support \
 	--enable-pcre \
 	--enable-cap
