@@ -1,4 +1,4 @@
-# $Revision: 1.32 $ $Date: 2001-07-04 15:51:42 $
+# $Revision: 1.33 $ $Date: 2001-07-11 20:07:53 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	4.0.2
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -17,15 +17,16 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
+Patch4:		%{name}-no_nis.patch
 Prereq:		grep
 Prereq:		fileutils
-Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
+BuildRequires:	autoconf
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
 BuildRequires:	texinfo
-BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
 
@@ -60,6 +61,7 @@ linkowany.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 autoconf
