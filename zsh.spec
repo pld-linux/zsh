@@ -1,4 +1,4 @@
-# $Revision: 1.55 $ $Date: 2002-08-24 09:31:15 $
+# $Revision: 1.56 $ $Date: 2002-11-14 22:39:09 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -14,7 +14,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.0.6
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -166,11 +166,16 @@ else
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
+%pre
+rm -rf %{_datadir}/zsh/latest
+ln -s %{_datadir}/zsh/%{version} %{_datadir}/zsh/latest
+
 %preun
 if [ "$1" = "0" ]; then
 	grep -v '^%{_bindir}/zsh$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
+rm -rf %{_datadir}/zsh/latest
 
 %postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
