@@ -28,8 +28,6 @@ Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
-PreReq:		grep
-PreReq:		fileutils
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
 BuildRequires:	ncurses-devel >= 5.1
@@ -163,7 +161,8 @@ makeinfo zsh.texi
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/man1}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{!?_without_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
