@@ -1,4 +1,4 @@
-# $Revision: 1.58 $ $Date: 2002-11-17 15:37:46 $
+# $Revision: 1.59 $ $Date: 2002-11-21 00:29:55 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -193,9 +193,7 @@ else
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
-%pre
-rm -rf %{_datadir}/zsh/latest
-ln -s %{_datadir}/zsh/%{version} %{_datadir}/zsh/latest
+ln -sf %{_datadir}/zsh/%{version} %{_datadir}/zsh/latest
 
 %preun
 if [ "$1" = "0" ]; then
