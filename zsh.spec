@@ -1,4 +1,3 @@
-# $Revision: 1.68 $ $Date: 2003-05-26 16:25:55 $
 #
 # Conditional build:
 # _without_static	- without static version
