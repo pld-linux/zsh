@@ -1,0 +1,11 @@
+--- zsh-4.0.2/Src/init.c~	Wed Apr 11 07:26:26 2001
++++ zsh-4.0.2/Src/init.c	Fri Jun 29 08:24:42 2001
+@@ -654,7 +654,7 @@
+     path    = (char **) zalloc(sizeof(*path) * 5);
+     path[0] = ztrdup("/bin");
+     path[1] = ztrdup("/usr/bin");
+-    path[2] = ztrdup("/usr/ucb");
++    path[2] = ztrdup("/usr/X11R6/bin");
+     path[3] = ztrdup("/usr/local/bin");
+     path[4] = NULL;
+ 
