@@ -29,9 +29,9 @@ Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
+Patch6:		%{name}-no_libcap.patch
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
-BuildConflicts:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRequires:	texinfo
@@ -139,6 +139,7 @@ Podrêcznik U¿ytkownika Z-Shella.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 install %{SOURCE2} .
 
