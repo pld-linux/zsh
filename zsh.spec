@@ -1,20 +1,29 @@
-# $Revision: 1.45 $ $Date: 2002-02-08 08:57:13 $
+# $Revision: 1.46 $ $Date: 2002-02-09 19:24:45 $
 #
 # Conditional build:
 # _without_static       - without static version
 #
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
+Summary(es):	Shell bourne mejorada
 Summary(fr):	Bourne shell amélioré
 Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
+Summary(pt_BR):	Shell bourne melhorada
 Name:		zsh
 Version:	4.0.4
-Release:	1
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
-Group(de):	Applikationen/Shells
+Group(cs):	Aplikace/Shelly
+Group(de):	Anwendungen/Shells
+Group(es):	Aplicaciones/Shells
+Group(fr):	Applications/Shells
+Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
 Group(pl):	Aplikacje/Pow³oki
+Group(pt):	Aplicações/Shells
+Group(pt_BR):	Aplicações/Shells
+Group(ru):	ðÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏÞËÉ
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Source1:	%{name}.1.pl
@@ -39,17 +48,41 @@ Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 zsh is an enhanced version of the Bourne shell with csh additions and
 most features of ksh, bash, and tcsh.
 
+%description -l es
+zsh es una versión mejorada del bourne shell con estas
+características:
+- muy próximo de la gramática del ksh/sh, con adiciones csh,
+- varias características del ksh, bash y tcsh,
+- 75 funciones empotradas, 89 opciones, 154 combinaciones de teclas,
+- selección,
+- funciones shell ...y mucho más.
+
 %description -l pl
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh.
 
+%description -l pt_BR
+zsh é uma versão melhorada do bourne shell com essas características:
+- muito próximo da gramática do ksh/sh, com adições csh,
+- várias características do ksh, bash e tcsh,
+- 75 funções embutidas, 89 opções, 154 combinações de teclas,
+- seleção,
+- funções shell ...e muito mais.
+
 %package completions
-Summary:        Files needed for advanced TAB-completion
-Summary(pl):    Pliki potrzebne dla zaawansowanej TAB-completion
-Group:          Applications/Shells
-Group(de):      Applikationen/Shells
-Group(pl):      Aplikacje/Pow³oki
-Requires:       %{name} = %{version}
+Summary:	Files needed for advanced TAB-completion
+Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
+Group:		Applications/Shells
+Group(cs):	Aplikace/Shelly
+Group(de):	Anwendungen/Shells
+Group(es):	Aplicaciones/Shells
+Group(fr):	Applications/Shells
+Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
+Group(pl):	Aplikacje/Pow³oki
+Group(pt):	Aplicações/Shells
+Group(pt_BR):	Aplicações/Shells
+Group(ru):	ðÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏÞËÉ
+Requires:	%{name} = %{version}
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
@@ -59,12 +92,19 @@ Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
 %package static
-Summary:       Statically linked Enhanced bourne shell
-Summary(pl):   Zaawansowany bourne SHell - linkowany statycznie
-Group:         Applications/Shells
-Group(de):     Applikationen/Shells
-Group(pl):     Aplikacje/Pow³oki
-Requires:      %{name} = %{version}
+Summary:	Statically linked Enhanced bourne shell
+Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
+Group:		Applications/Shells
+Group(cs):	Aplikace/Shelly
+Group(de):	Anwendungen/Shells
+Group(es):	Aplicaciones/Shells
+Group(fr):	Applications/Shells
+Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
+Group(pl):	Aplikacje/Pow³oki
+Group(pt):	Aplicações/Shells
+Group(pt_BR):	Aplicações/Shells
+Group(ru):	ðÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏÞËÉ
+Requires:	%{name} = %{version}
 
 %description static
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -110,7 +150,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
-echo    ". /etc/profile"                > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+echo ". /etc/profile" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
@@ -180,5 +220,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{!?_without_static:1}%{?_without_static:0}
 %files static
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zsh.static
 %endif
