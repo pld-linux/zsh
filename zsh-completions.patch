@@ -1,6 +1,6 @@
 diff -ruN zsh-4.0.6./Completion/Unix/Command/.distfiles zsh-4.0.6/Completion/Unix/Command/.distfiles
---- zsh-4.0.6./Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
-+++ zsh-4.0.6/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
+--- zsh-4.1.1.orig/Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
++++ zsh-4.1.1/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
 @@ -20,5 +20,5 @@
  _netcat       _larch        _texinfo	  _figlet       _elinks       _tidy
  _global       _global_tags  _ant          _lsof         _mt           _xmlsoft
@@ -9,8 +9,8 @@ diff -ruN zsh-4.0.6./Completion/Unix/Command/.distfiles zsh-4.0.6/Completion/Uni
 +_ecasound     _gpg          _sms
  '
 diff -ruN zsh-4.0.6./Completion/Unix/Command/_sms zsh-4.0.6/Completion/Unix/Command/_sms
---- zsh-4.0.6./Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
-+++ zsh-4.0.6/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
+--- zsh-4.1.1.orig/Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
++++ zsh-4.1.1/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
 @@ -0,0 +1,61 @@
 +#compdef sms smsaddr
 +
@@ -27,9 +27,9 @@ diff -ruN zsh-4.0.6./Completion/Unix/Command/_sms zsh-4.0.6/Completion/Unix/Comm
 +	local smsas
 +	smsas=(${(f)"$(smsaddr -l)"})
 +	smsas=(${smsas/	##/:})
-+#if [[ -n "$PREFIX$SUFFIX" ]]; then
++if [[ -n "$PREFIX$SUFFIX" ]]; then
 +	smsas=($smsas ${smsas/(#s)(#b)(^($PREFIX)*):(*)(#e)/$match[3]:$match[1]})
-+#fi
++fi
 +#	smsas=(${(M)smsas:#$PREFIX*})
 +	_describe "SMS alias" smsas
 +}
