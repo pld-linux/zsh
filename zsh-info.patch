@@ -1,0 +1,15 @@
+diff -Nru zsh-3.1.6/Doc/zsh.texi zsh-3.1.6.new/Doc/zsh.texi
+--- zsh-3.1.6/Doc/zsh.texi	Mon Nov  1 23:55:46 1999
++++ zsh-3.1.6.new/Doc/zsh.texi	Sun Aug  1 14:13:14 1999
+@@ -16,9 +16,9 @@
+ @set dsq '{}'
+ @end iftex
+ @ifinfo
+-@dircategory Utilities
++@dircategory Miscellaneous:
+ @direntry
+-     * ZSH: (zsh).                     The Z Shell Guide.
++* ZSH: (zsh).				The Z Shell Guide
+ @end direntry
+ @end ifinfo
+ 
