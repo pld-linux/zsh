@@ -1,4 +1,4 @@
-# $Revision: 1.46 $ $Date: 2002-02-09 19:24:45 $
+# $Revision: 1.47 $ $Date: 2002-02-22 23:30:12 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -15,15 +15,6 @@ Version:	4.0.4
 Release:	3
 License:	BSD-like
 Group:		Applications/Shells
-Group(cs):	Aplikace/Shelly
-Group(de):	Anwendungen/Shells
-Group(es):	Aplicaciones/Shells
-Group(fr):	Applications/Shells
-Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
-Group(pl):	Aplikacje/Pow³oki
-Group(pt):	Aplicações/Shells
-Group(pt_BR):	Aplicações/Shells
-Group(ru):	ğÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏŞËÉ
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Source1:	%{name}.1.pl
@@ -73,15 +64,6 @@ zsh é uma versão melhorada do bourne shell com essas características:
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
-Group(cs):	Aplikace/Shelly
-Group(de):	Anwendungen/Shells
-Group(es):	Aplicaciones/Shells
-Group(fr):	Applications/Shells
-Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
-Group(pl):	Aplikacje/Pow³oki
-Group(pt):	Aplicações/Shells
-Group(pt_BR):	Aplicações/Shells
-Group(ru):	ğÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏŞËÉ
 Requires:	%{name} = %{version}
 
 %description completions
@@ -95,15 +77,6 @@ TAB-completion.
 Summary:	Statically linked Enhanced bourne shell
 Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
 Group:		Applications/Shells
-Group(cs):	Aplikace/Shelly
-Group(de):	Anwendungen/Shells
-Group(es):	Aplicaciones/Shells
-Group(fr):	Applications/Shells
-Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥·¥§¥ë
-Group(pl):	Aplikacje/Pow³oki
-Group(pt):	Aplicações/Shells
-Group(pt_BR):	Aplicações/Shells
-Group(ru):	ğÒÉÌÏÖÅÎÉÑ/ïÂÏÌÏŞËÉ
 Requires:	%{name} = %{version}
 
 %description static
