@@ -1,4 +1,4 @@
-# $Revision: 1.23 $ $Date: 2000-12-05 17:38:51 $
+# $Revision: 1.24 $ $Date: 2000-12-05 18:22:03 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -80,11 +80,14 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}
-install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
+install Src/zsh.static	$RPM_BUILD_ROOT%{_bindir}
+install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
-touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zprofile,zshrc,zlogin,zshenv}
-
+touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
+echo    ". /etc/profile"                > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+echo -e "PS1='[%n@%m %~]%(!.#.%\$)'\nbindkey -e >/dev/null 2>&1" > \
+                                          $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
+					
 rm -f Etc/Makefile*
 gzip -9nf Etc/* README ChangeLog META-FAQ
 
