@@ -1,4 +1,4 @@
-# $Revision: 1.33 $ $Date: 2001-07-11 20:07:53 $
+# $Revision: 1.34 $ $Date: 2001-07-15 16:46:27 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -87,10 +87,11 @@ install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
 echo    ". /etc/profile"                > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
-echo -e "PS1='[%n@%m %~]%(!.#.%\$) '\nbindkey -e >/dev/null 2>&1" > \
+echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
-					
+
 rm -f Etc/Makefile*
+find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
 gzip -9nf Etc/* README LICENCE ChangeLog META-FAQ
 
 %post
@@ -128,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz Etc/* Util Functions
+%doc *.gz Etc/* Util Functions StartupFiles
 %attr(755,root,root) %{_bindir}/zsh
 %config %{_sysconfdir}/*
 %dir %{_libdir}/zsh
