@@ -22,6 +22,8 @@ Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
+Source3:	zprofile
+Source4:	zshrc
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
@@ -168,41 +170,11 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{?with_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
-install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
+install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 
-touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
-echo "setopt no_function_argzero" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
-echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
-
-cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
-# System wide functions and aliases
-# Environment stuff goes in /etc/profile
-
-# Aliases:
-alias which=whence
-alias cd='builtin cd'
-alias precmd=' precmd'
-
-setopt histignorespace
-
-# Setup key bindings:
-bindkey -e >/dev/null 2>&1
-
-bindkey \`tput khome\` beginning-of-line >/dev/null 2>&1
-bindkey \`tput kend\` end-of-line >/dev/null 2>&1
-bindkey \`tput kich1\` quoted-insert >/dev/null 2>&1
-bindkey \`tput kdch1\` delete-char >/dev/null 2>&1
-bindkey \`tput kpp\` up-history >/dev/null 2>&1
-bindkey \`tput knp\` end-of-history >/dev/null 2>&1
-bindkey \`tput kcuu1\` history-beginning-search-backward >/dev/null 2>&1
-bindkey \`tput kcud1\` history-beginning-search-forward >/dev/null 2>&1
-
-case "\$TERM" in
-	xterm*)
-		precmd () { print -Pn "\e]0;%n@%m: %~\a"i; }
-		;;
-esac
-EOF
+:> $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zshenv}
+install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
+install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}
 
 rm -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
