@@ -1,4 +1,4 @@
-# $Revision: 1.18 $ $Date: 2000-07-13 23:30:26 $
+# $Revision: 1.19 $ $Date: 2000-09-24 21:09:03 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -11,7 +11,6 @@ License:	GPL
 Group:		Shells
 Group(pl):	Pow³oki
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
-Source1:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}-doc.tar.gz
 Patch0:		zsh-info.patch
 Patch1:		zsh-DESTDIR.patch
 Patch2:		zsh-sys_capability.patch
@@ -19,12 +18,13 @@ Patch3:		zsh-cap_get_proc.patch
 Patch4:		zsh-tinfo.patch
 Patch5:		zsh-addons.patch
 Prereq:		grep
-Prereq:		gawk
-Prereq:		sed
-BuildRequires:	ncurses-devel
+Prereq:		mawk
+BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
+BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_exec_prefix		/
 
@@ -52,30 +52,8 @@ zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest statycznie
 linkowany.
 
-%package doc-html
-Summary:		HTML documentation for zsh	
-Group:		Shells
-
-%description doc-html
-HTML documentation for zsh.
-
-%package doc-ps
-Summary:		Postscript version of zsh documentation
-Group:		Shells
-
-%description doc-ps
-Postscript version of zsh documentation.
-
-%package doc-dvi
-Summary:		DVI version of zsh documentation
-Group:		Shells
-
-%description doc-dvi 
-DVI version of zsh documentation.
-
 %prep
 %setup -q
-%setup -q -b 1 -D
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -86,17 +64,21 @@ DVI version of zsh documentation.
 %build
 autoconf
 
-LDFLAGS="-static -s"; export LDFLAGS
+LDFLAGS="-static %{?debug:-s}"
 %configure
 %{__make}
 mv Src/zsh Src/zsh.static
 
-LDFLAGS="-s"; export LDFLAGS
-%configure --enable-maildir-support
+LDFLAGS="%{?debug:-s}"
+%configure \
+	--enable-maildir-support
 %{__make}
+
+(cd Doc; makeinfo zsh.texi)
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}
@@ -105,12 +87,12 @@ install -d $RPM_BUILD_ROOT%{_infodir}
 install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
-touch	$RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zprofile,zshrc,zlogin,zshenv}
+touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zprofile,zshrc,zlogin,zshenv}
 
 rm Etc/Makefile*
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
-	  Etc/* README ChangeLog META-FAQ \
-		$RPM_BUILD_ROOT/%{_infodir}/zsh.info*
+gzip -9nf Etc/* README ChangeLog META-FAQ \
+	$RPM_BUILD_ROOT%{_mandir}/man1/* \
+	$RPM_BUILD_ROOT%{_infodir}/zsh.info*
 
 %post
 if [ ! -f /etc/shells ]; then
@@ -161,15 +143,3 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/zsh.static
-
-%files doc-html
-%defattr(644,root,root,755)
-%doc Doc/*html
-
-%files doc-ps
-%defattr(644,root,root,755)
-%doc Doc/*ps
-
-%files doc-dvi
-%defattr(644,root,root,755)
-%doc Doc/*dvi
