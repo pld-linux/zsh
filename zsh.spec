@@ -1,4 +1,4 @@
-# $Revision: 1.40 $ $Date: 2001-07-26 12:01:54 $
+# $Revision: 1.41 $ $Date: 2001-08-25 11:52:15 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -30,6 +30,7 @@ BuildRequires:	texinfo
 %{!?_without_static:BuildRequires:	glibc-static}
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Provides:	which
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
@@ -110,7 +111,7 @@ install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
 echo    ". /etc/profile"                > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
-echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1" > \
+echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
 rm -f Etc/Makefile*
