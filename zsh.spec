@@ -1,4 +1,4 @@
-# $Revision: 1.20 $ $Date: 2000-10-02 23:10:51 $
+# $Revision: 1.21 $ $Date: 2000-12-04 07:19:01 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -18,8 +18,6 @@ Patch2:		%{name}-sys_capability.patch
 Patch3:		%{name}-cap_get_proc.patch
 Patch4:		%{name}-tinfo.patch
 Patch5:		%{name}-addons.patch
-Prereq:		grep
-Prereq:		mawk
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
@@ -27,7 +25,7 @@ BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
-%define		_exec_prefix		/
+%define		_bidir		/
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -78,15 +76,13 @@ mv -f Src/zsh Src/zsh.static
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}
-
-install -d $RPM_BUILD_ROOT%{_infodir}
 install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zprofile,zshrc,zlogin,zshenv}
 
 rm -f Etc/Makefile*
@@ -94,34 +90,46 @@ gzip -9nf Etc/* README ChangeLog META-FAQ
 
 %post
 if [ ! -f /etc/shells ]; then
-	echo "/bin/zsh" > /etc/shells
+	echo "/bin/zsh" >> /etc/shells
 else
-	if ! grep '^/bin/zsh$' /etc/shells > /dev/null; then
-		echo "/bin/zsh" >> /etc/shells
-	fi
+	while read SHNAME; do
+	        elif [ "$SHNAME" = "/bin/zsh" ]; then
+        	        HAS_ZSH=1
+	        fi
+	done < /etc/shells
+	[ -n "$HAS_ZSH" ] || echo "/bin/zsh" >> /etc/shells
 fi
-
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
-%postun
+%preun
 if [ "$1" = "0" ]; then
-	grep -v /bin/zsh /etc/shells > /etc/shells.new
+	while read SHNAME; do
+		[ "$SHNAME" = "/bin/zsh" ] ||\
+		echo "$SHNAME"
+	done < /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
-
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %post static
 if [ ! -f /etc/shells ]; then
-	echo "/bin/zsh.static" > /etc/shells
+	echo "/bin/zsh.static" >> /etc/shells
 else
-	grep '^/bin/zsh.static$' /etc/shells > /dev/null || echo "/bin/zsh.static" >> /etc/shells
+	while read SHNAME; do
+	        elif [ "$SHNAME" = "/bin/zsh.static" ]; then
+        	        HAS_ZSH_STATIC=1
+	        fi
+	done < /etc/shells
+	[ -n "$HAS_ZSH_STATIC" ] || echo "/bin/zsh.static" >> /etc/shells
 fi
 
-%postun static
-if [ ! -x /bin/zsh.static ]; then
-	grep -v '^/bin/zsh.static$' /etc/shells > /etc/shells.rpm
-	mv -f /etc/shells.rpm /etc/shells
+%preun
+if [ "$1" = "0" ]; then
+	while read SHNAME; do
+		[ "$SHNAME" = "/bin/zsh.static" ] ||\
+		echo "$SHNAME"
+	done < /etc/shells > /etc/shells.new
+	mv -f /etc/shells.new /etc/shells
 fi
 
 %clean
