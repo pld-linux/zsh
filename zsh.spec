@@ -1,4 +1,4 @@
-# $Revision: 1.25 $ $Date: 2000-12-05 18:22:49 $
+# $Revision: 1.26 $ $Date: 2001-03-11 00:55:22 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,11 +6,12 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
 Group(pl):	Aplikacje/Pow³oki
+URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-DESTDIR.patch
@@ -22,10 +23,11 @@ BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
 BuildRequires:	texinfo
+BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
-%define		_bidir		/
+%define		_bindir		/bin
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -76,7 +78,7 @@ mv -f Src/zsh Src/zsh.static
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir}}
+install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
