@@ -1,0 +1,24 @@
+--- _subversiona	2004-09-24 01:55:00.000000000 +0200
++++ Completion/Unix/Command/_subversion	2004-10-10 21:51:34.000000000 +0200
+@@ -41,7 +41,7 @@
+   if (( ! $+_svn_cmds )); then
+     typeset -gA _svn_cmds
+     _svn_cmds=(
+-      ${=${(f)${${"$(_call_program commands svn help)"#l#*Available subcommands:}%%Subversion is a tool*}}/(#s)[[:space:]]#(#b)([a-z]##)[[:space:]]#(\([a-z, ?]##\))#/$match[1] :$match[1]${match[2]:+:${${match[2]//[(),]}// /:}}:}
++      ${=${(f)${${"$(_call_program commands LANG=C svn help)"#l#*Available subcommands:}%%Subversion is a tool*}}/(#s)[[:space:]]#(#b)([a-z]##)[[:space:]]#(\([a-z, ?]##\))#/$match[1] :$match[1]${match[2]:+:${${match[2]//[(),]}// /:}}:}
+     )
+   fi
+ 
+@@ -64,10 +64,10 @@
+ _svn_subcommand () {
+   local subcmd _svn_subcmds _svn_subcmd_usage
+ 
+-  _svn_subcmd_usage=${${(M)${(f)"$(_call_program options svn help $1)"}:#usage:*}#usage: $1 }
++  _svn_subcmd_usage=${${(M)${(f)"$(_call_program options LANG=C svn help $1)"}:#usage:*}#usage: $1 }
+ 
+   _svn_subcmds=(
+-    ${${=${${${(M)${(f)"$(_call_program options svn help $1)"##*Valid options:}:#* :*}%% #:*}/ arg/:arg:}/(#b)-([[:alpha:]]) \[--([a-z-]##)\](:arg:)#/(--$match[2])-$match[1]$match[3] (-$match[1])--$match[2]$match[3]}[2,-1]}
++    ${${=${${${(M)${(f)"$(_call_program options LANG=C svn help $1)"##*Valid options:}:#* :*}%% #:*}/ arg/:arg:}/(#b)-([[:alpha:]]) \[--([a-z-]##)\](:arg:)#/(--$match[2])-$match[1]$match[3] (-$match[1])--$match[2]$match[3]}[2,-1]}
+   )
+ 
+   case $1 in;
