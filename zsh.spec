@@ -40,6 +40,7 @@ BuildRequires:	pcre-devel
 BuildRequires:	texinfo
 Requires(post,preun):	grep
 Requires(preun):	fileutils
+Requires:	find
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
