@@ -1,12 +1,12 @@
-# $Revision: 1.10 $ $Date: 2000-05-21 16:53:31 $
+# $Revision: 1.11 $ $Date: 2000-05-23 14:27:35 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
 Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
-Version:	3.1.6
-%define dev_ver dev-22
+Version:	3.1.7
+%define dev_ver pre-4
 Release:	3
 License:	GPL
 Group:		Shells
