@@ -1,4 +1,4 @@
-# $Revision: 1.38 $ $Date: 2001-07-25 16:31:03 $
+# $Revision: 1.39 $ $Date: 2001-07-26 05:42:27 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -91,7 +91,7 @@ if [ ! -f /etc/shells ]; then
 else
 	grep -q '^%{_bindir}/zsh$' /etc/shells || echo "%{_bindir}/zsh" >> /etc/shells
 fi
-%fix_info_dir
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %preun
 if [ "$1" = "0" ]; then
@@ -100,7 +100,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun
-%fix_info_dir
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
