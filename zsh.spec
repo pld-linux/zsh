@@ -94,6 +94,7 @@ shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
+Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 Requires:	%{name} = %{version}-%{release}
 
 %description completions
