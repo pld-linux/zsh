@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.2.0
-Release:	4
+Release:	5
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -28,6 +28,7 @@ Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
+Patch4:		%{name}-nolibs.patch
 BuildRequires:	autoconf
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -93,7 +94,7 @@ shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
@@ -108,7 +109,7 @@ Summary(pl):	Zaawansowana powЁoka Bourne'a - skonsolidowana statycznie
 Group:		Applications/Shells
 Requires(post,preun):	grep
 Requires(preun):	fileutils
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description static
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -137,6 +138,7 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 install %{SOURCE2} .
 
