@@ -1,4 +1,4 @@
-# $Revision: 1.11 $ $Date: 2000-05-23 14:27:35 $
+# $Revision: 1.12 $ $Date: 2000-05-24 16:50:47 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -90,7 +90,7 @@ else
 	fi
 fi
 
-[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %postun
 if [ "$1" = "0" ]; then
