@@ -1,4 +1,4 @@
-# $Revision: 1.51 $ $Date: 2002-05-11 19:13:46 $
+# $Revision: 1.52 $ $Date: 2002-05-21 23:15:10 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -112,7 +112,7 @@ linkowany.
 %patch4 -p1
 
 %build
-autoconf
+%{__autoconf}
 
 %if %{!?_without_static:1}%{?_without_static:0}
 LDFLAGS="%{rpmldflags} -static"
