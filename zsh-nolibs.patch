@@ -1,0 +1,14 @@
+--- zsh-4.2.0/configure.ac.orig	Mon Mar 15 20:08:25 2004
++++ zsh-4.2.0/configure.ac	Fri May  7 10:07:54 2004
+@@ -723,9 +723,9 @@
+   AC_CHECK_LIB(cap, cap_get_proc)
+ fi
+ 
+-AC_CHECK_LIB(socket, socket)
++AC_SEARCH_LIBS(socket, socket)
+ 
+-AC_CHECK_LIB(iconv, iconv)
++AC_SEARCH_LIBS(iconv, iconv)
+ 
+ if test x$enable_pcre = xyes; then
+ dnl pcre-config should probably be employed here
