@@ -1,4 +1,4 @@
-# $Revision: 1.49 $ $Date: 2002-04-13 06:13:08 $
+# $Revision: 1.50 $ $Date: 2002-05-11 19:12:03 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -138,7 +138,9 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
-echo ". %{_sysconfdir}/profile" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+echo "setopt no_function_argzero" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+
 echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
