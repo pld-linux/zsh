@@ -12,13 +12,13 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.1.1
+Version:	4.0.6
 Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	48958b1a3fc86261a26eea40a4f7d4af
+# Source0-md5:	ec841e1c92a44879c503ffb32a3e5326
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -28,23 +28,19 @@ Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
-Patch6:		%{name}-zle_misc.patch
-BuildRequires:	autoconf
-%{!?_without_static:BuildRequires:	glibc-static}
-BuildConflicts:	libcap-devel
-BuildRequires:	ncurses-devel >= 5.1
-%{!?_without_static:BuildRequires:	ncurses-static}
-BuildRequires:	pcre-devel
-BuildRequires:	texinfo
 PreReq:		grep
 PreReq:		fileutils
+BuildRequires:	autoconf
+%{!?_without_static:BuildRequires:	glibc-static}
+BuildRequires:	ncurses-devel >= 5.1
+%{!?_without_static:BuildRequires:	ncurses-static}
+BuildRequires:	texinfo
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
-%define		specflags_ia32	"-fomit-frame-pointer"
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -142,7 +138,6 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p0
 
 install %{SOURCE2} .
 
@@ -168,8 +163,7 @@ makeinfo zsh.texi
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/man1}
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 %{!?_without_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
