@@ -1,4 +1,4 @@
-# $Revision: 1.19 $ $Date: 2000-09-24 21:09:03 $
+# $Revision: 1.20 $ $Date: 2000-10-02 23:10:51 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,17 +6,18 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	2
+Release:	3
 License:	GPL
-Group:		Shells
-Group(pl):	Pow³oki
+Group:		Applications/Shells
+Group(de):	Applikationen/Shells
+Group(pl):	Aplikacje/Pow³oki
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
-Patch0:		zsh-info.patch
-Patch1:		zsh-DESTDIR.patch
-Patch2:		zsh-sys_capability.patch
-Patch3:		zsh-cap_get_proc.patch
-Patch4:		zsh-tinfo.patch
-Patch5:		zsh-addons.patch
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-DESTDIR.patch
+Patch2:		%{name}-sys_capability.patch
+Patch3:		%{name}-cap_get_proc.patch
+Patch4:		%{name}-tinfo.patch
+Patch5:		%{name}-addons.patch
 Prereq:		grep
 Prereq:		mawk
 BuildRequires:	ncurses-devel >= 5.1
@@ -38,9 +39,10 @@ wiêkszo¶æ cech ksh, bash i tcsh.
 
 %package static
 Summary:	Statically linked Enhanced bourne shell
-Summary(pl):	 Zaawansowany bourne SHell - linkowany statycznie
-Group:		Shells
-Group(pl):	Pow³oki
+Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
+Group:		Applications/Shells
+Group(de):	Applikationen/Shells
+Group(pl):	Aplikacje/Pow³oki
 Requires:	%{name} = %{version}
 
 %description static
@@ -64,12 +66,10 @@ linkowany.
 %build
 autoconf
 
-LDFLAGS="-static %{?debug:-s}"
 %configure
 %{__make}
-mv Src/zsh Src/zsh.static
+mv -f Src/zsh Src/zsh.static
 
-LDFLAGS="%{?debug:-s}"
 %configure \
 	--enable-maildir-support
 %{__make}
@@ -89,10 +89,8 @@ install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zprofile,zshrc,zlogin,zshenv}
 
-rm Etc/Makefile*
-gzip -9nf Etc/* README ChangeLog META-FAQ \
-	$RPM_BUILD_ROOT%{_mandir}/man1/* \
-	$RPM_BUILD_ROOT%{_infodir}/zsh.info*
+rm -f Etc/Makefile*
+gzip -9nf Etc/* README ChangeLog META-FAQ
 
 %post
 if [ ! -f /etc/shells ]; then
@@ -108,7 +106,7 @@ fi
 %postun
 if [ "$1" = "0" ]; then
 	grep -v /bin/zsh /etc/shells > /etc/shells.new
-	mv /etc/shells.new /etc/shells
+	mv -f /etc/shells.new /etc/shells
 fi
 
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
@@ -123,7 +121,7 @@ fi
 %postun static
 if [ ! -x /bin/zsh.static ]; then
 	grep -v '^/bin/zsh.static$' /etc/shells > /etc/shells.rpm
-	mv /etc/shells.rpm /etc/shells
+	mv -f /etc/shells.rpm /etc/shells
 fi
 
 %clean
