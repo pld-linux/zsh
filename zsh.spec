@@ -190,7 +190,7 @@ bindkey \`tput knp\` end-of-history >/dev/null 2>&1
 bindkey \`tput kcuu1\` history-beginning-search-backward >/dev/null 2>&1
 bindkey \`tput kcud1\` history-beginning-search-forward >/dev/null 2>&1
 
-case $TERM in
+case \$TERM in
 	xterm*)
 		precmd () {print -Pn "\e]0;%n@%m: %~\a"}
 		;;
