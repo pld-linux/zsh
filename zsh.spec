@@ -1,4 +1,4 @@
-# $Revision: 1.47 $ $Date: 2002-02-22 23:30:12 $
+# $Revision: 1.48 $ $Date: 2002-04-13 06:10:11 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -7,12 +7,12 @@ Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(es):	Shell bourne mejorada
 Summary(fr):	Bourne shell amélioré
-Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Summary(pt_BR):	Shell bourne melhorada
+Summary(tr):	Geliþmiþ bir BASH sürümü
 Name:		zsh
 Version:	4.0.4
-Release:	3
+Release:	6
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
