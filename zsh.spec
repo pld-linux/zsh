@@ -1,4 +1,4 @@
-# $Revision: 1.50 $ $Date: 2002-05-11 19:12:03 $
+# $Revision: 1.51 $ $Date: 2002-05-11 19:13:46 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -14,7 +14,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.0.4
-Release:	6
+Release:	7
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
