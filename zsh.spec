@@ -182,7 +182,7 @@ cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
 # Aliases:
 alias which=whence
-alias cd=' builtin cd'
+alias cd='builtin cd'
 alias precmd=' precmd'
 
 setopt histignorespace
