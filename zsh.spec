@@ -12,14 +12,13 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.0.7
-Release:	1
-Epoch:		1
+Version:	4.1.1
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	93a3a47b2419182408d5b31acd26528a
+# Source0-md5:	48958b1a3fc86261a26eea40a4f7d4af
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -29,11 +28,13 @@ Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
 Patch5:		%{name}-completions.patch
-Patch6:		%{name}-no_libcap.patch
+Patch6:		%{name}-zle_misc.patch
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
+BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
+BuildRequires:	pcre-devel
 BuildRequires:	texinfo
 Requires(post,preun):	grep
 Requires(preun):	fileutils
@@ -93,7 +94,7 @@ shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{version}
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
@@ -139,7 +140,7 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
+%patch6 -p0
 
 install %{SOURCE2} .
 
