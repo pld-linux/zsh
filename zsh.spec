@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.1.1
-Release:	7
+Release:	8
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -145,6 +145,7 @@ PodrЙcznik U©ytkownika Z-Shella.
 install %{SOURCE2} .
 
 %build
+cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 
 %if %{!?_without_static:1}%{?_without_static:0}
