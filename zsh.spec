@@ -1,4 +1,8 @@
-# $Revision: 1.39 $ $Date: 2001-07-26 05:42:27 $
+# $Revision: 1.40 $ $Date: 2001-07-26 12:01:54 $
+#
+# Conditional build:
+# _without_static       - without static version
+#
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +10,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	4.0.2
-Release:	4
+Release:	5
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -23,6 +27,8 @@ Prereq:		fileutils
 BuildRequires:	autoconf
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	texinfo
+%{!?_without_static:BuildRequires:	glibc-static}
+%{!?_without_static:BuildRequires:	ncurses-static}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
@@ -51,6 +57,23 @@ This package contains files needed for advanced tab completion in zsh.
 Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
+%package static
+Summary:       Statically linked Enhanced bourne shell
+Summary(pl):   Zaawansowany bourne SHell - linkowany statycznie
+Group:         Applications/Shells
+Group(de):     Applikationen/Shells
+Group(pl):     Aplikacje/Pow³oki
+Requires:      %{name} = %{version}
+
+%description static
+zsh is an enhanced version of the Bourne shell with csh additions and
+most features of ksh, bash, and tcsh.
+
+%description -l pl static
+zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
+wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest statycznie
+linkowany.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -61,6 +84,14 @@ TAB-completion.
 
 %build
 autoconf
+
+%if %{!?_without_static:1}%{?_without_static:0}
+LDFLAGS="%{rpmldflags} -static"
+%configure
+%{__make}
+mv -f Src/zsh Src/zsh.static
+LDFLAGS="%{rpmldflags}"
+%endif
 
 %configure \
 	--enable-maildir-support
@@ -74,6 +105,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
+%{!?_without_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
@@ -102,6 +134,20 @@ fi
 %postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
+%post static
+if [ ! -f /etc/shells ]; then
+       echo "%{_bindir}/zsh.static" >> /etc/shells
+else
+       grep -q '^%{_bindir}/zsh\.static$' /etc/shells || echo "%{_bindir}/zsh.static" >> /etc/shells
+fi
+
+%preun static
+if [ "$1" = "0" ]; then
+       grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
+       mv -f /etc/shells.new /etc/shells
+fi
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -127,3 +173,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/zsh/%{version}/functions/comp*
 %{_datadir}/zsh/%{version}/functions/_*
+
+%if %{!?_without_static:1}%{?_without_static:0}
+%files static
+%attr(755,root,root) %{_bindir}/zsh.static
+%endif
