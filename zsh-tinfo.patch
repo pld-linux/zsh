@@ -1,6 +1,6 @@
---- zsh-4.0.2/zshconfig.ac~	Tue Jun 26 12:08:54 2001
-+++ zsh-4.0.2/zshconfig.ac	Fri Jun 29 07:54:12 2001
-@@ -547,15 +547,15 @@
+--- zsh-4.0.4/zshconfig.ac~	Thu Feb  7 22:39:06 2002
++++ zsh-4.0.4/zshconfig.ac	Thu Feb  7 22:45:04 2002
+@@ -548,15 +548,15 @@
  AC_ARG_WITH(curses-terminfo,
  [  --with-curses-terminfo     use terminfo support from curses library],
  [if test x$withval = xyes; then
@@ -12,10 +12,9 @@
 +  termcap_curses_order="tinfo termcap curses ncurses"
  fi],
  [case "$host_os" in
-   aix*|hpux10.*|hpux11.*|solaris*)
--      termcap_curses_order="curses ncurses termcap" ;;
+   hpux10.*|hpux11.*|solaris*)
+       termcap_curses_order="curses ncurses termcap" ;;
 -  *)             termcap_curses_order="termcap curses ncurses" ;;
-+      termcap_curses_order="tinfo curses ncurses termcap" ;;
 +  *)             termcap_curses_order="tinfo termcap curses ncurses" ;;
  esac])dnl
  
