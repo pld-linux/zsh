@@ -1,12 +1,12 @@
-# $Revision: 1.1 $ $Date: 1999-07-23 12:49:26 $
+# $Revision: 1.2 $ $Date: 1999-09-04 15:17:23 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
 Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
-Version:	3.0.5
-Release:	1
+Version:	3.1.6
+Release:	2
 Copyright:	GPL
 Group:		Shells
 Group(pl):	Pow³oki
@@ -14,15 +14,15 @@ Source:		ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Prereq:		/bin/grep /sbin/install-info /bin/awk /bin/sed
 Buildroot:	/tmp/%{name}-%{version}-root
 
-%define		_exec_prefix		/
+%define		_prefix		/
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions
 and most features of ksh, bash, and tcsh.
 
 %description -l pl
-zsh jest ulepszon± pow³ok± Bourne'a zawieraj±c± dodatki z csh. Posiada
-wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
+zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh.
+Posiada wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
 
 %prep
 %setup -q
@@ -30,23 +30,22 @@ wiêkszo¶æ cech pow³ok ksh, bash i tcsh.
 %build
 autoconf
 LDFLAGS="-s"; export LDFLAGS
-%configure
+%configure \
+	--exec-prefix=%{_libdir}/zsh
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_infodir},%{_mandir}/man1,%{_bindir},/etc}
+install -d $RPM_BUILD_ROOT{%{_mandir}/man1,%{_bindir},%{_libdir}/zsh,/etc}
 
 install -s Src/zsh	$RPM_BUILD_ROOT%{_bindir}/zsh
+install -s Src/*/*.so	$RPM_BUILD_ROOT%{_libdir}/zsh
 install    Doc/*.1	$RPM_BUILD_ROOT%{_mandir}/man1
-install	   Doc/*.info*	$RPM_BUILD_ROOT%{_infodir}
 
-# Tym siê na razie nie przejmowaæ - planujê zrobiæ jakie¶ ³adne konfigi
-# i je tu wsadziæ.
 touch	$RPM_BUILD_ROOT/etc/{zlogout,zprofile,zshrc,zlogin,zshenv}
 
 rm Etc/Makefile*
-gzip -9nf $RPM_BUILD_ROOT{%{_infodir}/zsh*,%{_mandir}/man1/*} \
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	  Etc/* README ChangeLog META-FAQ
 
 %post
@@ -70,11 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {META-FAQ,README,ChangeLog}.gz Etc/* Util Functions
-
-# Przy okazji - jak oznaczyæ te konfigi? /etc/bashrc nie ma niczego. Ja da³em
-# %config, ale nie wiem jak to najlepiej zrobiæ...
+%dir %{_libdir}/zsh
 %config /etc/*
 
-%attr(755,root,root) /bin/zsh
-%{_mandir}/man1/zsh*.1
-%{_infodir}/zsh.info*
+%attr(755,root,root) %{_bindir}/zsh
+%attr(755,root,root) %{_libdir}/zsh/*
+%{_mandir}/man1/zsh*.1.gz
