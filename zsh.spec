@@ -1,4 +1,4 @@
-# $Revision: 1.16 $ $Date: 2000-06-09 07:24:26 $
+# $Revision: 1.17 $ $Date: 2000-06-09 07:55:17 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -88,12 +88,12 @@ autoconf
 
 LDFLAGS="-static -s"; export LDFLAGS
 %configure
-make
+%{__make}
 mv Src/zsh Src/zsh.static
 
 LDFLAGS="-s"; export LDFLAGS
 %configure --enable-maildir-support
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
