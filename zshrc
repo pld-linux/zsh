@@ -4,7 +4,7 @@ alias which=whence
 alias cd='builtin cd'
 alias precmd=' precmd'
 
-setopt hist_ignore_space
+setopt hist_ignore_space hist_ignore_all_dups list_packed transient_rprompt
 
 bindkey -e >/dev/null 2>&1
 
