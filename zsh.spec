@@ -1,4 +1,4 @@
-# $Revision: 1.48 $ $Date: 2002-04-13 06:10:11 $
+# $Revision: 1.49 $ $Date: 2002-04-13 06:13:08 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -9,7 +9,9 @@ Summary(es):	Shell bourne mejorada
 Summary(fr):	Bourne shell amИliorИ
 Summary(pl):	Ulepszona powЁoka Bourne'a
 Summary(pt_BR):	Shell bourne melhorada
+Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
+Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.0.4
 Release:	6
@@ -60,6 +62,19 @@ zsh И uma versЦo melhorada do bourne shell com essas caracterМsticas:
 - seleГЦo,
 - funГУes shell ...e muito mais.
 
+%description -l ru
+zsh - это командный процессор напоминающий ksh (Korn shell), но
+включающий много улучшений. zsh поддерживает редактирование командной
+строки, встроенную коррекцию написания, программируемое завершение
+команд, shell-функции (с автозагрузкой), историю команд и многое
+другое.
+
+%description -l uk
+zsh - це командний процесор, що нагаду╓ ksh (Korn shell), але включа╓
+багато покращень. zsh п╕дтриму╓ редагування командного рядка,
+вбудовану корекц╕ю написання, програмоване завершення команд,
+shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
+
 %package completions
 Summary:	Files needed for advanced TAB-completion
 Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
@@ -69,7 +84,7 @@ Requires:	%{name} = %{version}
 %description completions
 This package contains files needed for advanced tab completion in zsh.
 
-%description -l pl completions
+%description completions -l pl
 Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
@@ -83,7 +98,7 @@ Requires:	%{name} = %{version}
 zsh is an enhanced version of the Bourne shell with csh additions and
 most features of ksh, bash, and tcsh.
 
-%description -l pl static
+%description static -l pl
 zsh jest ulepszon╠ powЁok╠ Bourne'a z elementami powЁoki csh. Posiada
 wiЙkszo╤Ф cech ksh, bash i tcsh. W tym pakiecie jest statycznie
 linkowany.
@@ -123,7 +138,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
-echo ". /etc/profile" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
+echo ". %{_sysconfdir}/profile" > $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias which=whence" > \
                                           $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 
