@@ -1,4 +1,4 @@
-# $Revision: 1.34 $ $Date: 2001-07-15 16:46:27 $
+# $Revision: 1.35 $ $Date: 2001-07-18 19:43:34 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -22,8 +22,6 @@ Prereq:		grep
 Prereq:		fileutils
 BuildRequires:	autoconf
 BuildRequires:	ncurses-devel >= 5.1
-BuildRequires:	glibc-static
-BuildRequires:	ncurses-static
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
@@ -38,23 +36,6 @@ most features of ksh, bash, and tcsh.
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh.
 
-%package static
-Summary:	Statically linked Enhanced bourne shell
-Summary(pl):	Zaawansowany bourne SHell - linkowany statycznie
-Group:		Applications/Shells
-Group(de):	Applikationen/Shells
-Group(pl):	Aplikacje/Pow³oki
-Requires:	%{name} = %{version}
-
-%description static
-zsh is an enhanced version of the Bourne shell with csh additions and
-most features of ksh, bash, and tcsh.
-
-%description -l pl static
-zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
-wiêkszo¶æ cech ksh, bash i tcsh. W tym pakiecie jest statycznie
-linkowany.
-
 %prep
 %setup -q
 %patch0 -p1
@@ -65,10 +46,6 @@ linkowany.
 
 %build
 autoconf
-
-%configure
-%{__make}
-mv -f Src/zsh Src/zsh.static
 
 %configure \
 	--enable-maildir-support
@@ -82,7 +59,6 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-install Src/zsh.static	$RPM_BUILD_ROOT%{_bindir}
 install Doc/zsh.info*	$RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogout,zlogin,zshenv}
@@ -110,19 +86,6 @@ fi
 
 %postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
-
-%post static
-if [ ! -f /etc/shells ]; then
-	echo "%{_bindir}/zsh.static" >> /etc/shells
-else
-	grep -q '^%{_bindir}/zsh\.static$' /etc/shells || echo "%{_bindir}/zsh.static" >> /etc/shells
-fi
-
-%preun static
-if [ "$1" = "0" ]; then
-	grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
-	mv -f /etc/shells.new /etc/shells
-fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
