@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.1.1
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -31,7 +31,7 @@ Patch5:		%{name}-completions.patch
 Patch6:		%{name}-zle_misc.patch
 BuildRequires:	autoconf
 %{!?_without_static:BuildRequires:	glibc-static}
-BuildRequires:	libcap-devel
+BuildConflicts:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{!?_without_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
