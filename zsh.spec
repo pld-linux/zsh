@@ -1,4 +1,4 @@
-# $Revision: 1.35 $ $Date: 2001-07-18 19:43:34 $
+# $Revision: 1.36 $ $Date: 2001-07-19 07:21:15 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -100,7 +100,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/zsh/%{version}/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
-
-%files static
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/zsh.static
