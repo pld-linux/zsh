@@ -123,7 +123,7 @@ skonsolidowana statycznie.
 %package guide
 Summary:	A User's Guide to the Z-Shell
 Summary(pl):	Podrêcznik U¿ytkownika Z-Shella
-Group:		Applications/Shells
+Group:		Documentation
 URL:		http://zsh.sunsite.dk/Guide/
 
 %description guide
