@@ -12,23 +12,20 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.1.1
-Release:	9
+Version:	4.2.0
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	48958b1a3fc86261a26eea40a4f7d4af
+# Source0-md5:	866bcdad8c0c4974650f5eff395a9a35
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-tinfo.patch
-Patch2:		%{name}-addons.patch
-Patch3:		%{name}-paths.patch
-Patch4:		%{name}-no_nis.patch
-Patch5:		%{name}-completions.patch
-Patch6:		%{name}-zle_misc.patch
+Patch1:		%{name}-addons.patch
+Patch2:		%{name}-paths.patch
+Patch3:		%{name}-completions.patch
 BuildRequires:	autoconf
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -138,9 +135,6 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p0
 
 install %{SOURCE2} .
 

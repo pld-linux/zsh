@@ -1,16 +1,16 @@
-diff -ruN zsh-4.0.6./Completion/Unix/Command/.distfiles zsh-4.0.6/Completion/Unix/Command/.distfiles
---- zsh-4.1.1.orig/Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
-+++ zsh-4.1.1/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
-@@ -20,5 +20,5 @@
- _netcat       _larch        _texinfo	  _figlet       _elinks       _tidy
- _global       _global_tags  _ant          _lsof         _mt           _xmlsoft
- _perforce     _python       _antiword     _screen       _renice
--_ecasound     _gpg
-+_ecasound     _gpg          _sms
+diff -ruN zsh-4.2.0./Completion/Unix/Command/.distfiles zsh-4.2.0/Completion/Unix/Command/.distfiles
+--- zsh-4.2.0./Completion/Unix/Command/.distfiles	2004-03-12 17:46:08.000000000 +0100
++++ zsh-4.2.0/Completion/Unix/Command/.distfiles	2004-03-27 16:45:23.063820448 +0100
+@@ -24,5 +24,5 @@
+ _mt           _mtr          _nice         _nmap
+ _perforce     _printenv     _python       _raggle       _rar	      _renice
+ _sablotron    _screen       _sed          _subversion   _tla
+-_uniq         _vorbis       _vux          _wiggle       _xmlsoft
++_uniq         _vorbis       _vux          _wiggle       _xmlsoft      _sms
  '
-diff -ruN zsh-4.0.6./Completion/Unix/Command/_sms zsh-4.0.6/Completion/Unix/Command/_sms
---- zsh-4.1.1.orig/Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
-+++ zsh-4.1.1/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
+diff -ruN zsh-4.2.0./Completion/Unix/Command/_sms zsh-4.2.0/Completion/Unix/Command/_sms
+--- zsh-4.2.0./Completion/Unix/Command/_sms	1970-01-01 01:00:00.000000000 +0100
++++ zsh-4.2.0/Completion/Unix/Command/_sms	2004-03-27 16:45:03.001870328 +0100
 @@ -0,0 +1,61 @@
 +#compdef sms smsaddr
 +
