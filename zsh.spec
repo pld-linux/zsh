@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.2.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -172,7 +172,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 %{?with_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 
-:> $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zshenv}
+touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zshenv}
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}
 
@@ -194,6 +194,9 @@ else
 	grep -q '^%{_bindir}/zsh$' /etc/shells || echo "%{_bindir}/zsh" >> /etc/shells
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
+for i in zlogin zlogout zprofile zshenv zshrc; do
+	[ -f /etc/$i ] && zsh -c "zcompile /etc/$i"
+done
 
 %preun
 if [ "$1" = "0" ]; then
