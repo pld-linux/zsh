@@ -1,71 +1,5 @@
-diff -ruN zsh-4.2.0./Completion/Unix/Command/_sms zsh-4.2.0/Completion/Unix/Command/_sms
---- zsh-4.2.0./Completion/Unix/Command/_sms	1970-01-01 01:00:00.000000000 +0100
-+++ zsh-4.2.0/Completion/Unix/Command/_sms	2004-03-27 16:45:03.001870328 +0100
-@@ -0,0 +1,61 @@
-+#compdef sms smsaddr
-+
-+# Copyright (c) 2002 GoTaR <gotar@priv0.onet.pl>
-+
-+#_sms_aliases0 () {
-+##	compadd "$@" $(print ${(f)"$(smsaddr -l | cut -f1)"})
-+#	local smsas
-+#	smsas=(`smsaddr -l | perl -ne 's/	+/:/; if (/^'$PREFIX'/) {print} else {if (/:'$PREFIX'/) {/^(.*):(.*)$/; print "$2:$1 "}}'`)
-+#	_describe "SMS alias" "smsas"
-+#}
-+
-+_sms_aliases () {
-+	local smsas
-+	smsas=(${(f)"$(smsaddr -l)"})
-+	smsas=(${smsas/	##/:})
-+if [[ -n "$PREFIX$SUFFIX" ]]; then
-+	smsas=($smsas ${smsas/(#s)(#b)(^($PREFIX)*):(*)(#e)/$match[3]:$match[1]})
-+fi
-+#	smsas=(${(M)smsas:#$PREFIX*})
-+	_describe "SMS alias" smsas
-+}
-+
-+_sms_alias () {
-+	local smsas
-+	smsas=(${(f)"$(smsaddr -l)"})
-+	smsas=(${smsas/	##/:})
-+	_describe "SMS alias" smsas
-+}
-+
-+#_sms_aliases1 () {
-+#smsaddr -l | while read alias number; do
-+#	if [[ $alias == $PREFIX*$SUFFIX || $number == $PREFIX*$SUFFIX ]]; then
-+#		compadd -U -- $alias
-+#	fi
-+#done
-+#}	       
-+
-+case "$service" in
-+sms)
-+	_arguments \
-+		'1:SMS alias or number:_sms_aliases' \
-+		':message:_guard' \
-+		'--split[split to max n messages]:number of messages:(2 5 9)' \
-+		'--supersms[send via SuperSMS.pl gateway]' \
-+		'--czat[send via Idea.czat gateway]' \
-+		'--dlogin[login for Idea.czat]:login:_guard' \
-+		'--pf[send via Panorama Firm gateway]' \
-+		'--plusmail[send message to PlusGSM network via e-mail gateway, not www]' \
-+		'--cfg[config file]:config file:_files' \
-+		'--check[check for the new version of this program]' \
-+		'--from[sender e-mail adress for PlusGSM and Idea gateways]:e-mail:_guard' \
-+		'--ip[sender IP]:IP:_guard' \
-+		'--sign[set signature]:signature:_guard' \
-+		'--thanksto'
-+	;;
-+smsaddr)
-+	_arguments \
-+		'(-r -l)-a[add new entry]:New entry name:_guard:Phone number:_guard' \
-+		'(-a -l)-r[remove existing entry]:SMS alias:_sms_alias' \
-+		'(-a -r)-l[list entry]:SMS alias:_sms_alias'
-+esac
-diff -ruN zsh-4.2.1./Completion/Redhat/Command/_rpm zsh-4.2.1/Completion/Redhat/Command/_rpm
---- zsh-4.2.1./Completion/Redhat/Command/_rpm	2004-03-19 12:25:24.000000000 +0100
-+++ zsh-4.2.1/Completion/Redhat/Command/_rpm	2004-09-02 22:33:39.092002768 +0200
+--- zsh-4.2.3/Completion/Redhat/Command/_rpm	2005-01-12 10:55:18.000000000 +0000
++++ zsh-4.2.3.new/Completion/Redhat/Command/_rpm	2005-01-16 09:18:15.183295304 +0000
 @@ -100,6 +100,7 @@
      '(-b)-t+[build mode (tar file)]:build stage:((p\:execute\ \%prep\ stage l\:do\ a\ list\ check c\:execute\ build\ stage i\:execute\ install\ stage b\:build\ a\ binary\ package a\:build\ binary\ and\ source\ packages)):*:build:->build_t' \
      '--rmsource:*:spec file:->spec_files' \
@@ -74,13 +8,3 @@ diff -ruN zsh-4.2.1./Completion/Redhat/Command/_rpm zsh-4.2.1/Completion/Redhat/
      '--eval:macro:->macros' && ret=0
  
    # As long as we have a state name...
-diff -ruN zsh-4.2.1./Completion/Unix/Command/.distfiles zsh-4.2.1/Completion/Unix/Command/.distfiles
---- zsh-4.2.1./Completion/Unix/Command/.distfiles	2004-08-13 12:22:24.000000000 +0200
-+++ zsh-4.2.1/Completion/Unix/Command/.distfiles	2004-09-02 22:32:52.462091592 +0200
-@@ -25,5 +25,5 @@
- _perforce     _printenv     _python       _raggle       _rar	      _renice
- _sablotron    _screen       _sed          _subversion   _tla          _php
- _uniq         _vorbis       _vux          _wiggle       _xmlsoft
--_bogofilter
-+_bogofilter   _sms
- '
