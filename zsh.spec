@@ -1,4 +1,4 @@
-# $Revision: 1.15 $ $Date: 2000-06-06 11:44:22 $
+# $Revision: 1.16 $ $Date: 2000-06-09 07:24:26 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -97,7 +97,7 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}
 
