@@ -1,4 +1,4 @@
-# $Revision: 1.67 $ $Date: 2003-05-25 06:28:47 $
+# $Revision: 1.68 $ $Date: 2003-05-26 16:25:55 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -19,8 +19,10 @@ License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
+# Source0-md5:	ec841e1c92a44879c503ffb32a3e5326
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
+# Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
