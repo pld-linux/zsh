@@ -1,4 +1,4 @@
-# $Revision: 1.36 $ $Date: 2001-07-19 07:21:15 $
+# $Revision: 1.37 $ $Date: 2001-07-19 07:37:25 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	4.0.2
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -35,6 +35,21 @@ most features of ksh, bash, and tcsh.
 %description -l pl
 zsh jest ulepszon± pow³ok± Bourne'a z elementami pow³oki csh. Posiada
 wiêkszo¶æ cech ksh, bash i tcsh.
+
+%package completions
+Summary:        Files needed for advanced TAB-completion
+Summary(pl):    Pliki potrzebne dla zaawansowanej TAB-completion
+Group:          Applications/Shells
+Group(de):      Applikationen/Shells
+Group(pl):      Aplikacje/Pow³oki
+Requires:       %{name} = %{version}
+
+%description completions
+This package contains files needed for advanced tab completion in zsh.
+
+%description -l pl completions
+Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
+TAB-completion.
 
 %prep
 %setup -q
@@ -92,11 +107,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz Etc/* Util Functions StartupFiles
+%doc *.gz Etc/* Util StartupFiles
 %attr(755,root,root) %{_bindir}/zsh
 %config %{_sysconfdir}/*
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}
+%dir %{_datadir}/zsh/
+%dir %{_datadir}/zsh/site-functions
+%dir %{_datadir}/zsh/%{version}
+%dir %{_datadir}/zsh/%{version}/functions
+%{_datadir}/zsh/%{version}/functions/[^_c]*
+%{_datadir}/zsh/%{version}/functions/c[^o]*
+%{_datadir}/zsh/%{version}/functions/co[^m]*
 %attr(755,root,root) %{_libdir}/zsh/%{version}/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
+
+%files completions
+%defattr(644,root,root,755)
+%{_datadir}/zsh/%{version}/functions/comp*
+%{_datadir}/zsh/%{version}/functions/_*
