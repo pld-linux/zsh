@@ -1,4 +1,4 @@
-# $Revision: 1.64 $ $Date: 2003-04-21 19:24:37 $
+# $Revision: 1.65 $ $Date: 2003-04-24 11:54:34 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -143,7 +143,7 @@ install %{SOURCE2} .
 %build
 %{__autoconf}
 
-newoptflags="%{optflags} -fomit-frame-pointer"
+newoptflags="%{optflags} -Os -fomit-frame-pointer"
 %define optflags $newoptflags
 
 %if %{!?_without_static:1}%{?_without_static:0}
