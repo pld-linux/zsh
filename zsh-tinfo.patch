@@ -1,14 +1,22 @@
-diff -Nru zsh-3.1.7.orig/configure.in zsh-3.1.7/configure.in
---- zsh-3.1.7.orig/configure.in	Wed May 31 14:57:54 2000
-+++ zsh-3.1.7/configure.in	Wed May 31 15:01:33 2000
-@@ -515,8 +515,8 @@
- dnl Prefer BSD termcap library to SysV curses library, except on certain
- dnl versions of AIX and HP-UX.
- case "$host_os" in
--  aix*|hpux10.*|hpux11.*) termcap_curses_order="curses ncurses termcap" ;;
+--- zsh-4.0.2/zshconfig.ac~	Tue Jun 26 12:08:54 2001
++++ zsh-4.0.2/zshconfig.ac	Fri Jun 29 07:54:12 2001
+@@ -547,15 +547,15 @@
+ AC_ARG_WITH(curses-terminfo,
+ [  --with-curses-terminfo     use terminfo support from curses library],
+ [if test x$withval = xyes; then
+-  termcap_curses_order="curses ncurses termcap"
++  termcap_curses_order="tinfo curses ncurses termcap"
+   AC_SEARCH_LIBS(tigetstr, [$termcap_curses_order])
+ else
+-  termcap_curses_order="termcap curses ncurses"
++  termcap_curses_order="tinfo termcap curses ncurses"
+ fi],
+ [case "$host_os" in
+   aix*|hpux10.*|hpux11.*|solaris*)
+-      termcap_curses_order="curses ncurses termcap" ;;
 -  *)             termcap_curses_order="termcap curses ncurses" ;;
-+  aix*|hpux10.*|hpux11.*) termcap_curses_order="curses ncurses termcap tinfo" ;;
-+  *)             termcap_curses_order="termcap curses ncurses tinfo" ;;
- esac
++      termcap_curses_order="tinfo curses ncurses termcap" ;;
++  *)             termcap_curses_order="tinfo termcap curses ncurses" ;;
+ esac])dnl
  
- for lib in $termcap_curses_order; do
+ AC_SEARCH_LIBS(tgetent, [$termcap_curses_order])
