@@ -1,4 +1,4 @@
-# $Revision: 1.22 $ $Date: 2000-12-04 07:21:30 $
+# $Revision: 1.23 $ $Date: 2000-12-05 17:38:51 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -93,19 +93,22 @@ if [ ! -f /etc/shells ]; then
 	echo "/bin/zsh" >> /etc/shells
 else
 	while read SHNAME; do
-	        elif [ "$SHNAME" = "/bin/zsh" ]; then
+	        if [ "$SHNAME" = "/bin/zsh" ]; then
         	        HAS_ZSH=1
 	        fi
 	done < /etc/shells
-	[ -n "$HAS_ZSH" ] || echo "/bin/zsh" >> /etc/shells
+	if [ -n "$HAS_ZSH" ]; then
+		echo "/bin/zsh" >> /etc/shells
+	fi
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %preun
 if [ "$1" = "0" ]; then
 	while read SHNAME; do
-		[ "$SHNAME" = "/bin/zsh" ] ||\
-		echo "$SHNAME"
+		if [ "$SHNAME" = "/bin/zsh" ]; then
+			echo "$SHNAME"
+		fi
 	done < /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
@@ -116,18 +119,21 @@ if [ ! -f /etc/shells ]; then
 	echo "/bin/zsh.static" >> /etc/shells
 else
 	while read SHNAME; do
-	        elif [ "$SHNAME" = "/bin/zsh.static" ]; then
+	        if [ "$SHNAME" = "/bin/zsh.static" ]; then
         	        HAS_ZSH_STATIC=1
 	        fi
 	done < /etc/shells
-	[ -n "$HAS_ZSH_STATIC" ] || echo "/bin/zsh.static" >> /etc/shells
+	if [ -n "$HAS_ZSH_STATIC" ]; then
+		 echo "/bin/zsh.static" >> /etc/shells
+	fi
 fi
 
 %preuni static
 if [ "$1" = "0" ]; then
 	while read SHNAME; do
-		[ "$SHNAME" = "/bin/zsh.static" ] ||\
-		echo "$SHNAME"
+		if [ "$SHNAME" = "/bin/zsh.static" ]; then
+			echo "$SHNAME"
+		fi
 	done < /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
