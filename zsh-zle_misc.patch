@@ -1,0 +1,14 @@
+--- Src/Zle/zle_misc.c	27 Feb 2003 11:32:53 -0000	1.8
++++ Src/Zle/zle_misc.c	29 Jul 2003 09:36:12 -0000
+@@ -372,8 +372,10 @@
+     int cc, kctstart = kct;
+     Cutbuffer buf;
+ 
+-    if (!(lastcmd & ZLE_YANK) || !kring)
++    if (!(lastcmd & ZLE_YANK) || !kring || !kctbuf) {
++	kctbuf = NULL;
+ 	return 1;
++    }
+     do {
+ 	/*
+ 	 * This is supposed to make the yankpop loop
