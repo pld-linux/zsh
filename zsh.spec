@@ -1,4 +1,4 @@
-# $Revision: 1.43 $ $Date: 2001-11-15 23:26:06 $
+# $Revision: 1.44 $ $Date: 2002-01-18 02:15:48 $
 #
 # Conditional build:
 # _without_static       - without static version
