@@ -1,0 +1,252 @@
+diff -ruN zsh-4.0.6./Completion/Unix/Command/.distfiles zsh-4.0.6/Completion/Unix/Command/.distfiles
+--- zsh-4.0.6./Completion/Unix/Command/.distfiles	Fri Aug  9 15:30:12 2002
++++ zsh-4.0.6/Completion/Unix/Command/.distfiles	Mon Apr 21 17:46:39 2003
+@@ -18,4 +18,5 @@
+ _user_admin   _rsync        _arping	  _spamassassin _mtools	      _fsh
+ _chkconfig    _cdcd         _irssi	  _sccs
+ _global       _global_tags  _figlet       _ifconfig     _last
++_gqview _mplayer _pdf _ps _sms
+ '
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_gqview zsh-4.0.6/Completion/Unix/Command/_gqview
+--- zsh-4.0.6./Completion/Unix/Command/_gqview	Thu Jan  1 01:00:00 1970
++++ zsh-4.0.6/Completion/Unix/Command/_gqview	Wed Oct 30 13:39:52 2002
+@@ -0,0 +1,19 @@
++#compdef gqview
++
++_arguments \
++	'(--with-tools -t --without-tools)+t[force show of tools]' \
++	'(+t -t --without-tools)--with-tools' \
++	'(+t --with-tools --without-tools)-t[force hide of tools]' \
++	'(+t --with-tools -t)--without-tools' \
++	'(--fullscreen)-f[start in full screen mode]' \
++	'(-f)--fullscreen' \
++	'(--slideshow)-s[start in slideshow mode]' \
++	'(-s)--slideshow' \
++	'(--list)-l[open collection window for command line]' \
++	'(-l)--list' \
++	'--debug[turn on debug output]' \
++	'(--version)-v[print version info]' \
++	'(-v)--version' \
++	'(--help)-h[show help]' \
++	'(-h)--help' \
++	'*:picture file:_files -/ -g \*.\(\#i\)\(jpg\|jpe\|jpeg\|png\|gif\|tif\|tiff\|bmp\)'
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_mplayer zsh-4.0.6/Completion/Unix/Command/_mplayer
+--- zsh-4.0.6./Completion/Unix/Command/_mplayer	Thu Jan  1 01:00:00 1970
++++ zsh-4.0.6/Completion/Unix/Command/_mplayer	Fri Apr  4 19:28:32 2003
+@@ -0,0 +1,112 @@
++#compdef mplayer
++
++# Copyright (c) 2002 GoTaR <gotar@priv0.onet.pl>
++
++local state
++
++_vo () {
++#	compadd "$@" $(print ${(f)"$(mplayer -vo help 2>/dev/null | cut -f2 -d'	')"})
++	local vo
++#	vo=(`mplayer -vo help 2>/dev/null | perl -ne 's/^	//; s/	/:/; s/ /ÿ/g; print'`)
++	vo=(`mplayer -vo help | perl -ne 's/ /ÿ/g; print if s/^	(\w+)	(.+)$/$1:$2/'`)
++	vo=(${vo//ÿ/ })
++	_describe "Video output" vo
++}
++
++_ao () {
++#	compadd "$@" $(print ${(f)"$(mplayer -ao help 2>/dev/null | cut -f2 -d'	')"})
++	local ao
++#	ao=(`mplayer -ao help 2>/dev/null | perl -ne 's/^	//; s/	/:/; s/ /ÿ/g; print'`)
++	ao=(`mplayer -ao help | perl -ne 's/ /ÿ/g; print if s/^	(\w+)	(.+)$/$1:$2/'`)
++	ao=(${ao//ÿ/ })
++	_describe "Audio output" ao
++}
++
++# TODO comment to the right
++
++_vc () {
++	local vc
++	vc=(`mplayer -vc help | perl -ne 'unless (/:/) {s/ +/ÿ/g; s/(\w+?)ÿ(\w+?)ÿ(\w+?)ÿ(.*)/$1:$4ÿ($2,ÿ$3)/; print}'`)
++	vc=(${vc//ÿ/ })
++	_describe "Video codecs" vc
++}
++
++_ac () {
++	local ac
++	ac=(`mplayer -ac help | perl -ne 'unless (/:/) {s/ +/ÿ/g; s/(\w+?)ÿ(\w+?)ÿ(\w+?)ÿ(.*)/$1:$4ÿ($2,ÿ$3)/; print}'`)
++	ac=(${ac//ÿ/ })
++	_describe "Audio codecs" ac
++}
++
++_vop () {
++	local vop
++	vop=(`mplayer -vf help | perl -ne 's/ +: /:/g; s/ /_/g; print if s/^__(\w+):(.+)$/$1\[$2\]/'`)
++	vop=(${vop//_/ })
++	_values -s , "Video filters" "$vop[@]"
++}
++
++_plugins () {
++	_values -s , "Audio output plugins" resample surround format volume extrastereo volnorm delay
++}
++
++_mul_coefficient () {
++	_values -s : "coefficient" "-1[swap channels]" "0[mono]" "1[normal]" "2.5[default]" "4[high]"
++}
++
++_aop () {
++	local opts
++	opts=("fout[output frequency (Hz) - resample plugin]:frequency [Hz]:(21000 44100 48000)"
++		"format[output format - format plugin]:format:_guard"
++		"volume[volume level - volume plugin]:volume:(0 050 100 150 200 255)"
++		"softclip[compressor - volume plugin]"
++		"mul[coefficient - extrastereo plugin]:coefficient:_mul_coefficient"
++		"delay[delay sound - delay plugin]:delay:(1 3 5)"
++	)
++	_values -s : "Audio output plugins options" "list[list of plugins]:::_plugins" "$opts[@]"
++}
++
++_osdlevel () {
++	local osds
++	osds=(0:none 1:volume+seek 2:volume+seek+timer+percentage 3:volume+seek+timer+percentage+total)
++	_describe "OSD level" osds
++}
++
++_icelayer () {
++	local icelays
++	icelays=(0:Desktop 2:Below 4:Normal 6:OnTop 8:Dock 10:AboveDock 12:Menu)
++	_describe "IceWM layer" icelays
++}
++
++_arguments \
++	'-quiet' \
++	'-osdlevel[OSD startpoint]:OSD level:_osdlevel' \
++	'(-rootwin)-icelayer:icelayer:_icelayer' \
++	'(-icelayer)-rootwin[play in root window]' \
++	'(-ao -aop)-nosound[disable sound]' \
++	'(-nosound)-ao[audio output]:audio output:_ao' \
++	'(-nosound)*-aop[audio output filter]:audio output filter:_aop' \
++	'-vo[video output]:video output:_vo' \
++	'*-vf[video output filters]:video output filters:_vop' \
++	'-vc[video codecs]:video codec:_vc' \
++	'-ac[audio codecs]:audio codec:_ac' \
++	'-flip[flip image]' \
++	'-fs[enable fullscreen]' \
++	'-zoom[enable software zoom]' \
++	'-framedrop[enable frame dropping]' \
++	'-hardframedrop[enable more intense frame dropping]' \
++	'-double[enable doublebuffering]' \
++	'-nobps[use interleave sync]' \
++	'-ni[non-interleaved]' \
++	'-idx[rebuild index]' \
++	'-forceidx[force rebuilding of index]' \
++	'(-nocache)-cache[cache size]:cache size:(1024 2048 4096 8192)' \
++	'(-cache)-nocache[don'\''t use cache]' \
++	'-noautosub[disable automatic subtitles]' \
++	'*-sub[subtitles]:subtitles:_files -/ -g \*.\(\#i\)txt' \
++	'*:mfiles:->mfiles' && return 0
++
++case "$state" in
++	mfiles) _arguments \
++		'*:multimedia file:_files -/ -g \*.\(\#i\)\(mp3\|mpg\|mpe\|mpeg\|m1v\|avi\|asf\|wma\|wmv\|asx\|mov\|qt\|rm\)'
++esac
++			
+\ No newline at end of file
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_pdf zsh-4.0.6/Completion/Unix/Command/_pdf
+--- zsh-4.0.6./Completion/Unix/Command/_pdf	Thu Jan  1 01:00:00 1970
++++ zsh-4.0.6/Completion/Unix/Command/_pdf	Sat Nov 30 16:41:23 2002
+@@ -0,0 +1,16 @@
++#compdef acroread pdf2dsc pdf2ps pdfimages pdfinfo pdftopbm pdftops pdftotext xpdf pdfopt pdffonts
++
++local expl ext=''
++
++# ghostscript:
++#  pdf2dsc pdf2ps pdfopt
++# xpdf:
++#  pdfimages pdfinfo pdftopbm pdftops pdftotext xpdf pdffonts
++
++if [[ "$1" == '-z' ]]; then
++  ext='(|.gz|.Z)'
++  shift
++fi
++
++_description files expl 'PDF file'
++_files "$@" "$expl[@]" -g "*.(#i)pdf$ext"
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_ps zsh-4.0.6/Completion/Unix/Command/_ps
+--- zsh-4.0.6./Completion/Unix/Command/_ps	Thu Jan  1 01:00:00 1970
++++ zsh-4.0.6/Completion/Unix/Command/_ps	Sat Nov 30 17:02:30 2002
+@@ -0,0 +1,14 @@
++#compdef ps2epsi ps2pdf psmulti pswrap ps2pdf12 ps2pdf13 ps2pdf14 ps2pdfwr ps2ps
++
++local expl ext=''
++
++# ghostscript:
++#  ps2epsi ps2pdf ps2pdf12 ps2pdf13 ps2pdf14 ps2pdfwr ps2ps
++
++if [[ "$1" == '-z' ]]; then
++  ext='(|.gz|.Z)'
++  shift
++fi
++
++_description files expl 'PostScript file'
++_files "$@" "$expl[@]" -g "*.(#i)(ps|eps)$ext"
+diff -ruN zsh-4.0.6./Completion/Unix/Command/_sms zsh-4.0.6/Completion/Unix/Command/_sms
+--- zsh-4.0.6./Completion/Unix/Command/_sms	Thu Jan  1 01:00:00 1970
++++ zsh-4.0.6/Completion/Unix/Command/_sms	Fri Apr  4 20:17:13 2003
+@@ -0,0 +1,61 @@
++#compdef sms smsaddr
++
++# Copyright (c) 2002 GoTaR <gotar@priv0.onet.pl>
++
++#_sms_aliases0 () {
++##	compadd "$@" $(print ${(f)"$(smsaddr -l | cut -f1)"})
++#	local smsas
++#	smsas=(`smsaddr -l | perl -ne 's/	+/:/; if (/^'$PREFIX'/) {print} else {if (/:'$PREFIX'/) {/^(.*):(.*)$/; print "$2:$1 "}}'`)
++#	_describe "SMS alias" "smsas"
++#}
++
++_sms_aliases () {
++	local smsas
++	smsas=(${(f)"$(smsaddr -l)"})
++	smsas=(${smsas/	##/:})
++#if [[ -n "$PREFIX$SUFFIX" ]]; then
++	smsas=($smsas ${smsas/(#s)(#b)(^($PREFIX)*):(*)(#e)/$match[3]:$match[1]})
++#fi
++#	smsas=(${(M)smsas:#$PREFIX*})
++	_describe "SMS alias" smsas
++}
++
++_sms_alias () {
++	local smsas
++	smsas=(${(f)"$(smsaddr -l)"})
++	smsas=(${smsas/	##/:})
++	_describe "SMS alias" smsas
++}
++
++#_sms_aliases1 () {
++#smsaddr -l | while read alias number; do
++#	if [[ $alias == $PREFIX*$SUFFIX || $number == $PREFIX*$SUFFIX ]]; then
++#		compadd -U -- $alias
++#	fi
++#done
++#}	       
++
++case "$service" in
++sms)
++	_arguments \
++		'1:SMS alias or number:_sms_aliases' \
++		':message:_guard' \
++		'--split[split to max n messages]:number of messages:(2 5 9)' \
++		'--supersms[send via SuperSMS.pl gateway]' \
++		'--czat[send via Idea.czat gateway]' \
++		'--dlogin[login for Idea.czat]:login:_guard' \
++		'--pf[send via Panorama Firm gateway]' \
++		'--plusmail[send message to PlusGSM network via e-mail gateway, not www]' \
++		'--cfg[config file]:config file:_files' \
++		'--check[check for the new version of this program]' \
++		'--from[sender e-mail adress for PlusGSM and Idea gateways]:e-mail:_guard' \
++		'--ip[sender IP]:IP:_guard' \
++		'--sign[set signature]:signature:_guard' \
++		'--thanksto'
++	;;
++smsaddr)
++	_arguments \
++		'(-r -l)-a[add new entry]:New entry name:_guard:Phone number:_guard' \
++		'(-a -l)-r[remove existing entry]:SMS alias:_sms_alias' \
++		'(-a -r)-l[list entry]:SMS alias:_sms_alias'
++esac

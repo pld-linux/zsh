@@ -1,4 +1,4 @@
-# $Revision: 1.61 $ $Date: 2003-02-11 20:08:25 $
+# $Revision: 1.62 $ $Date: 2003-04-21 15:52:51 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -26,6 +26,7 @@ Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
 Patch3:		%{name}-paths.patch
 Patch4:		%{name}-no_nis.patch
+Patch5:		%{name}-completions.patch
 PreReq:		grep
 PreReq:		fileutils
 BuildRequires:	autoconf
@@ -135,6 +136,7 @@ Podrêcznik U¿ytkownika Z-Shella.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 install %{SOURCE2} .
 
