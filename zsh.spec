@@ -13,7 +13,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.2.1
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
