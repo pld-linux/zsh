@@ -179,7 +179,40 @@ echo ". %{_sysconfdir}/profile" >> $RPM_BUILD_ROOT%{_sysconfdir}/zprofile
 cat << EOF > $RPM_BUILD_ROOT%{_sysconfdir}/zshrc
 # System wide functions and aliases
 # Environment stuff goes in /etc/profile
+
+# Aliases:
 alias which=whence
+
+# Setup key bindings:
+bindkey -e >/dev/null 2>&1
+bindkey "^[[1~" beginning-of-line >/dev/null 2>&1
+bindkey "^[[H" beginning-of-line >/dev/null 2>&1
+bindkey "^[[4~" end-of-line >/dev/null 2>&1
+bindkey "^[[F" end-of-line >/dev/null 2>&1
+bindkey "^[[3~" delete-char >/dev/null 2>&1
+bindkey "^[[5~" history-search-backward >/dev/null 2>&1
+bindkey "^[[6~" history-search-forward >/dev/null 2>&1
+
+# xterm:
+bindkey \`tput khome\` beginning-of-line >/dev/null 2>&1
+bindkey \`tput kend\` end-of-line >/dev/null 2>&1
+bindkey \`tput kdch1\` delete-char >/dev/null 2>&1
+bindkey \`tput kpp\` up-history >/dev/null 2>&1
+bindkey \`tput knp\` end-of-history >/dev/null 2>&1
+bindkey \`tput kcuu1\` history-beginning-search-backward >/dev/null 2>&1
+bindkey \`tput kcud1\` history-beginning-search-forward >/dev/null 2>&1
+
+case "$TERM" in
+	aterm)
+		bindkey '^[[A' up-line-or-history >/dev/null 2>&1
+		bindkey '^[[B' down-line-or-history >/dev/null 2>&1
+		bindkey '^[[D' backward-char >/dev/null 2>&1
+		bindkey '^[[C' forward-char >/dev/null 2>&1
+		;;
+	xterm*)
+		precmd () { print -Pn "\e]0;%n@%m: %~\a"i; }
+		;;
+esac
 EOF
 
 rm -f Etc/Makefile*
