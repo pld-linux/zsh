@@ -4,6 +4,12 @@ alias which=whence
 alias cd='builtin cd'
 alias precmd=' precmd'
 
+# SYSTEM WIDE ALIASES ETC.
+for i in `find /etc/shrc.d -name '*.sh'` ; do
+	. $i
+done
+unset i
+
 setopt hist_ignore_space hist_ignore_all_dups list_packed transient_rprompt
 
 bindkey -e >/dev/null 2>&1
