@@ -73,3 +73,14 @@ diff -ruN zsh-4.2.0./Completion/Unix/Command/_sms zsh-4.2.0/Completion/Unix/Comm
 +		'(-a -l)-r[remove existing entry]:SMS alias:_sms_alias' \
 +		'(-a -r)-l[list entry]:SMS alias:_sms_alias'
 +esac
+diff -Nura zsh-4.2.0/Completion/Redhat/Command/_rpm zsh-4.2.0.new/Completion/Redhat/Command/_rpm
+--- zsh-4.2.0/Completion/Redhat/Command/_rpm	2004-01-21 14:53:29.000000000 +0100
++++ zsh-4.2.0.new/Completion/Redhat/Command/_rpm	2004-06-05 23:21:16.000000000 +0200
+@@ -100,6 +100,7 @@
+     '(-b)-t+[build mode (tar file)]:build stage:((p\:execute\ \%prep\ stage l\:do\ a\ list\ check c\:execute\ build\ stage i\:execute\ install\ stage b\:build\ a\ binary\ package a\:build\ binary\ and\ source\ packages)):*:build:->build_t' \
+     '--rmsource:*:spec file:->spec_files' \
+     --{rebuild,recompile}':*:source rpm file:->package_src' \
++    '--define:macro:->macros' \
+     '--eval:macro:->macros' && ret=0
+ 
+   # As long as we have a state name...
