@@ -1,4 +1,4 @@
-# $Revision: 1.63 $ $Date: 2003-04-21 18:35:39 $
+# $Revision: 1.64 $ $Date: 2003-04-21 19:24:37 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -18,7 +18,7 @@ Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
-Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 Patch0:		%{name}-info.patch
