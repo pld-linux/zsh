@@ -1,12 +1,12 @@
-# $Revision: 1.30 $ $Date: 2001-05-18 16:14:57 $
+# $Revision: 1.31 $ $Date: 2001-06-29 06:30:30 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
 Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
-Version:	3.1.9
-Release:	9
+Version:	4.0.2
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -14,11 +14,9 @@ Group(pl):	Aplikacje/Pow³oki
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
-Patch1:		%{name}-DESTDIR.patch
-Patch2:		%{name}-sys_capability.patch
-Patch3:		%{name}-cap_get_proc.patch
-Patch4:		%{name}-tinfo.patch
-Patch5:		%{name}-addons.patch
+Patch1:		%{name}-tinfo.patch
+Patch2:		%{name}-addons.patch
+Patch3:		%{name}-paths.patch
 Prereq:		grep
 Prereq:		fileutils
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
@@ -62,8 +60,6 @@ linkowany.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 autoconf
