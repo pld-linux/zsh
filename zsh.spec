@@ -1,4 +1,4 @@
-# $Revision: 1.59 $ $Date: 2002-11-21 00:29:55 $
+# $Revision: 1.60 $ $Date: 2002-11-21 09:56:04 $
 #
 # Conditional build:
 # _without_static	- without static version
@@ -14,7 +14,7 @@ Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.0.6
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
@@ -185,6 +185,12 @@ rm -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
 install %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/pl/man1/zsh.1
 
+# for kdesdk's completion
+ln -sf %{version} $RPM_BUILD_ROOT%{_datadir}/zsh/latest
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
 if [ ! -f /etc/shells ]; then
 	echo "%{_bindir}/zsh" >> /etc/shells
@@ -193,14 +199,11 @@ else
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
-ln -sf %{_datadir}/zsh/%{version} %{_datadir}/zsh/latest
-
 %preun
 if [ "$1" = "0" ]; then
 	grep -v '^%{_bindir}/zsh$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
-rm -rf %{_datadir}/zsh/latest
 
 %postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
@@ -218,9 +221,6 @@ if [ "$1" = "0" ]; then
 	mv -f /etc/shells.new /etc/shells
 fi
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
 %doc Etc/* README LICENCE ChangeLog META-FAQ Util StartupFiles
@@ -228,8 +228,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/*
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}
-%dir %{_datadir}/zsh/
+%dir %{_datadir}/zsh
 %dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/latest
 %dir %{_datadir}/zsh/%{version}
 %dir %{_datadir}/zsh/%{version}/functions
 %{_datadir}/zsh/%{version}/functions/[^_c]*
