@@ -1,4 +1,4 @@
-# $Revision: 1.31 $ $Date: 2001-06-29 06:30:30 $
+# $Revision: 1.32 $ $Date: 2001-07-04 15:51:42 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	4.0.2
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
