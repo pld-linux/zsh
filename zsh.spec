@@ -42,7 +42,7 @@ Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
-%define		specflags_ia32	"-fomit-frame-pointer"
+%define		specflags_ia32	 -fomit-frame-pointer 
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
