@@ -1,4 +1,4 @@
-# $Revision: 1.28 $ $Date: 2001-03-14 17:44:36 $
+# $Revision: 1.29 $ $Date: 2001-03-20 18:19:15 $
 Summary:	Enhanced bourne shell
 Summary(de):	Enhanced Bourne Shell
 Summary(fr):	Bourne shell amélioré
@@ -6,7 +6,7 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	3.1.9
-Release:	7
+Release:	8
 License:	GPL
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
@@ -19,13 +19,15 @@ Patch2:		%{name}-sys_capability.patch
 Patch3:		%{name}-cap_get_proc.patch
 Patch4:		%{name}-tinfo.patch
 Patch5:		%{name}-addons.patch
+Prereq:		grep
+Prereq:		fileutils
+Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 BuildRequires:	ncurses-devel >= 5.1
 BuildRequires:	glibc-static
 BuildRequires:	ncurses-static
 BuildRequires:	texinfo
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
 
 %define		_bindir		/bin
 
@@ -95,51 +97,31 @@ gzip -9nf Etc/* README ChangeLog META-FAQ
 
 %post
 if [ ! -f /etc/shells ]; then
-	echo "/bin/zsh" >> /etc/shells
+	echo "%{_bindir}/zsh" >> /etc/shells
 else
-	while read SHNAME; do
-	        if [ "$SHNAME" = "/bin/zsh" ]; then
-        	        HAS_ZSH=1
-	        fi
-	done < /etc/shells
-	if [ -n "$HAS_ZSH" ]; then
-		echo "/bin/zsh" >> /etc/shells
-	fi
+	grep -q '^%{_bindir}/zsh$' /etc/shells || echo "%{_bindir}/zsh" >> /etc/shells
 fi
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %preun
 if [ "$1" = "0" ]; then
-	while read SHNAME; do
-		if [ "$SHNAME" = "/bin/zsh" ]; then
-			echo "$SHNAME"
-		fi
-	done < /etc/shells > /etc/shells.new
+	grep -v '^%{_bindir}/zsh$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
+
+%postun
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 
 %post static
 if [ ! -f /etc/shells ]; then
-	echo "/bin/zsh.static" >> /etc/shells
+	echo "%{_bindir}/zsh.static" >> /etc/shells
 else
-	while read SHNAME; do
-	        if [ "$SHNAME" = "/bin/zsh.static" ]; then
-        	        HAS_ZSH_STATIC=1
-	        fi
-	done < /etc/shells
-	if [ -n "$HAS_ZSH_STATIC" ]; then
-		 echo "/bin/zsh.static" >> /etc/shells
-	fi
+	grep -q '^%{_bindir}/zsh\.static$' /etc/shells || echo "%{_bindir}/zsh.static" >> /etc/shells
 fi
 
 %preun static
 if [ "$1" = "0" ]; then
-	while read SHNAME; do
-		if [ "$SHNAME" = "/bin/zsh.static" ]; then
-			echo "$SHNAME"
-		fi
-	done < /etc/shells > /etc/shells.new
+	grep -v '^%{_bindir}/zsh\.static$' /etc/shells > /etc/shells.new
 	mv -f /etc/shells.new /etc/shells
 fi
 
