@@ -173,6 +173,7 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zshenv}
+touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zprofile,zshenv,zshrc}.zwc
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}
 
@@ -227,7 +228,8 @@ fi
 %defattr(644,root,root,755)
 %doc Etc/* README LICENCE ChangeLog META-FAQ Util StartupFiles
 %attr(755,root,root) %{_bindir}/zsh
-%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/*
+%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/*[!w]?
+%ghost %{_sysconfdir}/*.zwc
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}
 %dir %{_datadir}/zsh
