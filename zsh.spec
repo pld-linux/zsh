@@ -38,8 +38,8 @@ BuildRequires:	pcre-devel
 BuildRequires:	texinfo
 Requires(post,preun):	grep
 Requires(preun):	fileutils
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
 %define		specflags_ia32	"-fomit-frame-pointer"
