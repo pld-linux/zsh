@@ -1,4 +1,4 @@
-# $Revision: 1.42 $ $Date: 2001-08-28 11:39:04 $
+# $Revision: 1.43 $ $Date: 2001-11-15 23:26:06 $
 #
 # Conditional build:
 # _without_static       - without static version
@@ -10,13 +10,14 @@ Summary(tr):	Geliþmiþ bir BASH sürümü
 Summary(pl):	Ulepszona pow³oka Bourne'a
 Name:		zsh
 Version:	4.0.2
-Release:	5
+Release:	6
 License:	BSD-like
 Group:		Applications/Shells
 Group(de):	Applikationen/Shells
 Group(pl):	Aplikacje/Pow³oki
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/zsh/%{name}-%{version}.tar.gz
+Source1:	%{name}.1.pl
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-tinfo.patch
 Patch2:		%{name}-addons.patch
@@ -101,7 +102,7 @@ LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir}}
+install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/man1}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
@@ -115,6 +116,8 @@ echo -e "PS1='[%%n@%%m %%~]%%(!.#.%%\\$) '\nbindkey -e >/dev/null 2>&1\nalias wh
 
 rm -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
+install %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/pl/man1/zsh.1
+
 gzip -9nf Etc/* README LICENCE ChangeLog META-FAQ
 
 %post
@@ -168,6 +171,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/zsh/%{version}/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
+%lang(pl) %{_mandir}/pl/man1/zsh*.1*
 
 %files completions
 %defattr(644,root,root,755)
