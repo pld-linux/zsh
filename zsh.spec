@@ -12,13 +12,13 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.2.4
-Release:	1
+Version:	4.2.5
+Release:	0.1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	5c37fa9eb659458fe4f7f80da17fb09c
+# Source0-md5:	e2060f743dcdf3b383e80e862a6548fe
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -240,7 +240,7 @@ fi
 %defattr(644,root,root,755)
 %doc Etc/* README LICENCE ChangeLog META-FAQ Util StartupFiles
 %attr(755,root,root) %{_bindir}/zsh
-%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/*[!w]?
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/*[!w]?
 %ghost %{_sysconfdir}/*.zwc
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}
