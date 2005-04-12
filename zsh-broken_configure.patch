@@ -1,7 +1,7 @@
-diff -ruN zsh-4.2.1./configure.ac zsh-4.2.1/configure.ac
---- zsh-4.2.1./configure.ac	2004-09-02 22:45:43.000000000 +0200
-+++ zsh-4.2.1/configure.ac	2004-09-02 22:46:02.619969336 +0200
-@@ -1763,61 +1763,6 @@
+diff -ur zsh-4.2.5/configure.ac zsh-4.2.5.new/configure.ac
+--- zsh-4.2.5/configure.ac	2005-04-04 09:48:58.000000000 +0000
++++ zsh-4.2.5.new/configure.ac	2005-04-12 08:50:59.871181848 +0000
+@@ -1874,61 +1874,6 @@
  fi
  
  dnl -----------
@@ -20,7 +20,7 @@ diff -ruN zsh-4.2.1./configure.ac zsh-4.2.1/configure.ac
 -if test "x$ac_cv_func_tcsetpgrp" = xyes; then
 -case "x$zsh_working_tcsetpgrp" in
 -  xcheck)
--    trap "" SIGTTOU > /dev/null 2>&1 || :
+-    ( trap "" SIGTTOU > /dev/null 2>&1 ) && trap "" SIGTTOU > /dev/null 2>&1 
 -    AC_CACHE_CHECK(if tcsetpgrp() actually works,
 -    zsh_cv_sys_tcsetpgrp,
 -    [AC_TRY_RUN([
@@ -51,7 +51,7 @@ diff -ruN zsh-4.2.1./configure.ac zsh-4.2.1/configure.ac
 -Try running configure with --with-tcsetpgrp or --without-tcsetpgrp]);;
 -      *)      AC_MSG_ERROR([unexpected return status]);;
 -    esac
--    trap - SIGTTOU > /dev/null 2>&1 || :
+-    ( trap - SIGTTOU > /dev/null 2>&1 ) && trap - SIGTTOU > /dev/null 2>&1 
 -    ;;
 -  xyes) :;;
 -  xno)  AC_DEFINE(BROKEN_TCSETPGRP);;
