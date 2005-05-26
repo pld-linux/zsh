@@ -24,8 +24,11 @@ bindkey `tput knp` end-of-history >/dev/null 2>&1
 bindkey `tput kcuu1` history-beginning-search-backward >/dev/null 2>&1
 bindkey `tput kcud1` history-beginning-search-forward >/dev/null 2>&1
 
+PS1='[%n@%m %~]%(!.#.%\$) '
+export PS1
+
 case "$TERM" in
-	xterm*)
+	xterm*|nxterm|gnome|rxvt)
 		precmd () { print -Pn "\e]0;%n@%m: %~\a" }
 		bindkey '^[[H' beginning-of-line >/dev/null 2>&1
 		bindkey '^[[F' end-of-line >/dev/null 2>&1
