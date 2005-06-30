@@ -12,7 +12,6 @@ unset i
 
 setopt hist_ignore_space hist_ignore_all_dups list_packed transient_rprompt
 
-stty erase `tput kbs`
 bindkey -e >/dev/null 2>&1
 
 bindkey `tput khome` beginning-of-line >/dev/null 2>&1
