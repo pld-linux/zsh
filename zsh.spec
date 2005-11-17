@@ -19,7 +19,7 @@ License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	%{name}-%{snap}.tar.gz
-# Source0-md5:	6f55a74d5d729aa301ee635988b2af2a
+# Source0-md5:	a341cacbb6985857eaa38e351267e3e4
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
