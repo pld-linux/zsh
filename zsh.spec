@@ -12,7 +12,7 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-%define	snap	20050915
+%define	snap	20051117
 Version:	4.3.0
 Release:	0.%{snap}.1
 License:	BSD-like
