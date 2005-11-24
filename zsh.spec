@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	static	# without static version
+%bcond_with	static # build static version
 #
 Summary:	Enhanced Bourne shell
 Summary(de):	Enhanced Bourne Shell
