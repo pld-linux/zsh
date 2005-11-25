@@ -31,5 +31,7 @@ case "$TERM" in
 		precmd () { print -Pn "\e]0;%n@%m: %~\a" }
 		bindkey '^[[H' beginning-of-line >/dev/null 2>&1
 		bindkey '^[[F' end-of-line >/dev/null 2>&1
+		bindkey '^[[A' history-beginning-search-backward >/dev/null 2>&1
+		bindkey '^[[B' history-beginning-search-forward >/dev/null 2>&1
 		;;
 esac
