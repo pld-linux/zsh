@@ -12,13 +12,13 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.2.5
+Version:	4.2.6
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	e2060f743dcdf3b383e80e862a6548fe
+# Source0-md5:	2cefebf742c190cbc611baded825db64
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -30,7 +30,6 @@ Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 Patch5:		%{name}-broken_configure.patch
-Patch6:		%{name}-svn.patch
 BuildRequires:	autoconf
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -144,7 +143,6 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p0
 
 install %{SOURCE2} .
 
