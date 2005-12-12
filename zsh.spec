@@ -149,7 +149,7 @@ install %{SOURCE2} .
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
-CPPFLAGS="-I/usr/include/ncurses"
+CPPFLAGS="-I%{_includedir}/ncurses"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
