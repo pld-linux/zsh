@@ -20,10 +20,10 @@ URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 # Source0-md5:	2cefebf742c190cbc611baded825db64
 Source1:	%{name}.1.pl
-Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
+Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
 Source3:	zprofile
-Source4:	zshrc
+Source4:	%{name}rc
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
@@ -40,7 +40,9 @@ BuildRequires:	texinfo
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 Requires:	findutils
-Obsoletes:	zsh-doc-html, zsh-doc-ps, zsh-doc-dvi
+Obsoletes:	zsh-doc-html
+Obsoletes:	zsh-doc-ps
+Obsoletes:	zsh-doc-dvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
@@ -149,7 +151,7 @@ install %{SOURCE2} .
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
-CPPFLAGS="-I%{_includedir}/ncurses"
+CPPFLAGS="-I/usr/include/ncurses"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
