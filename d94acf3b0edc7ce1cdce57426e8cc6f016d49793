@@ -1,0 +1,1 @@
+- added PS1 setting in zshrc; process /etc/profile at login
