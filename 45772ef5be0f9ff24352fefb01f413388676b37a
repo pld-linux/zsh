@@ -1,0 +1,3 @@
+- prevent rpm from expanding "macros" in PS1
+- added example zlogin/zshenv/zshrc to %doc
+- removed .distfiles and .cvsignore from %doc
