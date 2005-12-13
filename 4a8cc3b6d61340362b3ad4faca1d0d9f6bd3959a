@@ -1,0 +1,1 @@
+- simplifications in %files and added %{_libdir}/zsh to %files.
