@@ -1,0 +1,6 @@
+- release 4,
+- fix: remap only %{_bindir} to /bin instead remapew %{_exec_prefix}
+  (this was cause placing man pages and additional modules in incorrect
+  path),
+- rewrite %post, %preun /etc/shell manipulation scripts like in pdksh and
+  bash.
