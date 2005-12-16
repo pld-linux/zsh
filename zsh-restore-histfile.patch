@@ -12,9 +12,9 @@
  		zerr("can't rename %s.new to $HISTFILE", fn, 0);
 +	    else if (restore) {
 +		    if (chown(unmeta(fn), sb.st_uid, sb.st_gid) < 0)
-+			    zerr("can't restore user/group on $HISTFILE", 0);
++			    zerr("can't restore user/group on $HISTFILE", NULL, 0);
 +		    if (chmod(unmeta(fn), sb.st_mode) < 0)
-+			    zerr("can't restore permissions on $HISTFILE", 0);
++			    zerr("can't restore permissions on $HISTFILE", NULL, 0);
 +	    }
  	    free(tmpfile);
  	}
