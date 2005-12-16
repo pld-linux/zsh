@@ -163,9 +163,7 @@ CPPFLAGS="-I/usr/include/ncurses"
 LDFLAGS="%{rpmldflags} -static"
 %configure \
 	--enable-maildir-support \
-	--enable-cap \
 	--enable-multibyte \
-	--with-curses-terminfo \
 	--with-tcsetpgrp \
 	--disable-dynamic
 %{__make} \
@@ -178,9 +176,11 @@ LDFLAGS="%{rpmldflags}"
 %configure \
 	ac_cv_have_dev_ptmx=yes \
 	--enable-maildir-support \
-	--enable-pcre \
 	--enable-cap \
-	--enable-multibyte
+	--enable-pcre \
+	--enable-multibyte \
+	--with-curses-terminfo \
+	--with-tcsetpgrp
 %{__make}
 
 cd Doc
