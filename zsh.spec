@@ -32,6 +32,7 @@ Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 Patch5:		%{name}-broken_configure.patch
 Patch6:		%{name}-svn.patch
+Patch7:		%{name}-restore-histfile.patch
 BuildRequires:	autoconf
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -147,6 +148,7 @@ Podrêcznik U¿ytkownika Z-Shella.
 %patch4 -p1
 #%patch5 -p1
 #%patch6 -p0
+%patch7 -p1
 
 install %{SOURCE2} .
 
@@ -160,6 +162,11 @@ CPPFLAGS="-I/usr/include/ncurses"
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
 %configure \
+	--enable-maildir-support \
+	--enable-cap \
+	--enable-multibyte \
+	--with-curses-terminfo \
+	--with-tcsetpgrp \
 	--disable-dynamic
 %{__make} \
 	DLLDFLAGS=""
