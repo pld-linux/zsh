@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without  static	# without static version
+%bcond_with	static # build static version
 #
 Summary:	Enhanced Bourne shell
 Summary(de):	Enhanced Bourne Shell
@@ -12,13 +12,14 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.2.5
-Release:	1
+%define	snap	20051216
+Version:	4.3.0
+Release:	0.%{snap}.1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
-Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	e2060f743dcdf3b383e80e862a6548fe
+Source0:	%{name}-%{snap}.tar.gz
+# Source0-md5:	da3b30feb6705f735c42c434723d8c90
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -31,6 +32,7 @@ Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 Patch5:		%{name}-broken_configure.patch
 Patch6:		%{name}-svn.patch
+Patch7:		%{name}-restore-histfile.patch
 BuildRequires:	autoconf
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
@@ -38,6 +40,7 @@ BuildRequires:	ncurses-devel >= 5.1
 %{?with_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
 BuildRequires:	texinfo
+BuildRequires:	yodl
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 Requires:	findutils
@@ -137,25 +140,31 @@ A User's Guide to the Z-Shell.
 PodrЙcznik U©ytkownika Z-Shella.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}
+#%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p0
+#%patch5 -p1
+#%patch6 -p0
+%patch7 -p1
 
 install %{SOURCE2} .
 
 %build
 cp -f /usr/share/automake/config.sub .
 %{__autoconf}
+%{__autoheader}
+echo > stamp-h.in
 CPPFLAGS="-I/usr/include/ncurses"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
 %configure \
+	--enable-maildir-support \
+	--enable-multibyte \
+	--with-tcsetpgrp \
 	--disable-dynamic
 %{__make} \
 	DLLDFLAGS=""
@@ -167,8 +176,11 @@ LDFLAGS="%{rpmldflags}"
 %configure \
 	ac_cv_have_dev_ptmx=yes \
 	--enable-maildir-support \
+	--enable-cap \
 	--enable-pcre \
-	--enable-cap
+	--enable-multibyte \
+	--with-curses-terminfo \
+	--with-tcsetpgrp
 %{__make}
 
 cd Doc
@@ -243,24 +255,26 @@ fi
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/*[!w]?
 %ghost %{_sysconfdir}/*.zwc
 %dir %{_libdir}/zsh
-%dir %{_libdir}/zsh/%{version}
+%dir %{_libdir}/zsh/%{version}*
 %dir %{_datadir}/zsh
 %dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/latest
-%dir %{_datadir}/zsh/%{version}
-%dir %{_datadir}/zsh/%{version}/functions
-%{_datadir}/zsh/%{version}/functions/[!_c]*
-%{_datadir}/zsh/%{version}/functions/c[!o]*
-%{_datadir}/zsh/%{version}/functions/co[!m]*
-%attr(755,root,root) %{_libdir}/zsh/%{version}/*
+%dir %{_datadir}/zsh/%{version}*
+%dir %{_datadir}/zsh/%{version}*/scripts
+%{_datadir}/zsh/%{version}*/scripts/newuser
+%dir %{_datadir}/zsh/%{version}*/functions
+%{_datadir}/zsh/%{version}*/functions/[!_c]*
+%{_datadir}/zsh/%{version}*/functions/c[!o]*
+%{_datadir}/zsh/%{version}*/functions/co[!m]*
+%attr(755,root,root) %{_libdir}/zsh/%{version}*/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
 %lang(pl) %{_mandir}/pl/man1/zsh*.1*
 
 %files completions
 %defattr(644,root,root,755)
-%{_datadir}/zsh/%{version}/functions/comp*
-%{_datadir}/zsh/%{version}/functions/_*
+%{_datadir}/zsh/%{version}*/functions/comp*
+%{_datadir}/zsh/%{version}*/functions/_*
 
 %files guide
 %defattr(644,root,root,755)

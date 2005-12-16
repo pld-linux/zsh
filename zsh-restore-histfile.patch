@@ -1,0 +1,21 @@
+--- zsh.org/Src/hist.c.org	2005-12-16 10:51:24.680963000 +0100
++++ zsh/Src/hist.c	2005-12-16 10:59:14.100963000 +0100
+@@ -2127,8 +2127,18 @@
+ 	}
+ 	fclose(out);
+ 	if (tmpfile) {
++	    struct stat sb;
++	    int restore = 0;
++	    if (stat(unmeta(fn), &sb) == 0)
++		    restore = 1;
+ 	    if (rename(tmpfile, unmeta(fn)) < 0)
+ 		zerr("can't rename %s.new to $HISTFILE", fn, 0);
++	    else if (restore) {
++		    if (chown(unmeta(fn), sb.st_uid, sb.st_gid) < 0)
++			    zerr("can't restore user/group on $HISTFILE", NULL, 0);
++		    if (chmod(unmeta(fn), sb.st_mode) < 0)
++			    zerr("can't restore permissions on $HISTFILE", NULL, 0);
++	    }
+ 	    free(tmpfile);
+ 	}
+ 
