@@ -1,4 +1,7 @@
 #
+# todo:
+# - add zsh-lovers man page from http://grml.org/zsh/
+#
 # Conditional build:
 %bcond_with	static # build static version
 #
