@@ -37,6 +37,7 @@ Patch5:		%{name}-broken_configure.patch
 Patch6:		%{name}-svn.patch
 Patch7:		%{name}-restore-histfile.patch
 BuildRequires:	autoconf
+BuildRequires:	automake
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
