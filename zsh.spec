@@ -15,14 +15,14 @@ Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
 Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
 Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-%define	snap	20051216
+%define	snap	20060205
 Version:	4.3.0
 Release:	0.%{snap}.1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	%{name}-%{snap}.tar.gz
-# Source0-md5:	da3b30feb6705f735c42c434723d8c90
+# Source0-md5:	48c86997c24dde1b798859c57f66f6c8
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/zshguide.pdf
 # Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
@@ -35,7 +35,6 @@ Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 Patch5:		%{name}-broken_configure.patch
 Patch6:		%{name}-svn.patch
-Patch7:		%{name}-restore-histfile.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_static:BuildRequires:	glibc-static}
@@ -152,7 +151,6 @@ PodrЙcznik U©ytkownika Z-Shella.
 %patch4 -p1
 #%patch5 -p1
 #%patch6 -p0
-%patch7 -p1
 
 install %{SOURCE2} .
 
