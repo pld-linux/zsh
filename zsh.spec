@@ -32,6 +32,7 @@ Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
+Patch5:		%{name}-autoconf.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_static:BuildRequires:	glibc-static}
@@ -148,6 +149,7 @@ Podrêcznik U¿ytkownika Z-Shella.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 install %{SOURCE2} .
 
