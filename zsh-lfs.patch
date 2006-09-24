@@ -1,15 +1,12 @@
-diff -urN zsh-4.3.2.org/aczsh.m4 zsh-4.3.2/aczsh.m4
---- zsh-4.3.2.org/aczsh.m4	2005-08-18 11:38:05.000000000 +0200
-+++ zsh-4.3.2/aczsh.m4	2006-09-24 13:06:55.070553337 +0200
-@@ -54,11 +54,6 @@
- case "$ac_result$ac_getconfs" in
- yes) ac_result=no ;;
- esac
--case "$ac_result$ac_set" in
--yes?*) test "x$ac_set" != "xLDFLAGS" -o "x$auto_ldflags" = x && {
--  ac_result="yes, but $ac_set is already set, so use its settings"
--}
--esac
- AC_MSG_RESULT($ac_result)
- case $ac_result in
- yes)
+diff -urN zsh-4.3.2.org/configure.ac zsh-4.3.2/configure.ac
+--- zsh-4.3.2.org/configure.ac	2006-02-28 15:14:37.000000000 +0100
++++ zsh-4.3.2/configure.ac	2006-09-24 18:20:27.186743122 +0200
+@@ -362,7 +362,7 @@
+   if test "$host" = mips-sni-sysv4 && test -n "$GCC"; then
+     : 
+   else
+-    zsh_LARGE_FILE_SUPPORT
++    AC_SYS_LARGEFILE
+   fi
+ fi
+ 
