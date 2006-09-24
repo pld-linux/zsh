@@ -1,0 +1,15 @@
+diff -urN zsh-4.3.2.org/aczsh.m4 zsh-4.3.2/aczsh.m4
+--- zsh-4.3.2.org/aczsh.m4	2005-08-18 11:38:05.000000000 +0200
++++ zsh-4.3.2/aczsh.m4	2006-09-24 13:06:55.070553337 +0200
+@@ -54,11 +54,6 @@
+ case "$ac_result$ac_getconfs" in
+ yes) ac_result=no ;;
+ esac
+-case "$ac_result$ac_set" in
+-yes?*) test "x$ac_set" != "xLDFLAGS" -o "x$auto_ldflags" = x && {
+-  ac_result="yes, but $ac_set is already set, so use its settings"
+-}
+-esac
+ AC_MSG_RESULT($ac_result)
+ case $ac_result in
+ yes)
