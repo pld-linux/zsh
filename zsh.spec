@@ -160,7 +160,7 @@ cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 %{__autoheader}
 echo > stamp-h.in
-CPPFLAGS="-I/usr/include/ncurses"
+CPPFLAGS="-I/usr/include/ncurses $CPPFLAGS"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
