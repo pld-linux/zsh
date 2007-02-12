@@ -6,14 +6,14 @@
 %bcond_with	static # build static version
 #
 Summary:	Enhanced Bourne shell
-Summary(de.UTF-8):   Enhanced Bourne Shell
-Summary(es.UTF-8):   Shell bourne mejorada
-Summary(fr.UTF-8):   Bourne shell amélioré
-Summary(pl.UTF-8):   Ulepszona powłoka Bourne'a
-Summary(pt_BR.UTF-8):   Shell bourne melhorada
-Summary(ru.UTF-8):   Командный процессор (shell) похожый на ksh, но с улучшениями
-Summary(tr.UTF-8):   Gelişmiş bir BASH sürümü
-Summary(uk.UTF-8):   Командний процесор (shell) схожий на ksh, але з покращеннями
+Summary(de.UTF-8):	Enhanced Bourne Shell
+Summary(es.UTF-8):	Shell bourne mejorada
+Summary(fr.UTF-8):	Bourne shell amélioré
+Summary(pl.UTF-8):	Ulepszona powłoka Bourne'a
+Summary(pt_BR.UTF-8):	Shell bourne melhorada
+Summary(ru.UTF-8):	Командный процессор (shell) похожый на ksh, но с улучшениями
+Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
+Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	4.3.2
 Release:	2
@@ -102,7 +102,7 @@ shell-функції (з автозавантаженням), історію к�
 
 %package completions
 Summary:	Files needed for advanced TAB-completion
-Summary(pl.UTF-8):   Pliki potrzebne dla zaawansowanej TAB-completion
+Summary(pl.UTF-8):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
 Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 Requires:	%{name} = %{version}-%{release}
@@ -116,7 +116,7 @@ TAB-completion.
 
 %package static
 Summary:	Statically linked Enhanced Bourne shell
-Summary(pl.UTF-8):   Zaawansowana powłoka Bourne'a - skonsolidowana statycznie
+Summary(pl.UTF-8):	Zaawansowana powłoka Bourne'a - skonsolidowana statycznie
 Group:		Applications/Shells
 Requires(post,preun):	grep
 Requires(preun):	fileutils
@@ -133,7 +133,7 @@ skonsolidowana statycznie.
 
 %package guide
 Summary:	A User's Guide to the Z-Shell
-Summary(pl.UTF-8):   Podręcznik Użytkownika Z-Shella
+Summary(pl.UTF-8):	Podręcznik Użytkownika Z-Shella
 Group:		Documentation
 URL:		http://zsh.sunsite.dk/Guide/
 
