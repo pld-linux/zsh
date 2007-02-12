@@ -6,14 +6,14 @@
 %bcond_with	static # build static version
 #
 Summary:	Enhanced Bourne shell
-Summary(de):	Enhanced Bourne Shell
-Summary(es):	Shell bourne mejorada
-Summary(fr):	Bourne shell amИliorИ
-Summary(pl):	Ulepszona powЁoka Bourne'a
-Summary(pt_BR):	Shell bourne melhorada
-Summary(ru):	Командный процессор (shell) похожый на ksh, но с улучшениями
-Summary(tr):	GeliЧmiЧ bir BASH sЭrЭmЭ
-Summary(uk):	Командний процесор (shell) схожий на ksh, але з покращеннями
+Summary(de.UTF-8):   Enhanced Bourne Shell
+Summary(es.UTF-8):   Shell bourne mejorada
+Summary(fr.UTF-8):   Bourne shell amц╘liorц╘
+Summary(pl.UTF-8):   Ulepszona powе┌oka Bourne'a
+Summary(pt_BR.UTF-8):   Shell bourne melhorada
+Summary(ru.UTF-8):   п п╬п╪п╟п╫п╢п╫я▀п╧ п©я─п╬я├п╣я│я│п╬я─ (shell) п©п╬я┘п╬п╤я▀п╧ п╫п╟ ksh, п╫п╬ я│ я┐п╩я┐я┤я┬п╣п╫п╦я▐п╪п╦
+Summary(tr.UTF-8):   Geliе÷miе÷ bir BASH sц╪rц╪mц╪
+Summary(uk.UTF-8):   п п╬п╪п╟п╫п╢п╫п╦п╧ п©я─п╬я├п╣я│п╬я─ (shell) я│я┘п╬п╤п╦п╧ п╫п╟ ksh, п╟п╩п╣ п╥ п©п╬п╨я─п╟я┴п╣п╫п╫я▐п╪п╦
 Name:		zsh
 Version:	4.3.2
 Release:	2
@@ -58,51 +58,51 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 zsh is an enhanced version of the Bourne shell with csh additions and
 most features of ksh, bash, and tcsh.
 
-%description -l es
-zsh es una versiСn mejorada del bourne shell con estas
-caracterМsticas:
-- muy prСximo de la gramАtica del ksh/sh, con adiciones csh,
-- varias caracterМsticas del ksh, bash y tcsh,
+%description -l es.UTF-8
+zsh es una versiцЁn mejorada del bourne shell con estas
+caracterц╜sticas:
+- muy prцЁximo de la gramц║tica del ksh/sh, con adiciones csh,
+- varias caracterц╜sticas del ksh, bash y tcsh,
 - 75 funciones empotradas, 89 opciones, 154 combinaciones de teclas,
-- selecciСn,
-- funciones shell ...y mucho mАs.
+- selecciцЁn,
+- funciones shell ...y mucho mц║s.
 
-%description -l ja
-zsh ╔╥╔╖╔К╓обпоце╙╓й╔М╔╟╔╓╔С╔╥╔╖╔К╓х╓╥╓фмЬмя╡дг╫╓й╔Ё╔ч╔С╔и╔╓╔С╔©╔Й╔©
-╓г╓╒╓Й║╒╔╥╔╖╔К╔╧╔╞╔Й╔в╔х╔Ё╔ч╔С╔и╓Б╫ХмЩ╓г╓╜╓ч╓╧. zsh ╓о ksh(the Korn
-shell) ╓к╩В╓ф╓╓╓ч╓╧╓╛,╓╚╓й╓ЙЁхд╔╓╣╓Л╓ф╓╓╓ч╓╧. zsh
-╓о╔Ё╔ч╔С╔и╔И╔╓╔С╓г╓нйт╫╦╣║г╫, ах╓ъ╧Ч╓ч╓Л╓©╔╧╔з╔К╫╓ю╣╣║г╫, ╔в╔М╔╟╔И╔ъ╔С
-╔╟╡дг╫╓й╔Ё╔ч╔С╔ийД╢╟╣║г╫, (ф╟е╙╔М║╪╔и╓╣╓Л╓К)╔╥╔╖╔К╣║г╫, ╔р╔╧╔х╔Й╣║╧╫
-╓й╓и╓Р╩Щ╓а╓ч╓╧.
+%description -l ja.UTF-8
+zsh Ц┌╥Ц┌╖Ц┐╚Ц│╞Е╞╬Х╘╠Г └Ц│╙Ц┐╜Ц┌╟Ц┌╓Ц┐ЁЦ┌╥Ц┌╖Ц┐╚Ц│╗Ц│≈Ц│╕Е┬╘Г■╗Е▐╞Х┐╫Ц│╙Ц┌ЁЦ┐·Ц┐ЁЦ┐┴Ц┌╓Ц┐ЁЦ┌©Ц┐╙Ц┌©
+Ц│╖Ц│┌Ц┌┼Ц─│Ц┌╥Ц┌╖Ц┐╚Ц┌╧Ц┌╞Ц┐╙Ц┐≈Ц┐┬Ц┌ЁЦ┐·Ц┐ЁЦ┐┴Ц┌┌Е┤╕Г░├Ц│╖Ц│█Ц│╬Ц│≥. zsh Ц│╞ ksh(the Korn
+shell) Ц│╚Д╪╪Ц│╕Ц│└Ц│╬Ц│≥Ц│▄,Ц│▀Ц│╙Ц┌┼Ф▀║Е╪╣Ц│∙Ц┌▄Ц│╕Ц│└Ц│╬Ц│≥. zsh
+Ц│╞Ц┌ЁЦ┐·Ц┐ЁЦ┐┴Ц┐╘Ц┌╓Ц┐ЁЦ│╖Ц│╝Г╥╗И⌡├Ф╘÷Х┐╫, Г╣└Ц│©Х╬╪Ц│╬Ц┌▄Ц│÷Ц┌╧Ц┐ Ц┐╚Д©╝Ф╜ёФ╘÷Х┐╫, Ц┐≈Ц┐╜Ц┌╟Ц┐╘Ц┐÷Ц┐Ё
+Ц┌╟Е▐╞Х┐╫Ц│╙Ц┌ЁЦ┐·Ц┐ЁЦ┐┴Хё°Е╝▄Ф╘÷Х┐╫, (Е▀∙Г └Ц┐╜Ц┐╪Ц┐┴Ц│∙Ц┌▄Ц┌▀)Ц┌╥Ц┌╖Ц┐╚Ф╘÷Х┐╫, Ц┐▓Ц┌╧Ц┐┬Ц┐╙Ф╘÷Ф╖▀
+Ц│╙Ц│╘Ц┌▓Ф▄│Ц│║Ц│╬Ц│≥.
 
-%description -l pl
-zsh jest ulepszon╠ powЁok╠ Bourne'a z elementami powЁoki csh. Posiada
-wiЙkszo╤Ф cech ksh, bash i tcsh.
+%description -l pl.UTF-8
+zsh jest ulepszonд┘ powе┌okд┘ Bourne'a z elementami powе┌oki csh. Posiada
+wiд≥kszoе⌡д┤ cech ksh, bash i tcsh.
 
-%description -l pt_BR
-zsh И uma versЦo melhorada do bourne shell com essas caracterМsticas:
-- muito prСximo da gramАtica do ksh/sh, com adiГУes csh,
-- vАrias caracterМsticas do ksh, bash e tcsh,
-- 75 funГУes embutidas, 89 opГУes, 154 combinaГУes de teclas,
-- seleГЦo,
-- funГУes shell ...e muito mais.
+%description -l pt_BR.UTF-8
+zsh ц╘ uma versцёo melhorada do bourne shell com essas caracterц╜sticas:
+- muito prцЁximo da gramц║tica do ksh/sh, com adiц╖ц╣es csh,
+- vц║rias caracterц╜sticas do ksh, bash e tcsh,
+- 75 funц╖ц╣es embutidas, 89 opц╖ц╣es, 154 combinaц╖ц╣es de teclas,
+- seleц╖цёo,
+- funц╖ц╣es shell ...e muito mais.
 
-%description -l ru
-zsh - это командный процессор напоминающий ksh (Korn shell), но
-включающий много улучшений. zsh поддерживает редактирование командной
-строки, встроенную коррекцию написания, программируемое завершение
-команд, shell-функции (с автозагрузкой), историю команд и многое
-другое.
+%description -l ru.UTF-8
+zsh - я█я┌п╬ п╨п╬п╪п╟п╫п╢п╫я▀п╧ п©я─п╬я├п╣я│я│п╬я─ п╫п╟п©п╬п╪п╦п╫п╟я▌я┴п╦п╧ ksh (Korn shell), п╫п╬
+п╡п╨п╩я▌я┤п╟я▌я┴п╦п╧ п╪п╫п╬пЁп╬ я┐п╩я┐я┤я┬п╣п╫п╦п╧. zsh п©п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ я─п╣п╢п╟п╨я┌п╦я─п╬п╡п╟п╫п╦п╣ п╨п╬п╪п╟п╫п╢п╫п╬п╧
+я│я┌я─п╬п╨п╦, п╡я│я┌я─п╬п╣п╫п╫я┐я▌ п╨п╬я─я─п╣п╨я├п╦я▌ п╫п╟п©п╦я│п╟п╫п╦я▐, п©я─п╬пЁя─п╟п╪п╪п╦я─я┐п╣п╪п╬п╣ п╥п╟п╡п╣я─я┬п╣п╫п╦п╣
+п╨п╬п╪п╟п╫п╢, shell-я└я┐п╫п╨я├п╦п╦ (я│ п╟п╡я┌п╬п╥п╟пЁя─я┐п╥п╨п╬п╧), п╦я│я┌п╬я─п╦я▌ п╨п╬п╪п╟п╫п╢ п╦ п╪п╫п╬пЁп╬п╣
+п╢я─я┐пЁп╬п╣.
 
-%description -l uk
-zsh - це командний процесор, що нагаду╓ ksh (Korn shell), але включа╓
-багато покращень. zsh п╕дтриму╓ редагування командного рядка,
-вбудовану корекц╕ю написання, програмоване завершення команд,
-shell-функц╕╖ (з автозавантаженням), ╕стор╕ю команд та багато ╕ншого.
+%description -l uk.UTF-8
+zsh - я├п╣ п╨п╬п╪п╟п╫п╢п╫п╦п╧ п©я─п╬я├п╣я│п╬я─, я┴п╬ п╫п╟пЁп╟п╢я┐я■ ksh (Korn shell), п╟п╩п╣ п╡п╨п╩я▌я┤п╟я■
+п╠п╟пЁп╟я┌п╬ п©п╬п╨я─п╟я┴п╣п╫я▄. zsh п©я√п╢я┌я─п╦п╪я┐я■ я─п╣п╢п╟пЁя┐п╡п╟п╫п╫я▐ п╨п╬п╪п╟п╫п╢п╫п╬пЁп╬ я─я▐п╢п╨п╟,
+п╡п╠я┐п╢п╬п╡п╟п╫я┐ п╨п╬я─п╣п╨я├я√я▌ п╫п╟п©п╦я│п╟п╫п╫я▐, п©я─п╬пЁя─п╟п╪п╬п╡п╟п╫п╣ п╥п╟п╡п╣я─я┬п╣п╫п╫я▐ п╨п╬п╪п╟п╫п╢,
+shell-я└я┐п╫п╨я├я√я≈ (п╥ п╟п╡я┌п╬п╥п╟п╡п╟п╫я┌п╟п╤п╣п╫п╫я▐п╪), я√я│я┌п╬я─я√я▌ п╨п╬п╪п╟п╫п╢ я┌п╟ п╠п╟пЁп╟я┌п╬ я√п╫я┬п╬пЁп╬.
 
 %package completions
 Summary:	Files needed for advanced TAB-completion
-Summary(pl):	Pliki potrzebne dla zaawansowanej TAB-completion
+Summary(pl.UTF-8):   Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
 Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 Requires:	%{name} = %{version}-%{release}
@@ -110,13 +110,13 @@ Requires:	%{name} = %{version}-%{release}
 %description completions
 This package contains files needed for advanced tab completion in zsh.
 
-%description completions -l pl
+%description completions -l pl.UTF-8
 Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
 %package static
 Summary:	Statically linked Enhanced Bourne shell
-Summary(pl):	Zaawansowana powЁoka Bourne'a - skonsolidowana statycznie
+Summary(pl.UTF-8):   Zaawansowana powе┌oka Bourne'a - skonsolidowana statycznie
 Group:		Applications/Shells
 Requires(post,preun):	grep
 Requires(preun):	fileutils
@@ -126,22 +126,22 @@ Requires:	%{name} = %{version}-%{release}
 zsh is an enhanced version of the Bourne shell with csh additions and
 most features of ksh, bash, and tcsh.
 
-%description static -l pl
-zsh jest ulepszon╠ powЁok╠ Bourne'a z elementami powЁoki csh. Posiada
-wiЙkszo╤Ф cech ksh, bash i tcsh. W tym pakiecie jest wersja
+%description static -l pl.UTF-8
+zsh jest ulepszonд┘ powе┌okд┘ Bourne'a z elementami powе┌oki csh. Posiada
+wiд≥kszoе⌡д┤ cech ksh, bash i tcsh. W tym pakiecie jest wersja
 skonsolidowana statycznie.
 
 %package guide
 Summary:	A User's Guide to the Z-Shell
-Summary(pl):	PodrЙcznik U©ytkownika Z-Shella
+Summary(pl.UTF-8):   Podrд≥cznik Uе╪ytkownika Z-Shella
 Group:		Documentation
 URL:		http://zsh.sunsite.dk/Guide/
 
 %description guide
 A User's Guide to the Z-Shell.
 
-%description guide -l pl
-PodrЙcznik U©ytkownika Z-Shella.
+%description guide -l pl.UTF-8
+Podrд≥cznik Uе╪ytkownika Z-Shella.
 
 %prep
 %setup -q
