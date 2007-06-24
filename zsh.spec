@@ -15,16 +15,16 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.3.2
+Version:	4.3.4
 Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	e13fc4bb338fbb27ef7508a474310c8f
+# Source0-md5:	8410a30e4f5c6160790bc3afc096424f
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
-# Source2-md5:	0d80ba1ef39052c512cfabf368f3bf20
+# Source2-md5:	e42b6b6ff487bb2a95543f3937287b99
 Source3:	zprofile
 Source4:	%{name}rc
 Patch0:		%{name}-info.patch
@@ -32,8 +32,7 @@ Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
-Patch5:		%{name}-autoconf.patch
-Patch6:		%{name}-lfs.patch
+Patch5:		%{name}-lfs.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_static:BuildRequires:	glibc-static}
@@ -151,7 +150,6 @@ Podręcznik Użytkownika Z-Shella.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 install %{SOURCE2} .
 
