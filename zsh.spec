@@ -216,12 +216,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 if [ ! -f /etc/shells ]; then
 	echo "%{_bindir}/zsh" >> /etc/shells
 else
 	grep -q '^%{_bindir}/zsh$' /etc/shells || echo "%{_bindir}/zsh" >> /etc/shells
 fi
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
 for i in zlogin zlogout zprofile zshenv zshrc; do
 	[ -f /etc/$i ] && zsh -c "zcompile /etc/$i"
 done
@@ -233,8 +233,8 @@ if [ "$1" = "0" ]; then
 	mv -f /etc/shells.new /etc/shells
 fi
 
-%postun
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} > /dev/null 2>&1
+%postun	-p	/sbin/postshell
+-/usr/sbin/fix-info-dir -c %{_infodir}
 
 %post static
 umask 022
