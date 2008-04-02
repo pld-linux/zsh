@@ -15,13 +15,13 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.3.5
-Release:	2
+Version:	4.3.6
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	db0d4b71da8e5877fa1e29d4cea38b8c
+# Source0-md5:	16f399af1081ad3c303a794c9c7dc47e
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	e42b6b6ff487bb2a95543f3937287b99
