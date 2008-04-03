@@ -2,6 +2,7 @@
 
 alias which=whence
 alias cd='builtin cd'
+alias grep='grep --colour=auto'
 alias precmd=' precmd'
 
 # SYSTEM WIDE ALIASES ETC.
