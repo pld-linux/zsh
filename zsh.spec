@@ -19,7 +19,6 @@ Version:	4.3.6
 Release:	2
 License:	BSD-like
 Group:		Applications/Shells
-URL:		http://www.zsh.org/
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 # Source0-md5:	16f399af1081ad3c303a794c9c7dc47e
 Source1:	%{name}.1.pl
@@ -33,6 +32,7 @@ Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 Patch5:		%{name}-lfs.patch
+URL:		http://www.zsh.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_static:BuildRequires:	glibc-static}
@@ -144,7 +144,7 @@ Podręcznik Użytkownika Z-Shella.
 
 %prep
 %setup -q
-#%patch0 -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -160,7 +160,7 @@ cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 %{__autoheader}
 echo > stamp-h.in
-CPPFLAGS="-I/usr/include/ncurses $CPPFLAGS"
+CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 
 %if %{with static}
 LDFLAGS="%{rpmldflags} -static"
