@@ -40,6 +40,7 @@ BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{?with_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
+BuildRequires:	rpmbuild(macros) >= 1.470
 BuildRequires:	texinfo
 BuildRequires:	yodl
 Requires(post,preun):	grep
