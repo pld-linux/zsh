@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.3.6
-Release:	2
+Version:	4.3.9
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	16f399af1081ad3c303a794c9c7dc47e
+# Source0-md5:	0539d0a590e545ad8c40ff8c97e94538
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	e42b6b6ff487bb2a95543f3937287b99
@@ -31,10 +31,10 @@ Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
-Patch5:		%{name}-lfs.patch
 URL:		http://www.zsh.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	findutils
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
@@ -150,11 +150,10 @@ Podręcznik Użytkownika Z-Shella.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 install %{SOURCE2} .
 
-sed -i -e 's|#!.*/zsh|#!/bin/zsh|g' Functions/*/*
+find Functions -type f -exec sed -i -e 's|#!.*/zsh|#!/bin/zsh|g' "{}" ";"
 
 %build
 cp -f /usr/share/automake/config.sub .
