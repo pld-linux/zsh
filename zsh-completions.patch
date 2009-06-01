@@ -8,14 +8,3 @@
      '--eval:macro:->macros' && ret=0
  
    # As long as we have a state name...
---- zsh-4.3.9/./Completion/compdump~	2008-07-29 10:53:08.000000000 +0200
-+++ zsh-4.3.9/./Completion/compdump	2009-02-11 20:13:11.358508082 +0100
-@@ -132,7 +132,7 @@
- print "typeset -gUa _comp_assocs" >> $_d_file
- print "_comp_assocs=( ${(qq)_comp_assocs} )" >> $_d_file
- 
--mv $_d_file ${_d_file%.$HOST.$$}
-+mv -f $_d_file ${_d_file%.$HOST.$$}
- 
- unfunction compdump
- autoload -Uz compdump

@@ -7,6 +7,7 @@ diff -ur zsh-4.2.5/configure.ac zsh-4.2.5.new/configure.ac
  
 -AC_CHECK_LIB(socket, socket)
 +AC_SEARCH_LIBS(socket, socket)
+ AC_SEARCH_LIBS(gethostbyname2, bind)
  
- dnl ---------------
- dnl CHECK FOR ICONV
+ case $LIBS in
+   *-lbind*)
