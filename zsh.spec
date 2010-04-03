@@ -34,7 +34,6 @@ Patch4:		%{name}-nolibs.patch
 URL:		http://www.zsh.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	findutils
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
@@ -46,13 +45,13 @@ BuildRequires:	yodl
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 Requires:	findutils
+Obsoletes:	zsh-doc-dvi
 Obsoletes:	zsh-doc-html
 Obsoletes:	zsh-doc-ps
-Obsoletes:	zsh-doc-dvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
-%define		specflags_ia32	 -fomit-frame-pointer 
+%define		specflags_ia32	-fomit-frame-pointer
 
 %description
 zsh is an enhanced version of the Bourne shell with csh additions and
@@ -104,8 +103,8 @@ shell-функції (з автозавантаженням), історію к�
 Summary:	Files needed for advanced TAB-completion
 Summary(pl.UTF-8):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
-Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 Requires:	%{name} = %{version}-%{release}
+Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
