@@ -1,7 +1,3 @@
-#
-# todo:
-# - add zsh-lovers man page from http://grml.org/zsh/
-#
 # Conditional build:
 %bcond_with	static # build static version
 #
@@ -9,6 +5,7 @@ Summary:	Enhanced Bourne shell
 Summary(de.UTF-8):	Enhanced Bourne Shell
 Summary(es.UTF-8):	Shell bourne mejorada
 Summary(fr.UTF-8):	Bourne shell amélioré
+Summary(hu.UTF-8):	Kiterjesztett Bourne Shell
 Summary(pl.UTF-8):	Ulepszona powłoka Bourne'a
 Summary(pt_BR.UTF-8):	Shell bourne melhorada
 Summary(ru.UTF-8):	Командный процессор (shell) похожый на ksh, но с улучшениями
@@ -74,6 +71,10 @@ shell) に似ていますが,かなり拡張されています. zsh
 グ可能なコマンド補完機能, (動的ロードされる)シェル機能, ヒストリ機構
 などを持ちます.
 
+%description  -l hu.UTF-8
+zsh a Bourne shell egy kiterjesztett verziója csh kiegészítésekkel és
+a ksh, bash és csh legtöbb lehetőségével felvértezve.
+
 %description -l pl.UTF-8
 zsh jest ulepszoną powłoką Bourne'a z elementami powłoki csh. Posiada
 większość cech ksh, bash i tcsh.
@@ -101,6 +102,7 @@ shell-функції (з автозавантаженням), історію к�
 
 %package completions
 Summary:	Files needed for advanced TAB-completion
+Summary(hu.UTF-8):	A haladó TAB-kiegészítéshez szükséges fájlok
 Summary(pl.UTF-8):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
@@ -109,12 +111,17 @@ Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
 %description completions
 This package contains files needed for advanced tab completion in zsh.
 
+%description completions -l hu.UTF-8
+Ez a csomag tartalmazza a haladó TAB-kiegészítéshez szükséges fájlokat
+a zsh shell-hez.
+
 %description completions -l pl.UTF-8
 Ten pakiet zawiera pliki wymagane przez zsh dla zaawansowanej
 TAB-completion.
 
 %package static
 Summary:	Statically linked Enhanced Bourne shell
+Summary(hu.UTF-8):	A zsh statikus verziója
 Summary(pl.UTF-8):	Zaawansowana powłoka Bourne'a - skonsolidowana statycznie
 Group:		Applications/Shells
 Requires(post,preun):	grep
@@ -125,6 +132,9 @@ Requires:	%{name} = %{version}-%{release}
 zsh is an enhanced version of the Bourne shell with csh additions and
 most features of ksh, bash, and tcsh.
 
+%description static -l hu.UTF-8
+A zsh statikus verziója.
+
 %description static -l pl.UTF-8
 zsh jest ulepszoną powłoką Bourne'a z elementami powłoki csh. Posiada
 większość cech ksh, bash i tcsh. W tym pakiecie jest wersja
@@ -132,12 +142,16 @@ skonsolidowana statycznie.
 
 %package guide
 Summary:	A User's Guide to the Z-Shell
+Summary(hu.UTF-8):	Felhasználói útmutató a Z-Shell-hez
 Summary(pl.UTF-8):	Podręcznik Użytkownika Z-Shella
 Group:		Documentation
 URL:		http://zsh.sunsite.dk/Guide/
 
 %description guide
 A User's Guide to the Z-Shell.
+
+%description guide -l hu.UTF-8
+Felhasználói útmutató a Z-Shell-hez.
 
 %description guide -l pl.UTF-8
 Podręcznik Użytkownika Z-Shella.
