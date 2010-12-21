@@ -12,15 +12,15 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.3.10
-Release:	2
+Version:	4.3.11
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
-# Source0-md5:	74c5b275544400082a1cde806c98682a
+# Source0-md5:	3225c7f53b69f395e95723585d6785ed
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
-# Source2-md5:	e42b6b6ff487bb2a95543f3937287b99
+# Source2-md5:	55c74c14ff2b7ea3cbaa8efa212d7142
 Source3:	zprofile
 Source4:	%{name}rc
 Patch0:		%{name}-info.patch
@@ -166,7 +166,7 @@ Podręcznik Użytkownika Z-Shella.
 
 install %{SOURCE2} .
 
-find Functions -type f -exec sed -i -e 's|#!.*/zsh|#!/bin/zsh|g' "{}" ";"
+find Functions -type f -exec %{__sed} -i -e 's|#!.*/zsh|#!/bin/zsh|g' "{}" ";"
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -218,7 +218,7 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zprofile,zshenv,zshrc}.zwc
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}
 
-rm -f Etc/Makefile*
+%{__rm} Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
 install %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/pl/man1/zsh.1
 
