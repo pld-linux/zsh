@@ -24,7 +24,6 @@ bindkey `tput kcuu1` history-beginning-search-backward >/dev/null 2>&1
 bindkey `tput kcud1` history-beginning-search-forward >/dev/null 2>&1
 
 PS1='[%n@%m %~]%(!.#.%\$) '
-export PS1
 
 case "$TERM" in
 	xterm*|nxterm|gnome*|rxvt*|konsole*)
