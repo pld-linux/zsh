@@ -1,5 +1,6 @@
+#
 # Conditional build:
-%bcond_with	static # build static version
+%bcond_with	static	# build static version
 #
 Summary:	Enhanced Bourne shell
 Summary(de.UTF-8):	Enhanced Bourne Shell
@@ -30,8 +31,9 @@ Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 URL:		http://www.zsh.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
+BuildRequires:	gdbm-devel
 %{?with_static:BuildRequires:	glibc-static}
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
