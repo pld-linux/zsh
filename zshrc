@@ -5,7 +5,7 @@ alias cd='builtin cd'
 alias precmd=' precmd'
 
 # SYSTEM WIDE ALIASES ETC.
-for i in /etc/shrc.d/**.sh(N); do
+for i in /etc/shrc.d/**/*.sh(N); do
 	. $i
 done
 unset i
