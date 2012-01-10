@@ -198,7 +198,6 @@ LDFLAGS="%{rpmldflags}"
 	--enable-cap \
 	--enable-pcre \
 	--enable-multibyte \
-	--with-term-lib="tinfo" \
 	--with-curses-terminfo \
 	--with-tcsetpgrp
 %{__make}
