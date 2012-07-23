@@ -13,12 +13,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	4.3.17
-Release:	2
+Version:	5.0.0
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	8258967060b2654f30001a011946ac6a
+# Source0-md5:	e8484468925cec8d9a84b8b04797e764
 #Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
