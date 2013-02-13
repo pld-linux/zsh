@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_with	static	# build static version
+%bcond_without	tests
 #
 Summary:	Enhanced Bourne shell
 Summary(de.UTF-8):	Enhanced Bourne Shell
@@ -13,12 +14,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.0.0
+Version:	5.0.2
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	e8484468925cec8d9a84b8b04797e764
+# Source0-md5:	b8f2ad691acf58b3252225746480dcad
 #Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
@@ -198,12 +199,14 @@ LDFLAGS="%{rpmldflags}"
 	--enable-cap \
 	--enable-pcre \
 	--enable-multibyte \
-	--with-curses-terminfo \
 	--with-tcsetpgrp
 %{__make}
 
 cd Doc
 makeinfo zsh.texi
+cd ..
+
+%{?with_tests:%{__make} test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
