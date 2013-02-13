@@ -208,7 +208,7 @@ cd ..
 
 %if %{with tests}
 if ! tty; then
-	rm Tests/{C02cond.ztst,Y01completion.ztst,Y01completion.ztst,Y02compmatch.ztst,Y02compmatch.ztst,Y03arguments.ztst,Y03arguments.ztst}
+	rm Test/{C02cond.ztst,Y01completion.ztst,Y01completion.ztst,Y02compmatch.ztst,Y02compmatch.ztst,Y03arguments.ztst,Y03arguments.ztst}
 fi
 %{__make} test
 %endif
