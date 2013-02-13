@@ -15,7 +15,7 @@ Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	5.0.2
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.bz2
@@ -206,7 +206,12 @@ cd Doc
 makeinfo zsh.texi
 cd ..
 
-%{?with_tests:%{__make} test}
+%if %{with tests}
+if ! tty; then
+	rm Tests/{C02cond.ztst,Y01completion.ztst,Y01completion.ztst,Y02compmatch.ztst,Y02compmatch.ztst,Y03arguments.ztst,Y03arguments.ztst}
+fi
+%{__make} test
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
