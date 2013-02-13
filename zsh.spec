@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_with	static	# build static version
-%bcond_without	tests
+%bcond_without	tests	# don't perform "make test"
 #
 Summary:	Enhanced Bourne shell
 Summary(de.UTF-8):	Enhanced Bourne Shell
