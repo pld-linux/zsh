@@ -15,7 +15,7 @@ Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	5.0.2
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.bz2
