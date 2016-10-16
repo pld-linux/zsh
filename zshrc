@@ -13,7 +13,6 @@ alias halt=' halt'
 alias init=' init'
 alias poweroff=' poweroff'
 alias reboot=' reboot'
-alias runlevel=' runlevel'
 alias shutdown=' shutdown'
 alias telinit=' telinit'
 
@@ -23,7 +22,7 @@ for i in /etc/shrc.d/**/*.sh(N); do
 done
 unset i
 
-setopt hist_ignore_space hist_ignore_all_dups list_packed transient_rprompt
+setopt hist_ignore_space hist_ignore_all_dups list_packed transient_rprompt hist_verify
 
 bindkey -e >/dev/null 2>&1
 
