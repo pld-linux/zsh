@@ -2,7 +2,20 @@
 
 alias which=whence
 alias cd='builtin cd'
+
+# mc: don't clutter history
 alias precmd=' precmd'
+
+# avoid accidental execution from history by inhibiting saving in the first place
+# (easier to mitigate than HISTORY_IGNORE, which in turn might be used for mkfs*)
+alias kill=' kill'
+alias halt=' halt'
+alias init=' init'
+alias poweroff=' poweroff'
+alias reboot=' reboot'
+alias runlevel=' runlevel'
+alias shutdown=' shutdown'
+alias telinit=' telinit'
 
 # SYSTEM WIDE ALIASES ETC.
 for i in /etc/shrc.d/**/*.sh(N); do
