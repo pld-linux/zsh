@@ -14,19 +14,18 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.0.2
-Release:	3
+Version:	5.2
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
-Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.bz2
-# Source0-md5:	b8f2ad691acf58b3252225746480dcad
+Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.xz
+# Source0-md5:	afe96fde08b70e23c1cab1ca7a68fb34
 #Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
 Source3:	zprofile
 Source4:	%{name}rc
-Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
@@ -75,7 +74,7 @@ shell) に似ていますが,かなり拡張されています. zsh
 グ可能なコマンド補完機能, (動的ロードされる)シェル機能, ヒストリ機構
 などを持ちます.
 
-%description  -l hu.UTF-8
+%description -l hu.UTF-8
 zsh a Bourne shell egy kiterjesztett verziója csh kiegészítésekkel és
 a ksh, bash és csh legtöbb lehetőségével felvértezve.
 
@@ -162,7 +161,6 @@ Podręcznik Użytkownika Z-Shella.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -228,7 +226,7 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/{zlogin,zlogout,zprofile,zshenv,zshrc}.zwc
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}
 
-%{__rm} Etc/Makefile*
+%{__rm} -f Etc/Makefile*
 find Functions Util StartupFiles -name .distfiles -o -name .cvsignore | xargs rm -f
 install %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/pl/man1/zsh.1
 
@@ -277,22 +275,22 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc Etc/* README LICENCE ChangeLog META-FAQ Util StartupFiles
+%doc Etc/* ChangeLog FEATURES LICENCE META-FAQ README Misc StartupFiles Util
 %attr(755,root,root) %{_bindir}/zsh
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/*[!w]?
-%ghost %{_sysconfdir}/*.zwc
-%dir %{_libdir}/zsh
-%dir %{_libdir}/zsh/%{version}*
+%ghost %{_sysconfdir}/z*.zwc
 %dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/latest
 %dir %{_datadir}/zsh/%{version}*
-%dir %{_datadir}/zsh/%{version}*/scripts
-%{_datadir}/zsh/%{version}*/scripts/newuser
 %dir %{_datadir}/zsh/%{version}*/functions
 %{_datadir}/zsh/%{version}*/functions/[!_c]*
 %{_datadir}/zsh/%{version}*/functions/c[!o]*
 %{_datadir}/zsh/%{version}*/functions/co[!m]*
+%{_datadir}/zsh/%{version}*/help
+%{_datadir}/zsh/%{version}*/scripts
+%{_datadir}/zsh/latest
+%{_datadir}/zsh/site-functions
+%dir %{_libdir}/zsh
+%dir %{_libdir}/zsh/%{version}*
 %attr(755,root,root) %{_libdir}/zsh/%{version}*/*
 %{_infodir}/zsh.info*
 %{_mandir}/man1/zsh*.1*
