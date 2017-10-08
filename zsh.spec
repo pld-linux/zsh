@@ -207,7 +207,7 @@ cd ..
 
 %if %{with tests}
 if ! tty; then
-	rm Test/{C02cond.ztst,Y01completion.ztst,Y02compmatch.ztst,Y03arguments.ztst}
+	rm Test/{C02cond,Y01completion,Y02compmatch,Y03arguments,V08zpty,X02zlevi,X03zlebindkey}.ztst
 fi
 %{__make} test
 %endif
