@@ -46,3 +46,7 @@ case "$TERM" in
 		bindkey '^[[B' history-beginning-search-forward >/dev/null 2>&1
 		;;
 esac
+if [ "$TERM" = 'screen' ]; then
+		screen_title () { print -Pn "\ek%n@%m: %~\e\\" }
+		precmd_functions=(screen_title)
+fi
