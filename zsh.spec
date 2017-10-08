@@ -1,4 +1,5 @@
 #
+# TODO: package http://www.zsh.org/pub/zsh-%{version}-doc.tar.xz
 # Conditional build:
 %bcond_with	static	# build static version
 %bcond_without	tests	# don't perform "make test"
@@ -18,8 +19,8 @@ Version:	5.4.2
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
-Source0:	ftp://sunsite.icm.edu.pl/pub/unix/shells/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	dfe156fd69b0d8d1745ecf6d6e02e047
+Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
+# Source0-md5:	afba2dfb445a3eb79bd73330fc005ef7
 #Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
