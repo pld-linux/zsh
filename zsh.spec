@@ -16,7 +16,7 @@ Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	5.4.2
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
@@ -289,7 +289,8 @@ fi
 %{_datadir}/zsh/%{version}*/help
 %{_datadir}/zsh/%{version}*/scripts
 %{_datadir}/zsh/latest
-%{_datadir}/zsh/site-functions
+# moved to filesystem.spec, left here with this comment to make sure is is not populated by this package
+#%{_datadir}/zsh/site-functions
 %dir %{_libdir}/zsh
 %dir %{_libdir}/zsh/%{version}*
 %attr(755,root,root) %{_libdir}/zsh/%{version}*/*
