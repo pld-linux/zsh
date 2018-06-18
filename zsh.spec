@@ -15,13 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.4.2
-Release:	3
+Version:	5.5.1
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	afba2dfb445a3eb79bd73330fc005ef7
-#Source0:	ftp://ftp.zsh.org/pub/%{name}-%{version}.tar.bz2
+# Source0-md5:	c4f9d6d00565bb4e87adb537236bb78e
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
@@ -41,7 +40,9 @@ BuildRequires:	ncurses-devel >= 5.1
 %{?with_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
 BuildRequires:	rpmbuild(macros) >= 1.470
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
+BuildRequires:	xz
 BuildRequires:	yodl
 Requires(post,preun):	grep
 Requires(preun):	fileutils
@@ -187,7 +188,7 @@ LDFLAGS="%{rpmldflags} -static"
 	--disable-dynamic
 %{__make} \
 	DLLDFLAGS=""
-mv -f Src/zsh Src/zsh.static
+%{__mv} Src/zsh Src/zsh.static
 %{__make} clean || :
 LDFLAGS="%{rpmldflags}"
 %endif
