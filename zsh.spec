@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.6.1
+Version:	5.6.2
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	f7b8145d2c54ef53a093bbbf4b127af7
+# Source0-md5:	540673bf823d2e13806ac0395caa8345
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
