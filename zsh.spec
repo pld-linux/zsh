@@ -16,7 +16,7 @@ Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	5.7
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
@@ -208,7 +208,7 @@ cd ..
 
 %if %{with tests}
 if ! tty; then
-	%{__rm} Test/{C02cond,Y01completion,Y02compmatch,Y03arguments,V08zpty,W02jobs,X02zlevi,X03zlebindkey}.ztst
+	%{__rm} Test/{C02cond,Y01completion,Y02compmatch,Y03arguments,V08zpty,W02jobs,X02zlevi,X03zlebindkey,X04zlehighlight}.ztst
 fi
 %{__make} test
 %endif
