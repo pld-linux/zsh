@@ -1,0 +1,14 @@
+--- zsh-5.7.1/Doc/zsh.texi.orig	2019-02-03 21:07:15.000000000 +0100
++++ zsh-5.7.1/Doc/zsh.texi	2019-12-02 20:20:21.535994960 +0100
+@@ -16,9 +16,9 @@
+ @set dsbq `{}`
+ @end iftex
+ @ifinfo
+-@dircategory Utilities
++@dircategory Miscellaneous:
+ @direntry
+-* ZSH: (zsh).                     The Z Shell Manual.
++* ZSH: (zsh).				The Z Shell Manual
+ @end direntry
+ @end ifinfo
+ 

@@ -26,12 +26,13 @@ Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
 Source3:	zprofile
 Source4:	%{name}rc
+Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
 Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 URL:		http://www.zsh.org/
-BuildRequires:	autoconf >= 2.60
+BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 BuildRequires:	gdbm-devel
 %{?with_static:BuildRequires:	glibc-static}
@@ -163,6 +164,7 @@ Podręcznik Użytkownika Z-Shella.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -279,7 +281,11 @@ fi
 %defattr(644,root,root,755)
 %doc Etc/* ChangeLog FEATURES LICENCE META-FAQ README Misc StartupFiles Util
 %attr(755,root,root) %{_bindir}/zsh
-%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/*[!w]?
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/zlogin
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/zlogout
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/zprofile
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/zshenv
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/zshrc
 %ghost %{_sysconfdir}/z*.zwc
 %dir %{_datadir}/zsh/%{version}*
 %dir %{_datadir}/zsh/%{version}*/functions
