@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.7.1
+Version:	5.8
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	374f9fdd121b5b90e07abfcad7df0627
+# Source0-md5:	e02a5428620b3dd268800c7843b3dd4d
 Source1:	%{name}.1.pl
 Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
 # Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
@@ -29,7 +29,6 @@ Source4:	%{name}rc
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
-Patch3:		%{name}-completions.patch
 Patch4:		%{name}-nolibs.patch
 URL:		http://www.zsh.org/
 BuildRequires:	autoconf >= 2.69
@@ -167,7 +166,6 @@ Podręcznik Użytkownika Z-Shella.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
 
 install %{SOURCE2} .
