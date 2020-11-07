@@ -39,7 +39,7 @@ PS1='[%n@%m %~]%(!.#.%\$) '
 
 case "$TERM" in
 	xterm*|nxterm|gnome*|rxvt*|konsole*)
-		precmd () { print -Pn "\e]0;%n@%m: %~\a" }
+		function precmd () { print -Pn "\e]0;%n@%m: %~\a" }
 		bindkey '^[[H' beginning-of-line >/dev/null 2>&1
 		bindkey '^[[F' end-of-line >/dev/null 2>&1
 		bindkey '^[[A' history-beginning-search-backward >/dev/null 2>&1
