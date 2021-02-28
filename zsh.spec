@@ -112,9 +112,7 @@ Summary(pl.UTF-8):	Pliki potrzebne dla zaawansowanej TAB-completion
 Group:		Applications/Shells
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	kdesdk-completions-zsh <= 3:3.2.3-2
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description completions
 This package contains files needed for advanced tab completion in zsh.
@@ -154,9 +152,7 @@ Summary(hu.UTF-8):	Felhasználói útmutató a Z-Shell-hez
 Summary(pl.UTF-8):	Podręcznik Użytkownika Z-Shella
 Group:		Documentation
 URL:		http://zsh.sunsite.dk/Guide/
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description guide
 A User's Guide to the Z-Shell.
