@@ -39,6 +39,7 @@ BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{?with_static:BuildRequires:	ncurses-static}
 BuildRequires:	pcre-devel
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.470
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	texinfo
