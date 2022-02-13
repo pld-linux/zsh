@@ -19,11 +19,11 @@ Version:	5.8.1
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
-Source0:	http://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
+Source0:	https://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
 # Source0-md5:	063a98c256ee0584b3c115924e41a332
 Source1:	%{name}.1.pl
-Source2:	http://zsh.sunsite.dk/Guide/%{name}guide.pdf
-# Source2-md5:	70cc3760dd8140f9aed693d484cd87dc
+Source2:	https://zsh.sourceforge.io/Guide/zshguide.pdf
+# Source2-md5:	409cbf8cbabb2c6bee88aac5c8279718
 Source3:	zprofile
 Source4:	%{name}rc
 Patch0:		%{name}-info.patch
