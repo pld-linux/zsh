@@ -176,7 +176,6 @@ install %{SOURCE2} .
 find Functions -type f -exec %{__sed} -i -e 's|#!.*/zsh|#!/bin/zsh|g' "{}" ";"
 
 %build
-cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 %{__autoheader}
 echo > stamp-h.in
