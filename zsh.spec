@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.8.1
+Version:	5.9
 Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	https://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	063a98c256ee0584b3c115924e41a332
+# Source0-md5:	182e37ca3fe3fa6a44f69ad462c5c30e
 Source1:	%{name}.1.pl
 Source2:	https://zsh.sourceforge.io/Guide/zshguide.pdf
 # Source2-md5:	409cbf8cbabb2c6bee88aac5c8279718
@@ -200,6 +200,7 @@ LDFLAGS="%{rpmldflags}"
 	ac_cv_have_dev_ptmx=yes \
 	--enable-maildir-support \
 	--enable-cap \
+	--enable-gdbm \
 	--enable-pcre \
 	--enable-multibyte \
 	--with-tcsetpgrp
