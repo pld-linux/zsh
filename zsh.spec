@@ -16,7 +16,7 @@ Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
 Version:	5.9
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	https://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
@@ -29,7 +29,8 @@ Source4:	%{name}rc
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-addons.patch
 Patch2:		%{name}-paths.patch
-Patch4:		%{name}-nolibs.patch
+Patch3:		%{name}-nolibs.patch
+Patch4:		comp-all-ssh-hosts.patch
 URL:		http://www.zsh.org/
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
@@ -169,6 +170,7 @@ Podręcznik Użytkownika Z-Shella.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 %patch4 -p1
 
 install %{SOURCE2} .

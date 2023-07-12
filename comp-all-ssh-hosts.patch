@@ -1,0 +1,15 @@
+--- zsh-5.9/Completion/Unix/Type/_ssh_hosts.orig	2022-05-08 08:18:22.000000000 +0200
++++ zsh-5.9/Completion/Unix/Type/_ssh_hosts	2023-07-12 14:35:18.406156647 +0200
+@@ -6,10 +6,10 @@
+ 
+ # If users-hosts matches, we shouldn't complete anything else.
+ if [[ "$IPREFIX" == *@ ]]; then
+-  _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" && return
++  _combination -s '[:@]' my-accounts users-hosts "users=${IPREFIX/@}" hosts "$@" #&& return
+ else
+   _combination -s '[:@]' my-accounts users-hosts \
+-    ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" && return
++    ${opt_args[-l]:+"users=${opt_args[-l]:q}"} hosts "$@" #&& return
+ fi
+ if (( ind = ${words[(I)-F]} )); then
+   config=${~words[ind+1]} 2>/dev/null
