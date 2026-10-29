@@ -1,8 +1,9 @@
 #
 # TODO: package http://www.zsh.org/pub/zsh-%{version}-doc.tar.xz
+#
 # Conditional build:
-%bcond_with	static	# build static version
-%bcond_without	tests	# don't perform "make test"
+%bcond_with	static	# static version
+%bcond_without	tests	# test suite
 #
 Summary:	Enhanced Bourne shell
 Summary(de.UTF-8):	Enhanced Bourne Shell
@@ -49,9 +50,9 @@ BuildRequires:	yodl
 Requires(post,preun):	grep
 Requires(preun):	fileutils
 Requires:	findutils
-Obsoletes:	zsh-doc-dvi
-Obsoletes:	zsh-doc-html
-Obsoletes:	zsh-doc-ps
+Obsoletes:	zsh-doc-dvi < 3.1.9-3
+Obsoletes:	zsh-doc-html < 3.1.9-3
+Obsoletes:	zsh-doc-ps < 3.1.9-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_bindir		/bin
