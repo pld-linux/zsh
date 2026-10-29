@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	Командный процессор (shell) похожый 
 Summary(tr.UTF-8):	Gelişmiş bir BASH sürümü
 Summary(uk.UTF-8):	Командний процесор (shell) схожий на ksh, але з покращеннями
 Name:		zsh
-Version:	5.9
-Release:	3
+Version:	5.9.2
+Release:	1
 License:	BSD-like
 Group:		Applications/Shells
 Source0:	https://downloads.sourceforge.net/zsh/%{name}-%{version}.tar.xz
-# Source0-md5:	182e37ca3fe3fa6a44f69ad462c5c30e
+# Source0-md5:	5c8305ba85166838ef062c5e7b245820
 Source1:	%{name}.1.pl
 Source2:	https://zsh.sourceforge.io/Guide/zshguide.pdf
 # Source2-md5:	409cbf8cbabb2c6bee88aac5c8279718
@@ -39,7 +39,7 @@ BuildRequires:	gdbm-devel
 BuildRequires:	libcap-devel
 BuildRequires:	ncurses-devel >= 5.1
 %{?with_static:BuildRequires:	ncurses-static}
-BuildRequires:	pcre-devel
+BuildRequires:	pcre2-8-devel
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.470
 BuildRequires:	tar >= 1:1.22
@@ -188,7 +188,6 @@ LDFLAGS="%{rpmldflags} -static"
 %configure \
 	--enable-maildir-support \
 	--enable-multibyte \
-	--with-tcsetpgrp \
 	--disable-dynamic
 %{__make} \
 	DLLDFLAGS=""
@@ -203,8 +202,7 @@ LDFLAGS="%{rpmldflags}"
 	--enable-cap \
 	--enable-gdbm \
 	--enable-pcre \
-	--enable-multibyte \
-	--with-tcsetpgrp
+	--enable-multibyte
 %{__make}
 
 cd Doc
@@ -224,6 +222,8 @@ install -d $RPM_BUILD_ROOT{%{_infodir},%{_sysconfdir},%{_bindir},%{_mandir}/pl/m
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/zsh-%{version}
 
 %{?with_static:install Src/zsh.static $RPM_BUILD_ROOT%{_bindir}}
 install Doc/zsh.info* $RPM_BUILD_ROOT%{_infodir}
